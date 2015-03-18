@@ -13,12 +13,15 @@ namespace ConsoleApplication1.Scenes
     {
         private Track theTrack;
         public int totalLaps;
-        public List<Slot_Car> theCars;
+        public List<Slot_Car> theCars = new List<Slot_Car>();
 
         public RaceState currentState;
 
         public Race() : base()
         {
+            Slot_Car player = new Player(this, Globals.PlayerOne);
+            theCars.Add(player);
+            Add(player);
         }
     }
 }
