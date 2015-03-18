@@ -12,6 +12,12 @@ namespace ConsoleApplication1.Scenes
     class Race : Scene
     {
         private Track theTrack;
+
+        internal Track TheTrack
+        {
+            get { return theTrack; }
+            set { theTrack = value; }
+        }
         public int totalLaps;
         public List<Slot_Car> theCars;
 
