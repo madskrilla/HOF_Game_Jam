@@ -14,16 +14,16 @@ namespace ConsoleApplication1.Track_Elements
         public Track() : base()
         {
             // test track
-            thePieces.Add(new Track_Piece(this, TrackType.straight2, Direction.Up, Direction.Up, 0, 2));
-            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn2, Direction.Up, Direction.Right, 0, 1));
-            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn2, Direction.Right, Direction.Left, 1, 1));
-            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn2, Direction.Up, Direction.Right, 1, 0));
-            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn2, Direction.Right, Direction.Right, 2, 0));
-            thePieces.Add(new Track_Piece(this, TrackType.straight2, Direction.Down, Direction.Down, 2, 1));
-            thePieces.Add(new Track_Piece(this, TrackType.straight2, Direction.Down, Direction.Down, 2, 2));
-            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn2, Direction.Down, Direction.Right, 2, 3));
-            thePieces.Add(new Track_Piece(this, TrackType.straight2, Direction.Left, Direction.Left, 1, 3));
-            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn2, Direction.Left, Direction.Right, 0, 3));
+            thePieces.Add(new Track_Piece(this, TrackType.straight4, Direction.Up, Direction.Up, 0, 2));
+            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn4, Direction.Up, Direction.Right, 0, 1));
+            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn4, Direction.Right, Direction.Left, 1, 1));
+            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn4, Direction.Up, Direction.Right, 1, 0));
+            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn4, Direction.Right, Direction.Right, 2, 0));
+            thePieces.Add(new Track_Piece(this, TrackType.straight4, Direction.Down, Direction.Down, 2, 1));
+            thePieces.Add(new Track_Piece(this, TrackType.straight4, Direction.Down, Direction.Down, 2, 2));
+            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn4, Direction.Down, Direction.Right, 2, 3));
+            thePieces.Add(new Track_Piece(this, TrackType.straight4, Direction.Left, Direction.Left, 1, 3));
+            thePieces.Add(new Track_Piece(this, TrackType.sharpTurn4, Direction.Left, Direction.Right, 0, 3));
         }
 
         public void BuildTrack()

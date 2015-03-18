@@ -42,7 +42,7 @@ namespace ConsoleApplication1.Scenes
 			        }
 			    }
 			}
-            if (frame % 30 == 0)
+            if (frame % 10 == 0)
                 currNodeIndex++;
             if (currNodeIndex == theTrack.thePieces[currPiece].theLanes[0].theNodes.Count())
             {
@@ -55,7 +55,7 @@ namespace ConsoleApplication1.Scenes
             }
 
             Image racer = Image.CreateCircle(4, Color.Red);
-            racer.Render(theTrack.thePieces[currPiece].theLanes[1].theNodes[currNodeIndex].localSpace.X, theTrack.thePieces[currPiece].theLanes[1].theNodes[currNodeIndex].localSpace.Y);
+            racer.Render(theTrack.thePieces[currPiece].theLanes[3].theNodes[currNodeIndex].localSpace.X, theTrack.thePieces[currPiece].theLanes[3].theNodes[currNodeIndex].localSpace.Y);
             base.Render();
         }
     }
