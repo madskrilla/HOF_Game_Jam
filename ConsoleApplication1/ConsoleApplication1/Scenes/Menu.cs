@@ -9,6 +9,7 @@ namespace ConsoleApplication1.Scenes
 {
     class Menu : Scene
     {
+        public int currentSelection;
         public Menu() : base()
         {
 
