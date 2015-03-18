@@ -41,7 +41,7 @@ namespace ConsoleApplication1.Scenes
             testNode.Add(test4);
 
 
-            Slot_Car tester = new AIDriver(this);
+            Slot_Car tester = new Player(this, Globals.PlayerOne);
             tester.Target = test;
             Add(tester);
             

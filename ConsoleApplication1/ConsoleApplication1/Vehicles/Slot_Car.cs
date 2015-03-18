@@ -61,11 +61,14 @@ namespace ConsoleApplication1.Vehicles
         {
             currentSpeed.X += acceleration.X;
             currentSpeed.Y += acceleration.Y;
+
             if (Math.Abs(currentSpeed.X) < 0.05f) currentSpeed.X = 0;
             if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
             Steer();
+           
             X += velocity.X;
-            Y += velocity.Y;
+            Y += velocity.Y; 
+            
             base.Update();
 
 
