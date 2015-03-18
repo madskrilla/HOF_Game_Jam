@@ -23,6 +23,9 @@ namespace ConsoleApplication1.Scenes
 
         public Race() : base()
         {
+            Slot_Car player = new Player(this, Globals.PlayerOne);
+            theCars.Add(player);
+            Add(player);
             theTrack = new Track();
             theTrack.BuildTrack();
             currNode = theTrack.thePieces[currPiece].theLanes[0].theNodes[currNodeIndex];
