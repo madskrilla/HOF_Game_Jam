@@ -10,12 +10,11 @@ namespace ConsoleApplication1.Track_Elements
     class Node
     {
         public Vector2 localSpace;
-        public Node nextNode;
-        
         
         public Node()
         {
 
         }
+
     }
 }
