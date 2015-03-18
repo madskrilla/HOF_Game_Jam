@@ -9,7 +9,9 @@ namespace ConsoleApplication1.Items
 {
     class Item_Base : Entity
     {
-
+        public Image itemImage;
+        public BoxCollider itemCollider;
+        public Vector2 tileSpacePos;
         public Item_Base() : base()
         {
 
