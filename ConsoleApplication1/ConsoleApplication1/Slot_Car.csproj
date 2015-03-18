@@ -49,6 +49,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\Menu.cs" />
     <Compile Include="Scenes\Race.cs" />
+    <Compile Include="Track_Elements\Lane.cs" />
+    <Compile Include="Track_Elements\Node.cs" />
     <Compile Include="Track_Elements\Track.cs" />
     <Compile Include="Track_Elements\Track_Piece.cs" />
     <Compile Include="Vehicles\Slot_Car.cs" />
