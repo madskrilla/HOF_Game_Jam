@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Globals.cs" />
     <Compile Include="Items\Item_Base.cs" />
+    <Compile Include="Items\Obstacles.cs" />
+    <Compile Include="Items\PickUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\Menu.cs" />
