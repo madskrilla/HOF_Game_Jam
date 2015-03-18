@@ -14,43 +14,53 @@ namespace ConsoleApplication1.Scenes
         private Track theTrack;
         public int totalLaps;
         public List<Slot_Car> theCars = new List<Slot_Car>();
-        public List<Node> testNode = new List<Node>();
+        int currPiece = 0;
+        int currNodeIndex = 0;
+        Node currNode;
+        int frame = 0;
+
         public RaceState currentState;
 
         public Race() : base()
         {
-            Node test = new Node();
-            test.localSpace.X = 0;
-            test.localSpace.Y = 0;
-            Node test2 = new Node();
-            test2.localSpace.X = 500;
-            test2.localSpace.Y = 500;
-            test.nextNode = test2;
-            testNode.Add(test);
-            Node test3 = new Node();
-            test3.localSpace.X = 500;
-            test3.localSpace.Y = 0;
-            test2.nextNode = test3;
-            testNode.Add(test2);
-            Node test4 = new Node();
-            test4.localSpace.X = 0;
-            test4.localSpace.Y = 500;
-            test3.nextNode = test4;
-            testNode.Add(test3);
-            test4.nextNode = test;
-            testNode.Add(test4);
-
-
-            Slot_Car tester = new Player(this, Globals.PlayerOne);
-            tester.Target = test;
-            Add(tester);
-            
+          
+            Slot_Car player = new Player(this, Globals.PlayerOne);
+            theCars.Add(player);
+            Add(player);
+            theTrack = new Track();
+            theTrack.BuildTrack();
+            currNode = theTrack.thePieces[currPiece].theLanes[0].theNodes[currNodeIndex];
         }
+
         public override void Render()
         {
+            frame++;
+            for (int i = 0; i < theTrack.thePieces.Count(); i++)
+			{
+                for (int j = 0; j < theTrack.thePieces[i].theLanes.Count(); j++)
+			    {
+                    for (int k = 0; k < theTrack.thePieces[i].theLanes[j].theNodes.Count(); k++)
+			        {
+                        Image point = Image.CreateCircle(3);
+                        point.Render(theTrack.thePieces[i].theLanes[j].theNodes[k].localSpace.X, theTrack.thePieces[i].theLanes[j].theNodes[k].localSpace.Y);
+			        }
+			    }
+			}
+            if (frame % 10 == 0)
+                currNodeIndex++;
+            if (currNodeIndex == theTrack.thePieces[currPiece].theLanes[0].theNodes.Count())
+            {
+                currNodeIndex = 0;
+                currPiece++;
+                if (currPiece == theTrack.thePieces.Count())
+                {
+                    currPiece = 0;
+                }
+            }
+
+            Image racer = Image.CreateCircle(4, Color.Red);
+            racer.Render(theTrack.thePieces[currPiece].theLanes[3].theNodes[currNodeIndex].localSpace.X, theTrack.thePieces[currPiece].theLanes[3].theNodes[currNodeIndex].localSpace.Y);
             base.Render();
-            for (int i = 0; i < 4; i++ )
-                testNode[i].temp.Render();
         }
     }
 }

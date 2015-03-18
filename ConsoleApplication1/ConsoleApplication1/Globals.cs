@@ -12,6 +12,7 @@ namespace ConsoleApplication1
     {
         public static Session
         PlayerOne;
+        public static int TileSize = 150;
     }
 
     public enum DriverType
@@ -51,10 +52,20 @@ namespace ConsoleApplication1
         itemSpawn4
     }
 
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+
     public enum AIState
     {
         Aggressive,
         Relaxed,
         Balanced
     }
+
+    
 }
