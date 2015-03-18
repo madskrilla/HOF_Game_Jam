@@ -15,9 +15,9 @@ namespace ConsoleApplication1.Vehicles
         public DriverType driverType;
         public Vector2 position;
         public Race theRace;
-        public Image carImage;
+        public Image carImage = Image.CreateRectangle(40, 100, Color.Cyan);
         public BoxCollider carCollider;
-        public Speed currentSpeed;
+        public Speed currentSpeed = new Speed(10,true);
         public Vector2 steerVec;
         public Vector2 acceleration;
         private Node target;
@@ -34,6 +34,8 @@ namespace ConsoleApplication1.Vehicles
 
         public Slot_Car(Race _race) : base()
         {
+            SetGraphic(carImage);
+            carImage.CenterOrigin();
             theRace = _race;
             steerVec = new Vector2();
             position = new Vector2();
@@ -46,12 +48,16 @@ namespace ConsoleApplication1.Vehicles
         }
         public override void Update()
         {
-            base.Update();
             currentSpeed.X += acceleration.X;
             currentSpeed.Y += acceleration.Y;
-            Steer();
+
+            if (Math.Abs(currentSpeed.X) < 0.05f) currentSpeed.X = 0;
+            if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
+
             X += currentSpeed.X;
             Y += currentSpeed.Y;
+            base.Update();
+
 
         }
 

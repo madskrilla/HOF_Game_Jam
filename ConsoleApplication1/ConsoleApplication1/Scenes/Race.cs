@@ -13,7 +13,7 @@ namespace ConsoleApplication1.Scenes
     {
         private Track theTrack;
         public int totalLaps;
-        public List<Slot_Car> theCars;
+        public List<Slot_Car> theCars = new List<Slot_Car>();
         public List<Node> testNode;
         public RaceState currentState;
 
@@ -42,6 +42,9 @@ namespace ConsoleApplication1.Scenes
 
             Slot_Car tester = new Slot_Car(this);
             tester.Target(test);
+            Slot_Car player = new Player(this, Globals.PlayerOne);
+            theCars.Add(player);
+            Add(player);
         }
     }
 }
