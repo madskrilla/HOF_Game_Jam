@@ -11,6 +11,7 @@ namespace ConsoleApplication1.Track_Elements
     class Track : Entity
     {
         public List<Track_Piece> thePieces;
+
         public Track() : base()
         {
 

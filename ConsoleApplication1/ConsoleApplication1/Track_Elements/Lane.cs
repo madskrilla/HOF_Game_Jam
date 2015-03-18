@@ -11,6 +11,7 @@ namespace ConsoleApplication1.Track_Elements
     class Lane
     {
         public List<Node> theNodes;
+
         public float spinOutThreshold;
 
         public Lane()

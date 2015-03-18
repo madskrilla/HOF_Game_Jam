@@ -22,6 +22,12 @@ namespace ConsoleApplication1.Vehicles
         public Vector2 acceleration;
         private Node target;
 
+        internal Node Target
+        {
+            get { return target; }
+            set { target = value; }
+        }
+
         public PickUp currentPickup;
 
         public int nodesPassed = 0;
@@ -41,26 +47,32 @@ namespace ConsoleApplication1.Vehicles
         public override void Update()
         {
             base.Update();
+            currentSpeed.X += acceleration.X;
+            currentSpeed.Y += acceleration.Y;
+            Steer();
+            X += currentSpeed.X;
+            Y += currentSpeed.Y;
+
         }
 
         private void Steer()
         {
             float dist = new float();
-            steerVec = convertToWorld(target.localSpace);
+            steerVec = target.localSpace;
             position.X = X;
             position.Y = Y;
             dist = Vector2.Distance(steerVec, position);
 
-            if(dist < 10)
+            if (dist < 10)
+            {
                 target = target.nextNode;
+                steerVec = target.localSpace;
+            }
+            steerVec = steerVec - position;
 
-            steerVec = steerVec -acceleration;
+            currentSpeed.X += steerVec.X;
+            currentSpeed.Y += steerVec.Y;
            
-        }
-
-        private Vector2 convertToWorld(Vector2 _local)
-        {
-            return Vector2.Zero;
         }
 
        
