@@ -11,7 +11,7 @@ namespace ConsoleApplication1.Scenes
 {
     class Race : Scene
     {
-        private Track theTrack;
+        public Track theTrack;
         public int totalLaps;
         public List<Slot_Car> theCars = new List<Slot_Car>();
         int currPiece = 0;
@@ -24,11 +24,17 @@ namespace ConsoleApplication1.Scenes
         public Race() : base()
         {
           
-            Slot_Car player = new Player(this, Globals.PlayerOne);
-            theCars.Add(player);
-            Add(player);
             theTrack = new Track();
             theTrack.BuildTrack();
+            Slot_Car player = new Player(this, 0, Globals.PlayerOne);
+            theCars.Add(player);
+            Slot_Car joe = new AIDriver(this, 1);
+            theCars.Add(joe);
+            Slot_Car steve = new AIDriver(this, 2);
+            theCars.Add(steve);
+            Add(player);
+            Add(joe);
+            Add(steve);
             currNode = theTrack.thePieces[currPiece].theLanes[0].theNodes[currNodeIndex];
         }
 

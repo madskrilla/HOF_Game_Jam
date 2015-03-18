@@ -14,56 +14,48 @@ namespace ConsoleApplication1.Vehicles
     {
         public DriverType driverType;
         public Race theRace;
-        public Image carImage = Image.CreateRectangle(40, 100, Color.Cyan);
+        public Image carImage = Image.CreateRectangle(30, 50, Color.Cyan);
         public BoxCollider carCollider;
-        Vector2 forward = new Vector2();
         public Speed currentSpeed = new Speed(3,true);
-        public Vector2 steerVec;
-        public Vector2 acceleration;
-        private Node target;
-
+        public Vector2 acceleration = new Vector2(3,3);
         public Vector2 velocity;
         public Vector2 SteerVec;
         public Vector2 position;
         public Vector2 right = new Vector2(1, 0);
         public Vector2 up = new Vector2(0, -1);
-        public Node targetNode;
+        public Node targetNode = new Node();
+        public int Lane;
+        public int nodeIndex = 0;
+        public int nextNode = 1;
+        public int pieceIndex = 0;
         public int maxSpeed = 5;
-
-
-
-        internal Node Target
-        {
-            get { return target; }
-            set { target = value; }
-        }
-
         public PickUp currentPickup;
-
         public int nodesPassed = 0;
 
-        public Slot_Car(Race _race) : base()
+
+
+        public Slot_Car(Race _race, int _ln) : base()
         {
             SetGraphic(carImage);
             carImage.CenterOrigin();
             theRace = _race;
-
+            Lane = _ln;
             SteerVec = new Vector2();
             velocity = new Vector2();
             position = new Vector2();
+
+            targetNode = theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes[nodeIndex];
+            X = targetNode.localSpace.X;
+            Y = targetNode.localSpace.Y;
         }
 
-        public override void Render()
-        {
-           // Draw.Line(X, Y, steerVec.X, steerVec.Y, Color.Cyan);         
-        }
         public override void Update()
         {
-            currentSpeed.X += acceleration.X;
-            currentSpeed.Y += acceleration.Y;
+            //currentSpeed.X += acceleration.X;
+            //currentSpeed.Y += acceleration.Y;
 
-            if (Math.Abs(currentSpeed.X) < 0.05f) currentSpeed.X = 0;
-            if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
+            //if (Math.Abs(currentSpeed.X) < 0.05f) currentSpeed.X = 0;
+            //if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
             Steer();
            
             X += velocity.X;
@@ -76,7 +68,7 @@ namespace ConsoleApplication1.Vehicles
 
         private void Steer()
         {
-            SteerVec = target.localSpace;
+            SteerVec = targetNode.localSpace;
             position.X = X;
             position.Y = Y;
 
@@ -84,14 +76,27 @@ namespace ConsoleApplication1.Vehicles
 
             if (dist < 45)
             {
-                target = target.nextNode;
-                SteerVec = target.localSpace;
+
+                nodeIndex = nextNode;
+               
+                if (nodeIndex == theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes.Count())
+                {
+                    nodeIndex = 0;
+                    pieceIndex++;
+                    if (pieceIndex == theRace.theTrack.thePieces.Count())
+                    {
+                        pieceIndex = 0;
+                    }
+                }
+                nextNode = nodeIndex + 1;
+                targetNode = theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes[nodeIndex];
+                SteerVec = targetNode.localSpace;
             }
 
             Vector2 toTarget = SteerVec - position;
 
             toTarget.Normalize();
-            velocity += toTarget;
+            velocity += toTarget * acceleration;
 
             if(velocity.Length > maxSpeed)
             {

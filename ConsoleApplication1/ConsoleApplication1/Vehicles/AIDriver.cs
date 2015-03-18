@@ -11,12 +11,10 @@ namespace ConsoleApplication1
 {
     class AIDriver : Slot_Car
     {
-        public AIDriver(Race _race) : base(_race)
+        public AIDriver(Race _race, int _ln) : base(_race, _ln)
         {
             driverType = DriverType.AI;
 
-            X = Game.Instance.HalfWidth;
-            Y = Game.Instance.HalfHeight;
 
         }
     }
