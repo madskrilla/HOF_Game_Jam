@@ -22,7 +22,7 @@ namespace ConsoleApplication1
         public override void Update()
         {
             getInput();
-            carImage.Angle = 40;
+           // carImage.Angle = 40;
             base.Update();
         }
 

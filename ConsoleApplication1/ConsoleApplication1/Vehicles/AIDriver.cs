@@ -14,6 +14,10 @@ namespace ConsoleApplication1
         public AIDriver(Race _race) : base(_race)
         {
 
+
+            X = Game.Instance.HalfWidth;
+            Y = Game.Instance.HalfHeight;
+
         }
     }
 }
