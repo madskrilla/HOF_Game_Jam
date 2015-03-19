@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Otter;
 using ConsoleApplication1.Track_Elements;
 using ConsoleApplication1.Vehicles;
+using ConsoleApplication1.Particles;
 
 namespace ConsoleApplication1.Scenes
 {
@@ -20,6 +21,8 @@ namespace ConsoleApplication1.Scenes
         int frame = 0;
 
         public RaceState currentState;
+
+        Emitter testEmitter = new Emitter();
 
         public Race() : base()
         {
@@ -36,6 +39,9 @@ namespace ConsoleApplication1.Scenes
             Add(adam);
             Add(steve);
             currNode = theTrack.thePieces[currPiece].theLanes[0].theNodes[currNodeIndex];
+
+            Add(testEmitter);
+            testEmitter.Load(testEmitter.totalParticles);
         }
 
         public override void Render()
