@@ -28,6 +28,12 @@ namespace ConsoleApplication1.Scenes
 
             theTrack = new Track();
             theTrack.BuildTrack();
+
+            for (int i = 0; i < theTrack.thePieces.Count(); i++)
+            {
+                Add(theTrack.thePieces[i]);
+            }
+
             Slot_Car player = new Player(this, 0, Globals.PlayerOne);
             theCars.Add(player);
             Slot_Car adam = new AIDriver(this, 1);
@@ -113,5 +119,5 @@ namespace ConsoleApplication1.Scenes
 
             base.Render();
         }
-             }
+    }
 }
