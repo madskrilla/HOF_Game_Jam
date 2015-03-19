@@ -17,11 +17,15 @@ namespace ConsoleApplication1
         {
             currentSpeed = 0;
             player = _player;
+            Globals.slotCarText.String = "test";
+            Globals.slotCarText.FontSize = 25;
+            Globals.slotCarText.Color = Color.White;
             attacking = false;
         }
 
         public override void Update()
         {
+            Globals.slotCarText.String = Game.Framerate.ToString();
             getInput();
             velocity *= currentSpeed;
               var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
@@ -35,6 +39,12 @@ namespace ConsoleApplication1
               }
             ScreenShake();
             base.Update();
+        }
+
+        public override void Render()
+        {
+            base.Render();
+            Globals.slotCarText.Render();
         }
 
         public void getInput()
