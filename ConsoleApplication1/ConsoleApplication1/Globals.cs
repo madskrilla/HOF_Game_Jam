@@ -13,6 +13,7 @@ namespace ConsoleApplication1
         public static Session
         PlayerOne;
         public static int TileSize = 150;
+        public static Random numberGenerator = new Random(DateTime.Now.Millisecond);
     }
 
     public enum DriverType
