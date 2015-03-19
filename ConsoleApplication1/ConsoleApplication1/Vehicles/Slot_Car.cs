@@ -57,23 +57,10 @@ namespace ConsoleApplication1.Vehicles
             carCollider.CenterOrigin();
             carCollider.Entity = this;
         }
-        public override void Render()
-        {
-            carCollider.Render();
-           // Hitbox.Render();
-            base.Render();
-        }
-
         public override void Update()
         {
-            //currentSpeed.X += acceleration.X;
-            //currentSpeed.Y += acceleration.Y;
-
-            //if (Math.Abs(currentSpeed.X) < 0.05f) currentSpeed.X = 0;
-            //if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
             if (!spinning)
                 Steer();
-
             var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
             if (collider != null)
             {
@@ -99,17 +86,10 @@ namespace ConsoleApplication1.Vehicles
             }
             if (spinning)
                 SpinOut();
-
             X += velocity.X;
             Y += velocity.Y;
-
-
-
             base.Update();
-
-
-        }
-
+         }
         public void Steer()
         {
             SteerVec = targetNode.localSpace;
@@ -175,5 +155,6 @@ namespace ConsoleApplication1.Vehicles
 
             carImage.Angle += 15;
         }
+       
     }
 }

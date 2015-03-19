@@ -15,7 +15,7 @@ namespace ConsoleApplication1
         public AIDriver(Race _race, int _ln) : base(_race, _ln)
         {
             driverType = DriverType.AI;
-
+            attacking = true;
             acceleration = maxSpeed;
         }
 
@@ -41,6 +41,32 @@ namespace ConsoleApplication1
                         nodeIndex++;
                     }
                 }
+            }
+
+            var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
+            if (collider != null)
+            {
+                //if (collider.Tags[0] == (int)ColliderType.PickUp)
+                //{
+                //    PickUp item = (PickUp)collider.Entity;
+                //    item.Collidable = false;
+                //    item.itemImage.Visible = false;
+                //    spinning = true;
+                //}
+
+                Slot_Car otherCah = (Slot_Car)collider.Entity;
+                 if (!otherCah.attacking)
+                {
+                    if (Lane == 3)
+                        Lane--;
+                    else if (Lane == 0)
+                        Lane++;
+                    else if (Rand.Chance(50))
+                        Lane++;
+                    else
+                        Lane--;
+                }
+
             }
         }
     }
