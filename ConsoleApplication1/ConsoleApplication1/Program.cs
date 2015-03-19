@@ -15,7 +15,7 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             Game game = new Game("Slotcar Game", 1500, 900, 60, false);
-
+            game.Color = new Color(0x5e5b5b);
             Globals.PlayerOne = game.AddSession("P1");
 
             Globals.PlayerOne.Controller = new ControllerXbox360();
@@ -34,12 +34,12 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.Button(Controls.UseItem).AddKey(Key.LControl);
             Globals.PlayerOne.Controller.Button(Controls.KeyUP).AddKey(Key.Up);
             Globals.PlayerOne.Controller.Button(Controls.KeyDown).AddKey(Key.Down);
+
             Globals.PlayerOne.Controller.Button(Controls.Escape).AddKey(Key.Escape);
             Globals.PlayerOne.Controller.Button(Controls.Enter).AddKey(Key.Return);
 
-
-            game.FirstScene = new Race();
-            //game.FirstScene = new Menu();
+            game.FirstScene = new Race(3);
+           //game.FirstScene = new Menu();
 
             game.Start();
         }

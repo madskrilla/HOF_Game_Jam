@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Otter;
 
-namespace ConsoleApplication1
+namespace ConsoleApplication1 
 {
 
     class Globals
@@ -14,6 +14,7 @@ namespace ConsoleApplication1
         PlayerOne;
         public static int TileSize = 150;
         public static Random numberGenerator = new Random(DateTime.Now.Millisecond);
+        public static Text slotCarText = new Text("", "Assets/RACER___.TTF");
     }
 
     public enum DriverType
