@@ -15,7 +15,7 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             Game game = new Game("Slotcar Game", 1500, 900, 60, false);
-
+            game.Color = new Color(0x5e5b5b);
             Globals.PlayerOne = game.AddSession("P1");
 
             Globals.PlayerOne.Controller = new ControllerXbox360();
