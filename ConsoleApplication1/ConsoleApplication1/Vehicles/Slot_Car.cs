@@ -35,6 +35,8 @@ namespace ConsoleApplication1.Vehicles
         public List<int> tags = new List<int>();
         public float currentSpeed;
         public float acceleration = 0.0f;
+        public int completeLaps = 0;
+        public bool finished = false;
 
         public Slot_Car(Race _race, int _ln)
             : base()
@@ -53,7 +55,6 @@ namespace ConsoleApplication1.Vehicles
             tags.Add((int)ColliderType.PickUp);
             tags.Add((int)ColliderType.Slot_Car);
             SetHitbox(50, 30, (int)ColliderType.Slot_Car);
-            //Hitbox.CenterOrigin();
             carCollider.CenterOrigin();
             carCollider.Entity = this;
         }
@@ -114,6 +115,11 @@ namespace ConsoleApplication1.Vehicles
                     if (pieceIndex == theRace.theTrack.thePieces.Count())
                     {
                         pieceIndex = 0;
+                        completeLaps++;
+                        if (completeLaps == theRace.totalLaps)
+                        {
+                            finished = true;
+                        }
                     }
                 }
                 nextNode = nodeIndex + 1;

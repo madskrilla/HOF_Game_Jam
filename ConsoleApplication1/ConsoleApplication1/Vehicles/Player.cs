@@ -27,7 +27,7 @@ namespace ConsoleApplication1
         {
             if (theRace.currentState == RaceState.RaceBegin)
                 return;
-            else if (theRace.currentState == RaceState.RaceEnd)
+            else if (theRace.currentState == RaceState.RaceEnd || finished)
             {
                 acceleration += 5;
             }

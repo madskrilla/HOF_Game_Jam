@@ -37,7 +37,7 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.Button(Controls.Escape).AddKey(Key.Escape);
             Globals.PlayerOne.Controller.Button(Controls.Enter).AddKey(Key.Return);
 
-            game.FirstScene = new Race();
+            game.FirstScene = new Race(3);
            //game.FirstScene = new Menu();
 
             game.Start();

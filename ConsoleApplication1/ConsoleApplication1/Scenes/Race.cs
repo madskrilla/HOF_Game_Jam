@@ -22,7 +22,7 @@ namespace ConsoleApplication1.Scenes
         public RaceState currentState;
         public int countDown = 3;
 
-        public Race()
+        public Race(int _laps)
             : base()
         {
 
@@ -40,6 +40,7 @@ namespace ConsoleApplication1.Scenes
             currNode = theTrack.thePieces[currPiece].theLanes[0].theNodes[currNodeIndex];
             currentState = RaceState.RaceBegin;
             countText.FontSize = 75;
+            totalLaps = _laps;
 
         }
         public override void Update()
