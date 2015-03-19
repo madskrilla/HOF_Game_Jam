@@ -38,8 +38,8 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.Button(Controls.Enter).AddKey(Key.Return);
 
 
-            //game.FirstScene = new Race();
-            game.FirstScene = new Menu();
+            game.FirstScene = new Race();
+            //game.FirstScene = new Menu();
 
             game.Start();
         }
