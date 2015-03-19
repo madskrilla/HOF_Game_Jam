@@ -185,7 +185,8 @@ namespace ConsoleApplication1.Scenes
                         play_PlayButton.SetPosition(1000, 834);
 
                         //switch scenes
-                        Game.Close();
+                        Game.RemoveScene();
+                        Game.AddScene(new Race());
                     }
                 }
             }

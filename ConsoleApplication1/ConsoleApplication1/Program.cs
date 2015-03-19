@@ -37,8 +37,17 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.Button(Controls.Escape).AddKey(Key.Escape);
             Globals.PlayerOne.Controller.Button(Controls.Enter).AddKey(Key.Return);
 
-            game.FirstScene = new Race();
-           //game.FirstScene = new Menu();
+            Globals.PlayerOne.Controller.Button(Controls.Accelerate).AddAxisButton(AxisButton.ZMinus);
+            Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).AddAxisButton(AxisButton.XMinus);
+            Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).AddAxisButton(AxisButton.XPlus);
+            Globals.PlayerOne.Controller.Button(Controls.UseItem).AddJoyButton(ControllerXbox360.JoyButtonX);
+            Globals.PlayerOne.Controller.Button(Controls.KeyUP).AddAxisButton(AxisButton.YMinus);
+            Globals.PlayerOne.Controller.Button(Controls.KeyDown).AddAxisButton(AxisButton.YPlus);
+            Globals.PlayerOne.Controller.Button(Controls.Escape).AddJoyButton(ControllerXbox360.JoyButtonB);
+            Globals.PlayerOne.Controller.Button(Controls.Enter).AddJoyButton(ControllerXbox360.JoyButtonA);
+
+           //game.FirstScene = new Race();
+            game.FirstScene = new Menu();
 
             game.Start();
         }
