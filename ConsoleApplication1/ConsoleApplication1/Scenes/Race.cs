@@ -27,7 +27,7 @@ namespace ConsoleApplication1.Scenes
             : base()
         {
 
-            theTrack = new Track();
+            theTrack = new Track(2);
             theTrack.BuildTrack();
             for (int i = 0; i < theTrack.thePieces.Count(); i++)
             {
