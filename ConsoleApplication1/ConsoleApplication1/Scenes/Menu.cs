@@ -10,15 +10,17 @@ namespace ConsoleApplication1.Scenes
     class Menu : Scene
     {
         public enum MenuButtons { MB_Play = 0, MB_Options = 1, MB_Credits = 2, MB_Exit = 3 }
-        public enum TabedMenuButtons { options_Back = 0, options_otherButton, credits_Back }
+        public enum TabedMenuButtons { play_Back = 0, play_Play, options_Back, options_otherButton, credits_Back }
         public int currentSelection, cursorX_offset, cursorY_offset;
         public Image cursor_Image, backArrow_Image;
         public Image PlayButton_Image, OptionsButton_Image, CreditsButton_Image, ExitButton_Image;
-        bool Options, OptionsTab_Close, Play, Credits, CreditsTab_Close, Exit;
+        bool Play, PlayTab_Close, Options, OptionsTab_Close, Credits, CreditsTab_Close, Exit, SwitchScenes;
 
         public Image options_otherButton;
+        public Image play_PlayButton;
 
-        public Menu() : base()
+        public Menu()
+            : base()
         {
             currentSelection = (int)MenuButtons.MB_Play;
             cursorX_offset = 0;
@@ -32,6 +34,7 @@ namespace ConsoleApplication1.Scenes
             ExitButton_Image = new Image("Assets/Images/Menu_Exit.png");
 
             options_otherButton = new Image("Assets/Images/otherButton.png");
+            play_PlayButton = new Image("Assets/Images/PlayButton.png");
 
             backArrow_Image.SetPosition(192, 834);
             PlayButton_Image.SetPosition(160f, 128f);
@@ -40,25 +43,28 @@ namespace ConsoleApplication1.Scenes
             ExitButton_Image.SetPosition(160f, 794f);
 
             options_otherButton.SetPosition(192, 128);
+            play_PlayButton.SetPosition(1000, 834);
 
+            Play = false;
+            PlayTab_Close = false;
             Options = false;
             OptionsTab_Close = false;
-            Play = false;
             Credits = false;
             CreditsTab_Close = false;
             Exit = false;
+            SwitchScenes = false;
         }
 
         public override void Update()
         {
             base.Update();
 
-#region Main Menu Tab
+            #region Main Menu Tab
 
             //main menu input check
             if (!Options && !Play && !Credits)
-	        {
-		        if(Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed)//move up
+            {
+                if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed)//move up
                 {
                     currentSelection--;
                     if (currentSelection < (int)MenuButtons.MB_Play)
@@ -66,10 +72,10 @@ namespace ConsoleApplication1.Scenes
                 }
                 else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed)//move down
                 {
-                   currentSelection++;
+                    currentSelection++;
                     if (currentSelection > (int)MenuButtons.MB_Exit)
                         currentSelection = (int)MenuButtons.MB_Play;
-                } 
+                }
 
                 //enter checks
                 if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)MenuButtons.MB_Exit)
@@ -96,6 +102,11 @@ namespace ConsoleApplication1.Scenes
             cursor_Image.SetPosition(525, 180 + (currentSelection * 222f));
 
             //button image wrapping 
+            if (PlayButton_Image.Left > 1920)//play car wrap
+                PlayButton_Image.SetPosition(-352f, 128f);
+            else if (PlayButton_Image.Left < 160)
+                PlayButton_Image.SetPosition(PlayButton_Image.Left + 25f, 128f);
+
             if (OptionsButton_Image.Left > 1920)//options car wrap
                 OptionsButton_Image.SetPosition(-352f, 350f);
             else if (OptionsButton_Image.Left < 160)
@@ -106,9 +117,78 @@ namespace ConsoleApplication1.Scenes
             else if (CreditsButton_Image.Left < 160)
                 CreditsButton_Image.SetPosition(CreditsButton_Image.Left + 25f, 572f);
 
-#endregion
 
-#region Option Tab
+            #endregion
+
+            #region Play Tab
+
+            if (Play && PlayButton_Image.Left >= 1496)
+            {
+                //input check 
+                if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed)
+                {
+                    currentSelection--;
+                    if (currentSelection < (int)TabedMenuButtons.play_Back)
+                        currentSelection = (int)TabedMenuButtons.play_Play;
+                }
+                else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed)
+                {
+                    currentSelection++;
+                    if (currentSelection > (int)TabedMenuButtons.play_Play)
+                        currentSelection = (int)TabedMenuButtons.play_Back;
+                }
+
+                if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.play_Back)
+                    PlayTab_Close = true;
+                if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.play_Play)
+                    SwitchScenes = true;
+
+
+                if (currentSelection == (int)TabedMenuButtons.play_Play)
+                    cursor_Image.SetPosition(900, 875);
+                else if (currentSelection == (int)TabedMenuButtons.play_Back)
+                    cursor_Image.SetPosition(458, 875);
+
+
+                if (PlayTab_Close && PlayButton_Image.Left < 1920)
+                {
+                    PlayButton_Image.SetPosition(PlayButton_Image.Left + 25f, PlayButton_Image.Y);
+                    backArrow_Image.SetPosition(backArrow_Image.Left + 25f, backArrow_Image.Y);
+                    cursor_Image.SetPosition(cursor_Image.Left + 25f, cursor_Image.Y);
+                    play_PlayButton.SetPosition(play_PlayButton.Left + 25f, play_PlayButton.Y);
+                }
+                if (PlayTab_Close && PlayButton_Image.Left > 1920)
+                {
+                    Play = false;
+                    PlayTab_Close = false;
+                    backArrow_Image.SetPosition(192, 834);
+                    play_PlayButton.SetPosition(1000, 834);
+                }
+
+                if (SwitchScenes)
+                {
+                    PlayButton_Image.SetPosition(PlayButton_Image.Left + 25f, PlayButton_Image.Y);
+                    backArrow_Image.SetPosition(backArrow_Image.Left + 25f, backArrow_Image.Y);
+                    cursor_Image.SetPosition(cursor_Image.Left + 25f, cursor_Image.Y);
+                    play_PlayButton.SetPosition(play_PlayButton.Left + 25f, play_PlayButton.Y);
+
+                    if (PlayButton_Image.Left > 1900)
+                    {
+                        Play = false;
+                        PlayTab_Close = false;
+                        SwitchScenes = false;
+                        backArrow_Image.SetPosition(192, 834);
+                        play_PlayButton.SetPosition(1000, 834);
+
+                        //switch scenes
+                        Game.Close();
+                    }
+                }
+            }
+
+            #endregion
+
+            #region Option Tab
 
             //Options pulled over tab update
             if (Options && OptionsButton_Image.Left >= 1496)
@@ -127,19 +207,18 @@ namespace ConsoleApplication1.Scenes
                         currentSelection = (int)TabedMenuButtons.options_Back;
                 }
 
-                //set cursor position based on what its on
+                if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.options_Back)
+                    OptionsTab_Close = true;
+
+
                 if (currentSelection == (int)TabedMenuButtons.options_otherButton)
                     cursor_Image.SetPosition(458, 160);
                 else if (currentSelection == (int)TabedMenuButtons.options_Back)
                     cursor_Image.SetPosition(458, 875);
 
-                if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.options_Back)
-                    OptionsTab_Close = true;
-
 
                 if (OptionsTab_Close && OptionsButton_Image.Left < 1920)
                 {
-                    //move everything on this tab to the right
                     OptionsButton_Image.SetPosition(OptionsButton_Image.Left + 25f, OptionsButton_Image.Y);
                     backArrow_Image.SetPosition(backArrow_Image.Left + 25f, backArrow_Image.Y);
                     cursor_Image.SetPosition(cursor_Image.Left + 25f, cursor_Image.Y);
@@ -148,15 +227,16 @@ namespace ConsoleApplication1.Scenes
 
                 if (OptionsTab_Close && OptionsButton_Image.Left > 1920)
                 {
-                     Options = false;
-                     OptionsTab_Close = false;
-                     backArrow_Image.SetPosition(192, 834);
+                    Options = false;
+                    OptionsTab_Close = false;
+                    backArrow_Image.SetPosition(192, 834);
+                    options_otherButton.SetPosition(192, 128);
                 }
             }
 
-#endregion
+            #endregion
 
-#region Credits Tab
+            #region Credits Tab
 
             if (Credits && CreditsButton_Image.Left >= 1496)
             {
@@ -181,9 +261,9 @@ namespace ConsoleApplication1.Scenes
                 }
             }
 
-#endregion
+            #endregion
 
-#region Exit Tab
+            #region Exit Tab
 
             if (Exit && ExitButton_Image.Left < 1920)
                 ExitButton_Image.SetPosition(ExitButton_Image.Left + 25f, ExitButton_Image.Y);
@@ -191,7 +271,7 @@ namespace ConsoleApplication1.Scenes
             if (Exit && ExitButton_Image.Left > 1920)
                 Game.Close();
 
-#endregion
+            #endregion
 
         }
 
@@ -221,6 +301,18 @@ namespace ConsoleApplication1.Scenes
                     CreditsButton_Image.Render();
                     ExitButton_Image.Render();
                 }
+                else if (Play)
+                {
+                    Draw.Rectangle(PlayButton_Image.Left - 1350, 32, 1248, 1016, Color.Blue);
+                    PlayButton_Image.Render();
+
+                    if (PlayButton_Image.Left >= 1496)
+                    {
+                        cursor_Image.Render();
+                        backArrow_Image.Render();
+                        play_PlayButton.Render();
+                    }
+                }
                 else if (Options)
                 {
                     Draw.Rectangle(OptionsButton_Image.Left - 1350, 32, 1248, 1016, Color.Gray);
@@ -232,11 +324,6 @@ namespace ConsoleApplication1.Scenes
                         backArrow_Image.Render();
                         options_otherButton.Render();
                     }
-
-                }
-                else if (Play)
-                {
-                    PlayButton_Image.Render();
                 }
                 else if (Credits)
                 {

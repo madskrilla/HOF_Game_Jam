@@ -89,6 +89,9 @@
     <Content Include="Assets\Images\otherButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\PlayButton.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\TrackPieces.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
