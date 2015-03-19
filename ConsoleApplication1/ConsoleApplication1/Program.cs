@@ -14,7 +14,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
+            Game game = new Game("GAme", 1920, 1080, 60, true);
 
             Globals.PlayerOne = game.AddSession("P1");
 
@@ -23,13 +23,23 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.AddButton(Controls.SwapLaneLeft);
             Globals.PlayerOne.Controller.AddButton(Controls.SwapLaneRight);
             Globals.PlayerOne.Controller.AddButton(Controls.UseItem);
+            Globals.PlayerOne.Controller.AddButton(Controls.KeyUP);
+            Globals.PlayerOne.Controller.AddButton(Controls.KeyDown);
+            Globals.PlayerOne.Controller.AddButton(Controls.Escape);
+            Globals.PlayerOne.Controller.AddButton(Controls.Enter);
 
             Globals.PlayerOne.Controller.Button(Controls.Accelerate).AddKey(Key.Space);
             Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).AddKey(Key.Left);
             Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).AddKey(Key.Right);
             Globals.PlayerOne.Controller.Button(Controls.UseItem).AddKey(Key.LControl);
+            Globals.PlayerOne.Controller.Button(Controls.KeyUP).AddKey(Key.Up);
+            Globals.PlayerOne.Controller.Button(Controls.KeyDown).AddKey(Key.Down);
+            Globals.PlayerOne.Controller.Button(Controls.Escape).AddKey(Key.Escape);
+            Globals.PlayerOne.Controller.Button(Controls.Enter).AddKey(Key.Return);
 
-            game.FirstScene = new Race();
+
+            //game.FirstScene = new Race();
+            game.FirstScene = new Menu();
 
             game.Start();
         }

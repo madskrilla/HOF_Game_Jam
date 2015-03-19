@@ -25,7 +25,11 @@ namespace ConsoleApplication1
         Accelerate,
         SwapLaneLeft,
         SwapLaneRight,
-        UseItem
+        UseItem,
+        KeyUP,
+        KeyDown,
+        Escape,
+        Enter
     }
 
     public enum RaceState
