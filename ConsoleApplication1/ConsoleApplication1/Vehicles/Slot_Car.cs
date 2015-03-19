@@ -15,9 +15,7 @@ namespace ConsoleApplication1.Vehicles
         public DriverType driverType;
         public Race theRace;
         public Image carImage = Image.CreateRectangle(30, 50, Color.Cyan);
-        public BoxCollider carCollider;
-        //public Speed currentSpeed = new Speed(3,true);
-        //public Vector2 acceleration = new Vector2(3,3);
+        public BoxCollider carCollider = new BoxCollider(50, 30, (int)ColliderType.Slot_Car);
         public Vector2 velocity;
         public Vector2 SteerVec;
         public Vector2 position;
@@ -28,16 +26,18 @@ namespace ConsoleApplication1.Vehicles
         public int nodeIndex = 0;
         public int nextNode = 1;
         public int pieceIndex = 0;
-        public int maxSpeed = 5;
+        public int maxSpeed = 10;
         public PickUp currentPickup;
         public int nodesPassed = 0;
         private bool spinning = false;
+        public bool attacking = false;
         private int spinTicks = 90;
-
+        public List<int> tags = new List<int>();
         public float currentSpeed;
         public float acceleration = 0.0f;
 
-        public Slot_Car(Race _race, int _ln) : base()
+        public Slot_Car(Race _race, int _ln)
+            : base()
         {
             SetGraphic(carImage);
             carImage.CenterOrigin();
@@ -50,6 +50,18 @@ namespace ConsoleApplication1.Vehicles
             targetNode = theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes[nodeIndex];
             X = targetNode.localSpace.X;
             Y = targetNode.localSpace.Y;
+            tags.Add((int)ColliderType.PickUp);
+            tags.Add((int)ColliderType.Slot_Car);
+            SetHitbox(50, 30, (int)ColliderType.Slot_Car);
+            //Hitbox.CenterOrigin();
+            carCollider.CenterOrigin();
+            carCollider.Entity = this;
+        }
+        public override void Render()
+        {
+            carCollider.Render();
+           // Hitbox.Render();
+            base.Render();
         }
 
         public override void Update()
@@ -58,14 +70,36 @@ namespace ConsoleApplication1.Vehicles
             //currentSpeed.Y += acceleration.Y;
 
             //if (Math.Abs(currentSpeed.X) < 0.05f) currentSpeed.X = 0;
-           //if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
-            if(!spinning)
-            Steer();
-            //if (true)
-            //    spinning = true;
-            //if(spinning)
-            //    SpinOut();
-           
+            //if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
+            if (!spinning)
+                Steer();
+
+            var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
+            if (collider != null)
+            {
+                //if (collider.Tags[0] == (int)ColliderType.PickUp)
+                //{
+                //    PickUp item = (PickUp)collider.Entity;
+                //    item.Collidable = false;
+                //    item.itemImage.Visible = false;
+                //    spinning = true;
+                //}
+
+                Slot_Car otherCah = (Slot_Car)collider.Entity;
+                if (otherCah.attacking && otherCah.Lane == Lane)
+                {
+                    spinning = true;
+                }
+                else if (!otherCah.attacking)
+                {
+                    velocity.X = velocity.X * 0.5f;
+                    velocity.Y = velocity.Y * 0.5f;
+                }
+
+            }
+            if (spinning)
+                SpinOut();
+
             X += velocity.X;
             Y += velocity.Y;
 
@@ -88,7 +122,7 @@ namespace ConsoleApplication1.Vehicles
             {
 
                 nodeIndex = nextNode;
-               
+
                 if (nodeIndex == theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes.Count())
                 {
                     nodeIndex = 0;
@@ -106,9 +140,9 @@ namespace ConsoleApplication1.Vehicles
             Vector2 toTarget = SteerVec - position;
 
             toTarget.Normalize();
-            velocity += toTarget *acceleration;
+            velocity += toTarget * acceleration;
 
-            if(velocity.Length > maxSpeed)
+            if (velocity.Length > maxSpeed)
             {
                 velocity.Normalize();
                 velocity *= maxSpeed;
@@ -118,6 +152,7 @@ namespace ConsoleApplication1.Vehicles
             if (dpR < 0)
             {
                 carImage.Angle = (float)Math.Acos(Vector2.Dot(up, toTarget)) * (180 / 3.14f);
+               
             }
             else
             {
@@ -139,7 +174,6 @@ namespace ConsoleApplication1.Vehicles
             velocity.Y = 0;
 
             carImage.Angle += 15;
-            Console.WriteLine(carImage.Angle.ToString());
         }
     }
 }
