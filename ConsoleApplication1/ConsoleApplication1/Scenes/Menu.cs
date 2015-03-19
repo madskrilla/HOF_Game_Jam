@@ -12,7 +12,7 @@ namespace ConsoleApplication1.Scenes
         public enum MenuButtons { MB_Play = 0, MB_Options = 1, MB_Credits = 2, MB_Exit = 3 }
         public enum TabedMenuButtons { play_Back = 0, play_Play, options_Back, options_otherButton, credits_Back }
         public int currentSelection, cursorX_offset, cursorY_offset;
-        public Image cursor_Image, backArrow_Image;
+        public Image cursor_Image, backArrow_Image, MainMenuBg_Image, FullSail_Image;
         public Image PlayButton_Image, OptionsButton_Image, CreditsButton_Image, ExitButton_Image;
         bool Play, PlayTab_Close, Options, OptionsTab_Close, Credits, CreditsTab_Close, Exit, SwitchScenes;
 
@@ -33,6 +33,8 @@ namespace ConsoleApplication1.Scenes
             OptionsButton_Image = new Image("Assets/Images/Menu_Options.png");
             CreditsButton_Image = new Image("Assets/Images/Menu_Credits.png");
             ExitButton_Image = new Image("Assets/Images/Menu_Exit.png");
+            FullSail_Image = new Image("Assets/Images/FullSail.png");
+            MainMenuBg_Image = new Image("Assets/Images/MainMenuBg.png");
 
             options_otherButton = new Image("Assets/Images/otherButton.png");
             play_PlayButton = new Image("Assets/Images/PlayButton.png");
@@ -46,6 +48,8 @@ namespace ConsoleApplication1.Scenes
             OptionsButton_Image.SetPosition(160f, 350f);
             CreditsButton_Image.SetPosition(160f, 572f);
             ExitButton_Image.SetPosition(160f, 794f);
+            FullSail_Image.SetPosition(736, 288);
+            MainMenuBg_Image.SetPosition(32, 32);
 
             options_otherButton.SetPosition(192, 650);
             play_PlayButton.SetPosition(1000, 834);
@@ -301,7 +305,7 @@ namespace ConsoleApplication1.Scenes
         {
             base.Render();
 
-            Draw.Rectangle(32, 32, 1856, 1016, Color.Mix(Color.Black, Color.Gray));
+            MainMenuBg_Image.Render();
 
             if (Exit)
             {
@@ -313,7 +317,7 @@ namespace ConsoleApplication1.Scenes
                 if (!Options && !Play && !Credits)
                 {
                     Draw.Rectangle(800, 64, 928, 192, Color.Blue);
-                    Draw.Rectangle(736, 288, 1056, 664, Color.Yellow);
+                    FullSail_Image.Render();
 
                     cursor_Image.Render();
                     PlayButton_Image.Render();

@@ -108,6 +108,12 @@
     <Content Include="Assets\Images\GreenFlag.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\FullSail.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\MainMenuBG.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\Menu_Credits.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
