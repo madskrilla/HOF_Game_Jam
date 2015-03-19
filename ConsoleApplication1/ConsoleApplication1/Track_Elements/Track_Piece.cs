@@ -98,31 +98,15 @@ namespace ConsoleApplication1.Track_Elements
                         theLanes.Add(lane1);
                         break;
                     }
-                case TrackType.merge2to4:
+                case TrackType.startingLine2:
                     {
                         Lane lane0 = new Lane(this, type, startDir, 1);
                         Lane lane1 = new Lane(this, type, startDir, 2);
-                        Lane lane2 = new Lane(this, type, startDir, 3);
-                        Lane lane3 = new Lane(this, type, startDir, 4);
                         theLanes.Add(lane0);
                         theLanes.Add(lane1);
-                        theLanes.Add(lane2);
-                        theLanes.Add(lane3);
                         break;
                     }
-                case TrackType.merge4to2:
-                    {
-                        Lane lane0 = new Lane(this, type, startDir, 1);
-                        Lane lane1 = new Lane(this, type, startDir, 2);
-                        Lane lane2 = new Lane(this, type, startDir, 3);
-                        Lane lane3 = new Lane(this, type, startDir, 4);
-                        theLanes.Add(lane0);
-                        theLanes.Add(lane1);
-                        theLanes.Add(lane2);
-                        theLanes.Add(lane3);
-                        break;
-                    }
-                case TrackType.startingLine:
+                case TrackType.startingLine4:
                     {
                         Lane lane0 = new Lane(this, type, startDir, 1);
                         Lane lane1 = new Lane(this, type, startDir, 2);
