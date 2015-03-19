@@ -15,7 +15,11 @@ namespace ConsoleApplication1
         public int shakeTime = 0;
         public Player(Race _race, int _ln, Session _player) : base(_race, _ln)
         {
+            carImage = new Image("Assets/Images/Car5_Black.png");
+            SetGraphic(carImage);
+            carImage.CenterOrigin();
             currentSpeed = 0;
+            //maxSpeed = 10;
             player = _player;
             Globals.slotCarText.String = "test";
             Globals.slotCarText.FontSize = 25;
@@ -72,19 +76,21 @@ namespace ConsoleApplication1
                 if (acceleration < 0) acceleration = 0;
             }
 
-            if (player.Controller.Button(Controls.SwapLaneRight).Pressed)
+            if (player.Controller.Button(Controls.SwapLaneRight).Pressed && popTimer <= 0 && acceleration >= maxSpeed/2)
             {
                 if (Lane < 3)
                 {
+                    popTimer = popDuration;
                     Lane++;
                     nodeIndex++;
                 }
             }
 
-            if (player.Controller.Button(Controls.SwapLaneLeft).Pressed)
+            if (player.Controller.Button(Controls.SwapLaneLeft).Pressed && popTimer <= 0 && acceleration >= maxSpeed / 2)
             {
                 if (Lane > 0)
                 {
+                    popTimer = popDuration;
                     Lane--;
                     nodeIndex++;
                 }

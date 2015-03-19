@@ -39,6 +39,9 @@ namespace ConsoleApplication1.Vehicles
         public bool finished = false;
         public int playerNum;
 
+        public int popTimer = 0;
+        public int popDuration = 30;
+
         public Slot_Car(Race _race, int _ln)
             : base()
         {
@@ -58,9 +61,11 @@ namespace ConsoleApplication1.Vehicles
             SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             carCollider.CenterOrigin();
             carCollider.Entity = this;
+            playerNum = Lane + 1;
         }
         public override void Update()
         {
+            PopUp();
             if (!spinning)
                 Steer();
             if (theRace.currentState == RaceState.RaceBegin)
@@ -120,6 +125,7 @@ namespace ConsoleApplication1.Vehicles
                         {
                             finished = true;
                             theRace.carsFin++;
+                            theRace.finishOrder.Add(playerNum);
                         }
                     }
                 }
@@ -166,6 +172,19 @@ namespace ConsoleApplication1.Vehicles
 
             carImage.Angle += 15;
         }
-       
+
+        public void PopUp()
+        {
+            if (popTimer > 0)
+            {
+                if (popTimer > popDuration / 2)
+                {
+                    this.carImage.Scale = this.carImage.ScaleX + 0.075f;
+                }
+                else this.carImage.Scale = this.carImage.ScaleX - 0.075f;
+                popTimer--;
+            }
+            else this.carImage.Scale = 1;
+        }
     }
 }

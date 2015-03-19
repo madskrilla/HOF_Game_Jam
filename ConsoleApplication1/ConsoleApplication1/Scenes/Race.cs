@@ -23,12 +23,21 @@ namespace ConsoleApplication1.Scenes
         public RaceState currentState;
         public int countDown = 3;
         public int carsFin = 0;
+        public List<int> finishOrder = new List<int>();
+        public Text first = new Text("", "Assets/RACER___.TTF");
+        public Text second = new Text("", "Assets/RACER___.TTF");
+        public Text third = new Text("", "Assets/RACER___.TTF");
+        public Text fourth = new Text("", "Assets/RACER___.TTF");
         public Race(int _laps)
             : base()
         {
 
             theTrack = new Track();
             theTrack.BuildTrack();
+            for (int i = 0; i < theTrack.thePieces.Count(); i++)
+            {
+                Add(theTrack.thePieces[i]);
+            }
             Slot_Car player = new Player(this, 0, Globals.PlayerOne);
             HUD hud = new HUD(player, this);
             theCars.Add(player);
@@ -83,36 +92,55 @@ namespace ConsoleApplication1.Scenes
                     countDown--;
             }
             if (carsFin == theCars.Count)
+            {
                 currentState = RaceState.RaceEnd;
+                first.String = "1. Player " + finishOrder[0];
+                first.FontSize = 50;
+                first.Color = Color.Green;
+                second.String = "2. Player " + finishOrder[1];
+                second.FontSize = 50;
+                second.Color = Color.Yellow;
+                third.String = "3. Player " + finishOrder[2];
+                third.FontSize = 50;
+                third.Color = Color.Red;
+                fourth.String = "Press Enter To Return to the Main Menu!";
+            }
+            if (currentState == RaceState.RaceEnd && Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed)
+            {
+                Game.RemoveScene();
+                Game.AddScene(new Menu());
+                
+            }
             base.Update();
         }
         public override void Render()
         {
             /*  frame++;
-             for (int i = 0; i < theTrack.thePieces.Count(); i++)
-             {
-                 for (int j = 0; j < theTrack.thePieces[i].theLanes.Count(); j++)
-                 {
-                     for (int k = 0; k < theTrack.thePieces[i].theLanes[j].theNodes.Count(); k++)
-                     {
-                         Image point = Image.CreateCircle(3);
-                         point.Render(theTrack.thePieces[i].theLanes[j].theNodes[k].localSpace.X, theTrack.thePieces[i].theLanes[j].theNodes[k].localSpace.Y);
-                     }
-                 }
-             }
-             if (frame % 10 == 0)
-                 currNodeIndex++;
-             if (currNodeIndex == theTrack.thePieces[currPiece].theLanes[0].theNodes.Count())
-             {
-                 currNodeIndex = 0;
-                 currPiece++;
-                 if (currPiece == theTrack.thePieces.Count())
-                 {
-                     currPiece = 0;
-                 }
-             }
+            for (int i = 0; i < theTrack.thePieces.Count(); i++)
+            {
+                for (int j = 0; j < theTrack.thePieces[i].theLanes.Count(); j++)
+                {
+                    for (int k = 0; k < theTrack.thePieces[i].theLanes[j].theNodes.Count(); k++)
+                    {
+                        Image point = Image.CreateCircle(3);
+                        //point.Render(theTrack.thePieces[i].theLanes[j].theNodes[k].localSpace.X, theTrack.thePieces[i].theLanes[j].theNodes[k].localSpace.Y);
+                        theTrack.thePieces[i].Render();
+                    }
+                }
+            }
+            if (frame % 10 == 0)
+                currNodeIndex++;
+            if (currNodeIndex == theTrack.thePieces[currPiece].theLanes[0].theNodes.Count())
+            {
+                currNodeIndex = 0;
+                currPiece++;
+                if (currPiece == theTrack.thePieces.Count())
+                {
+                    currPiece = 0;
+                }
+            }
 
-             Image racer = Image.CreateCircle(4, Color.Red);
+            Image racer = Image.CreateCircle(4, Color.Red);
              racer.Render(theTrack.thePieces[currPiece].theLanes[1].theNodes[currNodeIndex].localSpace.X, theTrack.thePieces[currPiece].theLanes[1].theNodes[currNodeIndex].localSpace.Y);*/
 
 
@@ -120,9 +148,14 @@ namespace ConsoleApplication1.Scenes
             {
                 countText.Render(HalfWidth - countText.Width/2, HalfHeight);
             }
-
+            else if (currentState == RaceState.RaceEnd)
+            {
+                first.Render(HalfWidth - first.Width, HalfHeight - first.Height);
+                second.Render(HalfWidth - first.Width, HalfHeight - first.Height + 50);
+                third.Render(HalfWidth - first.Width, HalfHeight - first.Height + 100);
+                fourth.Render(HalfWidth - first.Width, HalfHeight + 150);
+            }
             base.Render();
         }
-
     }
 }
