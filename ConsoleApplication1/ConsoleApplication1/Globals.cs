@@ -13,6 +13,7 @@ namespace ConsoleApplication1
         public static Session
         PlayerOne;
         public static int TileSize = 150;
+        public static Random numberGenerator = new Random(DateTime.Now.Millisecond);
     }
 
     public enum DriverType
@@ -26,7 +27,11 @@ namespace ConsoleApplication1
         Accelerate,
         SwapLaneLeft,
         SwapLaneRight,
-        UseItem
+        UseItem,
+        KeyUP,
+        KeyDown,
+        Escape,
+        Enter
     }
 
     public enum RaceState
@@ -45,9 +50,8 @@ namespace ConsoleApplication1
         sharpTurn2,
         wideTurn4,
         wideTurn2,
-        merge2to4,
-        merge4to2,
-        startingLine,
+        startingLine2,
+        startingLine4,
         itemSpawn2,
         itemSpawn4
     }
