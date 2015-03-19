@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Otter;
 
 namespace ConsoleApplication1.Items
 {
     class PickUp : Item_Base
     {
         public int respawnTimer;
+        Image texture;
+        public BoxCollider pickUpCollider;
+
         public PickUp() : base()
         {
 
