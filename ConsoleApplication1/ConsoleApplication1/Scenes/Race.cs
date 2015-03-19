@@ -18,12 +18,14 @@ namespace ConsoleApplication1.Scenes
         int currNodeIndex = 0;
         Node currNode;
         int frame = 0;
-
+        public Text countText = new Text("", "Assets/RACER___.TTF");
         public RaceState currentState;
+        public int countDown = 3;
 
-        public Race() : base()
+        public Race()
+            : base()
         {
-          
+
             theTrack = new Track();
             theTrack.BuildTrack();
             for (int i = 0; i < theTrack.thePieces.Count(); i++)
@@ -40,11 +42,47 @@ namespace ConsoleApplication1.Scenes
             Add(adam);
             Add(steve);
             currNode = theTrack.thePieces[currPiece].theLanes[0].theNodes[currNodeIndex];
-        }
+            currentState = RaceState.RaceBegin;
+            countText.FontSize = 75;
 
+        }
+        public override void Update()
+        {
+            if (countDown < 0)
+            {
+                currentState = RaceState.Racing;
+            }
+            if (currentState == RaceState.RaceBegin)
+            {
+                countText.String = countDown.ToString();
+                switch (countDown)
+                {
+                    case 3:
+                        countText.Color = Color.Red;
+                        break;
+                    case 2:
+                        countText.Color = Color.Yellow;
+                        break;
+                    case 1:
+                        countText.Color = Color.Yellow;
+                        break;
+                    case 0:
+                        countText.String = "GoGoGo!!";
+                        countText.Color = Color.Green;
+                        countDown--;
+                        break;
+                    default:
+                        break;
+                }
+                frame++;
+                if (frame % 60 == 0)
+                    countDown--;
+            }
+            base.Update();
+        }
         public override void Render()
         {
-            frame++;
+            /*  frame++;
             for (int i = 0; i < theTrack.thePieces.Count(); i++)
             {
                 for (int j = 0; j < theTrack.thePieces[i].theLanes.Count(); j++)
@@ -70,8 +108,16 @@ namespace ConsoleApplication1.Scenes
             }
 
             Image racer = Image.CreateCircle(4, Color.Red);
-            racer.Render(theTrack.thePieces[currPiece].theLanes[1].theNodes[currNodeIndex].localSpace.X, theTrack.thePieces[currPiece].theLanes[1].theNodes[currNodeIndex].localSpace.Y);
+             racer.Render(theTrack.thePieces[currPiece].theLanes[1].theNodes[currNodeIndex].localSpace.X, theTrack.thePieces[currPiece].theLanes[1].theNodes[currNodeIndex].localSpace.Y);*/
+
+
+            if (currentState == RaceState.RaceBegin)
+            {
+                countText.Render(HalfWidth - countText.Width/2, HalfHeight);
+            }
+
             base.Render();
         }
+
     }
 }

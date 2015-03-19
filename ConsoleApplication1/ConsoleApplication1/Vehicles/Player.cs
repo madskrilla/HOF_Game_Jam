@@ -12,17 +12,49 @@ namespace ConsoleApplication1
     class Player : Slot_Car
     {
         Session player;
+        public int shakeTime = 0;
         public Player(Race _race, int _ln, Session _player) : base(_race, _ln)
         {
             currentSpeed = 0;
             player = _player;
+            Globals.slotCarText.String = "test";
+            Globals.slotCarText.FontSize = 25;
+            Globals.slotCarText.Color = Color.White;
+            attacking = false;
         }
 
         public override void Update()
         {
+            if (theRace.currentState == RaceState.RaceBegin)
+                return;
+            else if (theRace.currentState == RaceState.RaceEnd)
+            {
+                acceleration += 5;
+            }
+            else
+            {
+
+            Globals.slotCarText.String = Game.Framerate.ToString();
             getInput();
             velocity *= currentSpeed;
+              var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
+              if (collider != null)
+              {
+                  Slot_Car otherCah = (Slot_Car)collider.Entity;
+                  if (otherCah.attacking && otherCah.Lane == Lane)
+                  {
+                      shakeTime = 90;
+                  }
+              }
+            ScreenShake();
+            }
             base.Update();
+        }
+
+        public override void Render()
+        {
+            base.Render();
+            Globals.slotCarText.Render();
         }
 
         public void getInput()
@@ -57,6 +89,17 @@ namespace ConsoleApplication1
                     nodeIndex++;
                 }
             }
+        }
+
+        public void ScreenShake()
+        {
+            shakeTime--;
+            if (shakeTime <= 0)
+                return;
+            if (shakeTime % 2 == 0)
+                theRace.CameraX += 2;
+            else
+                theRace.CameraX -= 2;
         }
     }
 }
