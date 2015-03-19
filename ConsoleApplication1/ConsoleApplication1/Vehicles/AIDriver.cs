@@ -23,6 +23,10 @@ namespace ConsoleApplication1
         {
             if (theRace.currentState == RaceState.RaceBegin)
                 return;
+            else
+            {
+                acceleration += 0.1f;
+            }
             base.Update();
 
             if (Globals.numberGenerator.Next() % 100 < laneSwapChance)

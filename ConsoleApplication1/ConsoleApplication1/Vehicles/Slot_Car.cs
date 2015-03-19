@@ -160,7 +160,7 @@ namespace ConsoleApplication1.Vehicles
                 spinTicks = 90;
                 return;
             }
-
+            acceleration = 0;
             velocity.X = 0;
             velocity.Y = 0;
 
