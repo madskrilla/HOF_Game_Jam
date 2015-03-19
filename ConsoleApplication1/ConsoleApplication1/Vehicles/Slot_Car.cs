@@ -26,7 +26,7 @@ namespace ConsoleApplication1.Vehicles
         public int nodeIndex = 0;
         public int nextNode = 1;
         public int pieceIndex = 0;
-        public int maxSpeed = 5;
+        public int maxSpeed = 10;
         public PickUp currentPickup;
         public int nodesPassed = 0;
         private bool spinning = false;
