@@ -31,6 +31,8 @@ namespace ConsoleApplication1.Vehicles
         public int maxSpeed = 5;
         public PickUp currentPickup;
         public int nodesPassed = 0;
+        private bool spinning = false;
+        private int spinTicks = 90;
 
         public float currentSpeed;
         public float acceleration = 0.0f;
@@ -56,12 +58,19 @@ namespace ConsoleApplication1.Vehicles
             //currentSpeed.Y += acceleration.Y;
 
             //if (Math.Abs(currentSpeed.X) < 0.05f) currentSpeed.X = 0;
-            //if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
+           //if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
+            if(!spinning)
             Steer();
+            if (true)
+                spinning = true;
+            if(spinning)
+                SpinOut();
            
             X += velocity.X;
-            Y += velocity.Y; 
-            
+            Y += velocity.Y;
+
+
+
             base.Update();
 
 
@@ -114,35 +123,23 @@ namespace ConsoleApplication1.Vehicles
             {
                 carImage.Angle = -(float)Math.Acos(Vector2.Dot(up, toTarget)) * (180 / 3.14f);
             }
-
-
-
-           //float dist ;
-           //steerVec = target.localSpace;
-           //position.X = X;
-           //position.Y = Y;
-           //dist = Vector2.Distance(steerVec, position);
-           //
-           //if (dist < 45)
-           //{
-           //    target = target.nextNode;
-           //    steerVec = target.localSpace;
-           //}
-           //steerVec = steerVec - position;
-           //steerVec.Normalize();
-           //Vector2 up = new Vector2(0, -1);
-           //
-           //urrentSpeed.X += steerVec.X;
-           //urrentSpeed.Y += steerVec.Y;
-           //
-           //forward.X = currentSpeed.X;
-           //forward.Y = currentSpeed.Y;
-           //forward.Normalize();
-           //
-           //carImage.Angle = (float)Math.Acos(Vector2.Dot(up, steerVec)) * (180/3.14f);
-
         }
 
-       
+        private void SpinOut()
+        {
+            spinTicks--;
+            if (spinTicks == 0)
+            {
+                spinning = false;
+                spinTicks = 90;
+                return;
+            }
+
+            velocity.X = 0;
+            velocity.Y = 0;
+
+            carImage.Angle += 15;
+            Console.WriteLine(carImage.Angle.ToString());
+        }
     }
 }
