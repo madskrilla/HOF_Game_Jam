@@ -29,9 +29,7 @@ namespace ConsoleApplication1
                 return;
             else if (theRace.currentState == RaceState.RaceEnd)
             {
-                acceleration += 0.1f;
-                if (acceleration > maxSpeed) acceleration = maxSpeed;
-                return;
+                acceleration += 5;
             }
             else
             {
