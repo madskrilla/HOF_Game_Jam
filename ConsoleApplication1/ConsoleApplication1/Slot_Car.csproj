@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\Bomb.cs" />
+    <Compile Include="Items\Missle.cs" />
+    <Compile Include="Items\OilSlick.cs" />
     <Compile Include="Items\Rocket.cs" />
     <Compile Include="Vehicles\AIDriver.cs" />
     <Compile Include="Globals.cs" />

@@ -67,5 +67,11 @@ namespace ConsoleApplication1
         Balanced
     }
 
+    public enum ColliderType
+    {
+        Slot_Car,
+        PickUp
+    }
+
     
 }

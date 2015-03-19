@@ -142,6 +142,11 @@ namespace ConsoleApplication1.Vehicles
 
         }
 
+        private void SpinOut()
+        {
+
+        }
+
        
     }
 }
