@@ -18,6 +18,7 @@ namespace ConsoleApplication1
             SetGraphic(carImage);
             carImage.CenterOrigin();
             currentSpeed = 0;
+            //maxSpeed = 10;
             player = _player;
             Globals.slotCarText.String = "test";
             Globals.slotCarText.FontSize = 25;

@@ -70,5 +70,6 @@ namespace ConsoleApplication1.Scenes
             base.Render();
         }
         */
+        
     }
 }
