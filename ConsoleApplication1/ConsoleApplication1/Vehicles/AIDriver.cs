@@ -20,7 +20,7 @@ namespace ConsoleApplication1
 
             driverType = DriverType.AI;
             attacking = true;
-            acceleration = maxSpeed;
+            acceleration = 0;
         }
 
         public override void Update()
@@ -28,7 +28,17 @@ namespace ConsoleApplication1
             if (theRace.currentState == RaceState.RaceBegin)
                 return;
             base.Update();
-
+            if (!spinning)
+            {
+                acceleration += 0.1f;
+                if (acceleration > maxSpeed) acceleration = maxSpeed;
+            }
+            else if (acceleration > 0)
+            {
+                acceleration -= 0.1f;
+                //currentSpeed = 0;// acceleration;
+                if (acceleration < 0) acceleration = 0;
+            }
             if (Globals.numberGenerator.Next() % 100 < laneSwapChance && popTimer <= 0)
             {
                 if (Globals.numberGenerator.Next() % 2 == 0)
