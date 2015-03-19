@@ -29,7 +29,7 @@ namespace ConsoleApplication1
                 return;
             else
             {
-                acceleration += 5;
+                acceleration += 0.1f;
             }
             base.Update();
 

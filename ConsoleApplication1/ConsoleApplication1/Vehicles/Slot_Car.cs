@@ -69,10 +69,12 @@ namespace ConsoleApplication1.Vehicles
             if (!spinning)
                 Steer();
             if (theRace.currentState == RaceState.RaceBegin)
-                return;
+            {
 
-
-            var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
+            }
+            else
+            {
+                var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
             if (collider != null)
             {
                 //if (collider.Tags[0] == (int)ColliderType.PickUp)
@@ -97,6 +99,7 @@ namespace ConsoleApplication1.Vehicles
             }
             if (spinning)
                 SpinOut();
+            }
             X += velocity.X;
             Y += velocity.Y;
             base.Update();
