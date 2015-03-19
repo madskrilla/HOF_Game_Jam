@@ -35,6 +35,12 @@ namespace ConsoleApplication1.Vehicles
         public List<int> tags = new List<int>();
         public float currentSpeed;
         public float acceleration = 0.0f;
+        public int completeLaps = 0;
+        public bool finished = false;
+        public int playerNum;
+
+        public int popTimer = 0;
+        public int popDuration = 30;
 
         public Slot_Car(Race _race, int _ln)
             : base()
@@ -53,12 +59,12 @@ namespace ConsoleApplication1.Vehicles
             tags.Add((int)ColliderType.PickUp);
             tags.Add((int)ColliderType.Slot_Car);
             SetHitbox(50, 30, (int)ColliderType.Slot_Car);
-            //Hitbox.CenterOrigin();
             carCollider.CenterOrigin();
             carCollider.Entity = this;
         }
         public override void Update()
         {
+            PopUp();
             if (!spinning)
                 Steer();
             if (theRace.currentState == RaceState.RaceBegin)
@@ -104,7 +110,6 @@ namespace ConsoleApplication1.Vehicles
 
             if (dist < 45)
             {
-
                 nodeIndex = nextNode;
                 nodesPassed++;
                 if (nodeIndex == theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes.Count())
@@ -114,6 +119,12 @@ namespace ConsoleApplication1.Vehicles
                     if (pieceIndex == theRace.theTrack.thePieces.Count())
                     {
                         pieceIndex = 0;
+                        completeLaps++;
+                        if (completeLaps == theRace.totalLaps)
+                        {
+                            finished = true;
+                            theRace.carsFin++;
+                        }
                     }
                 }
                 nextNode = nodeIndex + 1;
@@ -159,6 +170,19 @@ namespace ConsoleApplication1.Vehicles
 
             carImage.Angle += 15;
         }
-       
+
+        public void PopUp()
+        {
+            if (popTimer > 0)
+            {
+                if (popTimer > popDuration / 2)
+                {
+                    this.carImage.Scale = this.carImage.ScaleX + 0.075f;
+                }
+                else this.carImage.Scale = this.carImage.ScaleX - 0.075f;
+                popTimer--;
+            }
+            else this.carImage.Scale = 1;
+        }
     }
 }
