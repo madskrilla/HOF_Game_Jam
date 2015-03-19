@@ -31,7 +31,7 @@ namespace ConsoleApplication1
         {
             if (theRace.currentState == RaceState.RaceBegin)
                 return;
-            else if (theRace.currentState == RaceState.RaceEnd)
+            else if (theRace.currentState == RaceState.RaceEnd || finished)
             {
                 acceleration += 5;
             }
@@ -58,7 +58,7 @@ namespace ConsoleApplication1
         public override void Render()
         {
             base.Render();
-            Globals.slotCarText.Render();
+         //   Globals.slotCarText.Render();
         }
 
         public void getInput()

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Otter;
 using ConsoleApplication1.Track_Elements;
 using ConsoleApplication1.Vehicles;
+using ConsoleApplication1.Extra;
 
 namespace ConsoleApplication1.Scenes
 {
@@ -21,8 +22,8 @@ namespace ConsoleApplication1.Scenes
         public Text countText = new Text("", "Assets/RACER___.TTF");
         public RaceState currentState;
         public int countDown = 3;
-
-        public Race()
+        public int carsFin = 0;
+        public Race(int _laps)
             : base()
         {
 
@@ -35,17 +36,24 @@ namespace ConsoleApplication1.Scenes
             }
 
             Slot_Car player = new Player(this, 0, Globals.PlayerOne);
+            HUD hud = new HUD(player, this);
             theCars.Add(player);
             Slot_Car adam = new AIDriver(this, 1);
+            HUD hud1 = new HUD(adam, this);
             theCars.Add(adam);
             Slot_Car steve = new AIDriver(this, 2);
             theCars.Add(steve);
+            HUD hud2 = new HUD(steve, this);
+            Add(hud);
+            Add(hud1);
+            Add(hud2);
             Add(player);
             Add(adam);
             Add(steve);
             currNode = theTrack.thePieces[currPiece].theLanes[0].theNodes[currNodeIndex];
             currentState = RaceState.RaceBegin;
             countText.FontSize = 75;
+            totalLaps = _laps;
 
         }
         public override void Update()
@@ -80,6 +88,8 @@ namespace ConsoleApplication1.Scenes
                 if (frame % 60 == 0)
                     countDown--;
             }
+            if (carsFin == theCars.Count)
+                currentState = RaceState.RaceEnd;
             base.Update();
         }
         public override void Render()
