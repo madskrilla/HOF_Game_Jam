@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extra\HUD.cs" />
     <Compile Include="Items\Bomb.cs" />
     <Compile Include="Items\Missle.cs" />
     <Compile Include="Items\OilSlick.cs" />

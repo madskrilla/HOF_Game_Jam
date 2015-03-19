@@ -37,6 +37,7 @@ namespace ConsoleApplication1.Vehicles
         public float acceleration = 0.0f;
         public int completeLaps = 0;
         public bool finished = false;
+        public int playerNum;
 
         public Slot_Car(Race _race, int _ln)
             : base()
@@ -105,7 +106,6 @@ namespace ConsoleApplication1.Vehicles
 
             if (dist < 45)
             {
-
                 nodeIndex = nextNode;
                 nodesPassed++;
                 if (nodeIndex == theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes.Count())
@@ -119,6 +119,7 @@ namespace ConsoleApplication1.Vehicles
                         if (completeLaps == theRace.totalLaps)
                         {
                             finished = true;
+                            theRace.carsFin++;
                         }
                     }
                 }

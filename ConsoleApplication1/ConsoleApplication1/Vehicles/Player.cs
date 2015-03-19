@@ -54,7 +54,7 @@ namespace ConsoleApplication1
         public override void Render()
         {
             base.Render();
-            Globals.slotCarText.Render();
+         //   Globals.slotCarText.Render();
         }
 
         public void getInput()
