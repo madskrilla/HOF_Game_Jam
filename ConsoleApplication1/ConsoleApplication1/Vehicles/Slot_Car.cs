@@ -61,6 +61,10 @@ namespace ConsoleApplication1.Vehicles
         {
             if (!spinning)
                 Steer();
+            if (theRace.currentState == RaceState.RaceBegin)
+                return;
+
+
             var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
             if (collider != null)
             {
@@ -102,7 +106,7 @@ namespace ConsoleApplication1.Vehicles
             {
 
                 nodeIndex = nextNode;
-
+                nodesPassed++;
                 if (nodeIndex == theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes.Count())
                 {
                     nodeIndex = 0;

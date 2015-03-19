@@ -25,6 +25,17 @@ namespace ConsoleApplication1
 
         public override void Update()
         {
+            if (theRace.currentState == RaceState.RaceBegin)
+                return;
+            else if (theRace.currentState == RaceState.RaceEnd)
+            {
+                acceleration += 0.1f;
+                if (acceleration > maxSpeed) acceleration = maxSpeed;
+                return;
+            }
+            else
+            {
+
             Globals.slotCarText.String = Game.Framerate.ToString();
             getInput();
             velocity *= currentSpeed;
@@ -38,6 +49,7 @@ namespace ConsoleApplication1
                   }
               }
             ScreenShake();
+            }
             base.Update();
         }
 

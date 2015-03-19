@@ -21,6 +21,8 @@ namespace ConsoleApplication1
 
         public override void Update()
         {
+            if (theRace.currentState == RaceState.RaceBegin)
+                return;
             base.Update();
 
             if (Globals.numberGenerator.Next() % 100 < laneSwapChance)
