@@ -38,7 +38,7 @@ namespace ConsoleApplication1.Scenes
             currNode = theTrack.thePieces[currPiece].theLanes[0].theNodes[currNodeIndex];
         }
 
-        public override void Render()
+        /*public override void Render()
         {
             frame++;
             for (int i = 0; i < theTrack.thePieces.Count(); i++)
@@ -68,5 +68,6 @@ namespace ConsoleApplication1.Scenes
             racer.Render(theTrack.thePieces[currPiece].theLanes[1].theNodes[currNodeIndex].localSpace.X, theTrack.thePieces[currPiece].theLanes[1].theNodes[currNodeIndex].localSpace.Y);
             base.Render();
         }
+         * */
     }
 }

@@ -16,13 +16,24 @@ namespace ConsoleApplication1
         {
             currentSpeed = 0;
             player = _player;
+            Globals.slotCarText.String = "test";
+            Globals.slotCarText.FontSize = 25;
+            Globals.slotCarText.Color = Color.White;
         }
 
         public override void Update()
         {
+            Globals.slotCarText.String = Game.Framerate.ToString();
             getInput();
             velocity *= currentSpeed;
+            
             base.Update();
+        }
+
+        public override void Render()
+        {
+            base.Render();
+            Globals.slotCarText.Render();
         }
 
         public void getInput()
