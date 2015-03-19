@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Otter;
 
-namespace ConsoleApplication1
+namespace ConsoleApplication1 
 {
 
     class Globals
