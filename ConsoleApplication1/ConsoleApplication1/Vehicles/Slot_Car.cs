@@ -29,7 +29,7 @@ namespace ConsoleApplication1.Vehicles
         public int maxSpeed = 10;
         public PickUp currentPickup;
         public int nodesPassed = 0;
-        private bool spinning = false;
+        public bool spinning = false;
         public bool attacking = false;
         private int spinTicks = 90;
         public List<int> tags = new List<int>();

@@ -11,7 +11,7 @@ namespace ConsoleApplication1
     class Globals
     {
         public static Session
-        PlayerOne;
+        PlayerOne, PlayerTwo;
         public static int TileSize = 150;
         public static Random numberGenerator = new Random(DateTime.Now.Millisecond);
         public static Text slotCarText = new Text("", "Assets/RACER___.TTF");
@@ -33,6 +33,7 @@ namespace ConsoleApplication1
         KeyDown,
         Escape,
         Enter,
+		Pause,
         Back
     }
 

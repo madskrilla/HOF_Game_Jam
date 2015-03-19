@@ -64,7 +64,7 @@ namespace ConsoleApplication1
         public void getInput()
         {
             
-            if(player.Controller.Button(Controls.Accelerate).Down)
+            if(player.Controller.Button(Controls.Accelerate).Down && !spinning)
             {
                 acceleration += 0.1f;
                 if (acceleration > maxSpeed) acceleration = maxSpeed;
