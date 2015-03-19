@@ -61,10 +61,10 @@ namespace ConsoleApplication1.Vehicles
            //if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
             if(!spinning)
             Steer();
-            if (true)
-                spinning = true;
-            if(spinning)
-                SpinOut();
+            //if (true)
+            //    spinning = true;
+            //if(spinning)
+            //    SpinOut();
            
             X += velocity.X;
             Y += velocity.Y;
