@@ -49,7 +49,8 @@ namespace ConsoleApplication1
         sharpTurn2,
         wideTurn4,
         wideTurn2,
-        startingLine,
+        startingLine2,
+        startingLine4,
         itemSpawn2,
         itemSpawn4
     }

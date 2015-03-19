@@ -98,7 +98,15 @@ namespace ConsoleApplication1.Track_Elements
                         theLanes.Add(lane1);
                         break;
                     }
-                case TrackType.startingLine:
+                case TrackType.startingLine2:
+                    {
+                        Lane lane0 = new Lane(this, type, startDir, 1);
+                        Lane lane1 = new Lane(this, type, startDir, 2);
+                        theLanes.Add(lane0);
+                        theLanes.Add(lane1);
+                        break;
+                    }
+                case TrackType.startingLine4:
                     {
                         Lane lane0 = new Lane(this, type, startDir, 1);
                         Lane lane1 = new Lane(this, type, startDir, 2);
