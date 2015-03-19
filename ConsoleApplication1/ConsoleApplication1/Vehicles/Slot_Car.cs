@@ -16,8 +16,6 @@ namespace ConsoleApplication1.Vehicles
         public Race theRace;
         public Image carImage = Image.CreateRectangle(30, 50, Color.Cyan);
         public BoxCollider carCollider;
-        public Speed currentSpeed = new Speed(3, true);
-        public Vector2 acceleration = new Vector2(3, 3);
         public Vector2 velocity;
         public Vector2 SteerVec;
         public Vector2 position;
@@ -35,7 +33,8 @@ namespace ConsoleApplication1.Vehicles
         public bool fuckinBitchesUp = false;
         private int spinTicks = 90;
 
-
+        public float currentSpeed;
+        public float acceleration = 0.0f;
 
         public Slot_Car(Race _race, int _ln)
             : base()
@@ -94,7 +93,7 @@ namespace ConsoleApplication1.Vehicles
 
         }
 
-        private void Steer()
+        public void Steer()
         {
             SteerVec = targetNode.localSpace;
             position.X = X;
@@ -124,7 +123,7 @@ namespace ConsoleApplication1.Vehicles
             Vector2 toTarget = SteerVec - position;
 
             toTarget.Normalize();
-            velocity += toTarget * acceleration;
+            velocity += toTarget *acceleration;
 
             if (velocity.Length > maxSpeed)
             {

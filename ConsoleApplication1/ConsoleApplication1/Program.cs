@@ -14,7 +14,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            Game game = new Game("Slotcar Game", 500, 575, 60, false);
+            Game game = new Game("Slotcar Game", 1500, 900, 60, false);
 
             Globals.PlayerOne = game.AddSession("P1");
 
