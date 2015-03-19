@@ -554,7 +554,7 @@ namespace ConsoleApplication1.Track_Elements
                                 {
                                     Node newNode = new Node();
                                     newNode.localSpace.X = _parent.X + Globals.TileSize * 2 + (float)Math.Cos((double)(Math.PI + ((Math.PI / 2) / 20) * node)) * (Globals.TileSize + (Globals.TileSize / 5) * _lane);
-                                    newNode.localSpace.Y = _parent.Y + (float)Math.Sin((double)(Math.PI + ((Math.PI / 2) / 20) * node)) * (Globals.TileSize + (Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(Math.PI + ((Math.PI / 2) / 20) * node)) * (Globals.TileSize + (Globals.TileSize / 5) * _lane);
                                     theNodes.Add(newNode);
                                 }
                             }
