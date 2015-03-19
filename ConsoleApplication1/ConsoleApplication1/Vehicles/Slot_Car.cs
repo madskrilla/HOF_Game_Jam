@@ -36,6 +36,9 @@ namespace ConsoleApplication1.Vehicles
         public float currentSpeed;
         public float acceleration = 0.0f;
 
+        public int popTimer = 0;
+        public int popDuration = 30;
+
         public Slot_Car(Race _race, int _ln)
             : base()
         {
@@ -66,6 +69,7 @@ namespace ConsoleApplication1.Vehicles
 
         public override void Update()
         {
+            PopUp();
             //currentSpeed.X += acceleration.X;
             //currentSpeed.Y += acceleration.Y;
 
@@ -174,6 +178,20 @@ namespace ConsoleApplication1.Vehicles
             velocity.Y = 0;
 
             carImage.Angle += 15;
+        }
+
+        public void PopUp()
+        {
+            if (popTimer > 0)
+            {
+                if (popTimer > popDuration / 2)
+                {
+                    this.carImage.Scale = this.carImage.ScaleX + 0.075f;
+                }
+                else this.carImage.Scale = this.carImage.ScaleX - 0.075f;
+                popTimer--;
+            }
+            else this.carImage.Scale = 1;
         }
     }
 }

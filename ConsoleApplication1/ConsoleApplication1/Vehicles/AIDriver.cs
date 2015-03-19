@@ -14,6 +14,10 @@ namespace ConsoleApplication1
         const int laneSwapChance = 1;
         public AIDriver(Race _race, int _ln) : base(_race, _ln)
         {
+            carImage = new Image("Assets/Images/Car7_Gray.png");
+            SetGraphic(carImage);
+            carImage.CenterOrigin();
+
             driverType = DriverType.AI;
 
             acceleration = maxSpeed;
@@ -23,12 +27,13 @@ namespace ConsoleApplication1
         {
             base.Update();
 
-            if (Globals.numberGenerator.Next() % 100 < laneSwapChance)
+            if (Globals.numberGenerator.Next() % 100 < laneSwapChance && popTimer <= 0)
             {
                 if (Globals.numberGenerator.Next() % 2 == 0)
                 {
                     if (Lane < 3)
                     {
+                        popTimer = popDuration;
                         Lane++;
                         nodeIndex++; 
                     }
@@ -37,6 +42,7 @@ namespace ConsoleApplication1
                 {
                     if (Lane > 0)
                     {
+                        popTimer = popDuration;
                         Lane--;
                         nodeIndex++;
                     }
