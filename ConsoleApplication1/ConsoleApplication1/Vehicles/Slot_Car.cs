@@ -16,8 +16,8 @@ namespace ConsoleApplication1.Vehicles
         public Race theRace;
         public Image carImage = Image.CreateRectangle(30, 50, Color.Cyan);
         public BoxCollider carCollider;
-        public Speed currentSpeed = new Speed(3,true);
-        public Vector2 acceleration = new Vector2(3,3);
+        public Speed currentSpeed = new Speed(3, true);
+        public Vector2 acceleration = new Vector2(3, 3);
         public Vector2 velocity;
         public Vector2 SteerVec;
         public Vector2 position;
@@ -32,11 +32,13 @@ namespace ConsoleApplication1.Vehicles
         public PickUp currentPickup;
         public int nodesPassed = 0;
         private bool spinning = false;
+        public bool fuckinBitchesUp = false;
         private int spinTicks = 90;
 
 
 
-        public Slot_Car(Race _race, int _ln) : base()
+        public Slot_Car(Race _race, int _ln)
+            : base()
         {
             SetGraphic(carImage);
             carImage.CenterOrigin();
@@ -57,22 +59,31 @@ namespace ConsoleApplication1.Vehicles
             //currentSpeed.Y += acceleration.Y;
 
             //if (Math.Abs(currentSpeed.X) < 0.05f) currentSpeed.X = 0;
-           //if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
-            if(!spinning)
-            Steer();
-           // carCollider = carCollider.Collide(X,Y, (int)PICKUP);
-
-            if (carCollider != null)
-            {
-                //if(carCollider.Tags[0] == PICKUP)
-                //{
-                    
-                //}
-                spinning = true;
-            }
-            if(spinning)
+            //if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
+            if (!spinning)
+                Steer();
+            //carCollider = carCollider.Collide(X, Y, (int)PICKUP);
+            //if (carCollider != null)
+            //{
+            //    if (carCollider.Tags[0] == (int)Tags.PICKUP)
+            //    {
+            //        PickUp item = (PickUp)carCollider.Entity;
+            //        item.Collidable = false;
+            //        item.itemImage.Visible = false;
+            //        spinning = true;
+            //    }
+            //    else if (carCollider.Tags[0] == (int)Tags.SLOTCAR)
+            //    {
+            //        Slot_Car otherCah = (Slot_Car)carCollider.Entity;
+            //        if (otherCah.fuckinBitchesUp)
+            //        {
+            //            spinning = true;
+            //        }
+            //    }
+            //}
+            if (spinning)
                 SpinOut();
-           
+
             X += velocity.X;
             Y += velocity.Y;
 
@@ -95,7 +106,7 @@ namespace ConsoleApplication1.Vehicles
             {
 
                 nodeIndex = nextNode;
-               
+
                 if (nodeIndex == theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes.Count())
                 {
                     nodeIndex = 0;
@@ -115,7 +126,7 @@ namespace ConsoleApplication1.Vehicles
             toTarget.Normalize();
             velocity += toTarget * acceleration;
 
-            if(velocity.Length > maxSpeed)
+            if (velocity.Length > maxSpeed)
             {
                 velocity.Normalize();
                 velocity *= maxSpeed;
