@@ -60,8 +60,16 @@ namespace ConsoleApplication1.Vehicles
            //if (Math.Abs(currentSpeed.Y) < 0.05f) currentSpeed.Y = 0;
             if(!spinning)
             Steer();
-            if (true)
+           // carCollider = carCollider.Collide(X,Y, (int)PICKUP);
+
+            if (carCollider != null)
+            {
+                //if(carCollider.Tags[0] == PICKUP)
+                //{
+                    
+                //}
                 spinning = true;
+            }
             if(spinning)
                 SpinOut();
            
@@ -138,7 +146,6 @@ namespace ConsoleApplication1.Vehicles
             velocity.Y = 0;
 
             carImage.Angle += 15;
-            Console.WriteLine(carImage.Angle.ToString());
         }
     }
 }
