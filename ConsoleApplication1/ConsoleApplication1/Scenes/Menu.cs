@@ -12,12 +12,13 @@ namespace ConsoleApplication1.Scenes
         public enum MenuButtons { MB_Play = 0, MB_Options = 1, MB_Credits = 2, MB_Exit = 3 }
         public enum TabedMenuButtons { play_Back = 0, play_Play, options_Back, options_otherButton, credits_Back }
         public int currentSelection, cursorX_offset, cursorY_offset;
-        public Image cursor_Image, backArrow_Image;
+        public Image cursor_Image, backArrow_Image, MainMenuBg_Image, FullSail_Image;
         public Image PlayButton_Image, OptionsButton_Image, CreditsButton_Image, ExitButton_Image;
         bool Play, PlayTab_Close, Options, OptionsTab_Close, Credits, CreditsTab_Close, Exit, SwitchScenes;
 
         public Image options_otherButton;
         public Image play_PlayButton;
+        public Image play_Background_Image, credits_Background_Image, options_Background_Image;
 
         public Menu()
             : base()
@@ -32,17 +33,25 @@ namespace ConsoleApplication1.Scenes
             OptionsButton_Image = new Image("Assets/Images/Menu_Options.png");
             CreditsButton_Image = new Image("Assets/Images/Menu_Credits.png");
             ExitButton_Image = new Image("Assets/Images/Menu_Exit.png");
+            FullSail_Image = new Image("Assets/Images/FullSail.png");
+            MainMenuBg_Image = new Image("Assets/Images/MainMenuBg.png");
 
             options_otherButton = new Image("Assets/Images/otherButton.png");
             play_PlayButton = new Image("Assets/Images/PlayButton.png");
+
+            play_Background_Image = new Image("Assets/Images/BlueFlag.png");
+            options_Background_Image = new Image("Assets/Images/GrayFlag.png");
+            credits_Background_Image = new Image("Assets/Images/GreenFlag.png");
 
             backArrow_Image.SetPosition(192, 834);
             PlayButton_Image.SetPosition(160f, 128f);
             OptionsButton_Image.SetPosition(160f, 350f);
             CreditsButton_Image.SetPosition(160f, 572f);
             ExitButton_Image.SetPosition(160f, 794f);
+            FullSail_Image.SetPosition(736, 288);
+            MainMenuBg_Image.SetPosition(32, 32);
 
-            options_otherButton.SetPosition(192, 128);
+            options_otherButton.SetPosition(192, 650);
             play_PlayButton.SetPosition(1000, 834);
 
             Play = false;
@@ -105,17 +114,29 @@ namespace ConsoleApplication1.Scenes
             if (PlayButton_Image.Left > 1920)//play car wrap
                 PlayButton_Image.SetPosition(-352f, 128f);
             else if (PlayButton_Image.Left < 160)
+            {
                 PlayButton_Image.SetPosition(PlayButton_Image.Left + 25f, 128f);
+                if (PlayButton_Image.Left > 160)
+                    PlayButton_Image.SetPosition(160f, 128f);
+            }
 
             if (OptionsButton_Image.Left > 1920)//options car wrap
                 OptionsButton_Image.SetPosition(-352f, 350f);
             else if (OptionsButton_Image.Left < 160)
+            {
                 OptionsButton_Image.SetPosition(OptionsButton_Image.Left + 25f, 350f);
+                if (OptionsButton_Image.Left > 160)
+                    OptionsButton_Image.SetPosition(160f, 350f);
+            }
 
             if (CreditsButton_Image.Left > 1920)//credits car wrap
                 CreditsButton_Image.SetPosition(-352f, 572f);
             else if (CreditsButton_Image.Left < 160)
+            {
                 CreditsButton_Image.SetPosition(CreditsButton_Image.Left + 25f, 572f);
+                if (CreditsButton_Image.Left > 160)
+                    CreditsButton_Image.SetPosition(160f, 572f);
+            }
 
 
             #endregion
@@ -125,13 +146,13 @@ namespace ConsoleApplication1.Scenes
             if (Play && PlayButton_Image.Left >= 1496)
             {
                 //input check 
-                if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed)
+                if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed || Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)
                 {
                     currentSelection--;
                     if (currentSelection < (int)TabedMenuButtons.play_Back)
                         currentSelection = (int)TabedMenuButtons.play_Play;
                 }
-                else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed)
+                else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed || Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)
                 {
                     currentSelection++;
                     if (currentSelection > (int)TabedMenuButtons.play_Play)
@@ -145,7 +166,7 @@ namespace ConsoleApplication1.Scenes
 
 
                 if (currentSelection == (int)TabedMenuButtons.play_Play)
-                    cursor_Image.SetPosition(900, 875);
+                    cursor_Image.SetPosition(925, 875);
                 else if (currentSelection == (int)TabedMenuButtons.play_Back)
                     cursor_Image.SetPosition(458, 875);
 
@@ -181,7 +202,8 @@ namespace ConsoleApplication1.Scenes
                         play_PlayButton.SetPosition(1000, 834);
 
                         //switch scenes
-                        Game.Close();
+                        Game.RemoveScene();
+                        Game.AddScene(new Race());
                     }
                 }
             }
@@ -212,7 +234,7 @@ namespace ConsoleApplication1.Scenes
 
 
                 if (currentSelection == (int)TabedMenuButtons.options_otherButton)
-                    cursor_Image.SetPosition(458, 160);
+                    cursor_Image.SetPosition(458, 682);
                 else if (currentSelection == (int)TabedMenuButtons.options_Back)
                     cursor_Image.SetPosition(458, 875);
 
@@ -230,7 +252,8 @@ namespace ConsoleApplication1.Scenes
                     Options = false;
                     OptionsTab_Close = false;
                     backArrow_Image.SetPosition(192, 834);
-                    options_otherButton.SetPosition(192, 128);
+                    options_otherButton.SetPosition(192, 650);
+                    currentSelection = (int)MenuButtons.MB_Options;
                 }
             }
 
@@ -258,6 +281,7 @@ namespace ConsoleApplication1.Scenes
                     Credits = false;
                     CreditsTab_Close = false;
                     backArrow_Image.SetPosition(192, 834);
+                    currentSelection = (int)MenuButtons.MB_Credits;
                 }
             }
 
@@ -281,7 +305,7 @@ namespace ConsoleApplication1.Scenes
         {
             base.Render();
 
-            Draw.Rectangle(32, 32, 1856, 1016, Color.Mix(Color.Black, Color.Gray));
+            MainMenuBg_Image.Render();
 
             if (Exit)
             {
@@ -293,7 +317,7 @@ namespace ConsoleApplication1.Scenes
                 if (!Options && !Play && !Credits)
                 {
                     Draw.Rectangle(800, 64, 928, 192, Color.Blue);
-                    Draw.Rectangle(736, 288, 1056, 664, Color.Yellow);
+                    FullSail_Image.Render();
 
                     cursor_Image.Render();
                     PlayButton_Image.Render();
@@ -303,7 +327,9 @@ namespace ConsoleApplication1.Scenes
                 }
                 else if (Play)
                 {
-                    Draw.Rectangle(PlayButton_Image.Left - 1350, 32, 1248, 1016, Color.Blue);
+                    //Draw.Rectangle(PlayButton_Image.Left - 1350, 32, 1248, 1016, Color.Blue);
+                    play_Background_Image.SetPosition(PlayButton_Image.Left - 1350, 32);
+                    play_Background_Image.Render();
                     PlayButton_Image.Render();
 
                     if (PlayButton_Image.Left >= 1496)
@@ -311,11 +337,19 @@ namespace ConsoleApplication1.Scenes
                         cursor_Image.Render();
                         backArrow_Image.Render();
                         play_PlayButton.Render();
+
+                        Globals.slotCarText.FontSize = 100;
+                        Globals.slotCarText.Color = Color.Black;
+                        Globals.slotCarText.String = "Play";
+                        Globals.slotCarText.SetPosition(500, 100);
+                        Globals.slotCarText.Render();
                     }
                 }
                 else if (Options)
                 {
-                    Draw.Rectangle(OptionsButton_Image.Left - 1350, 32, 1248, 1016, Color.Gray);
+                    //Draw.Rectangle(OptionsButton_Image.Left - 1350, 32, 1248, 1016, Color.Gray);
+                    options_Background_Image.SetPosition(OptionsButton_Image.Left - 1350, 32);
+                    options_Background_Image.Render();
                     OptionsButton_Image.Render();
 
                     if (OptionsButton_Image.Left >= 1496)
@@ -323,17 +357,90 @@ namespace ConsoleApplication1.Scenes
                         cursor_Image.Render();
                         backArrow_Image.Render();
                         options_otherButton.Render();
+
+                        Globals.slotCarText.String = "Options";
+                        Globals.slotCarText.FontSize = 100;
+                        Globals.slotCarText.Color = Color.Black;
+                        Globals.slotCarText.SetPosition(500, 100);
+                        Globals.slotCarText.Render();
+
+                        //controls section
+                        Globals.slotCarText.FontSize = 50;
+                        Globals.slotCarText.Color = Color.White;
+
+                        Globals.slotCarText.String = "Controls:";
+                        Globals.slotCarText.SetPosition(200, 250);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.FontSize = 30;
+                        Globals.slotCarText.String = "Accelerate: Space Bar";
+                        Globals.slotCarText.SetPosition(250, 320);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.String = "Swap Left Lane: Left Arrow";
+                        Globals.slotCarText.SetPosition(250, 360);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.String = "Swap Right Lane: Right Arrow";
+                        Globals.slotCarText.SetPosition(250, 400);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.String = "Use Item: Left Control";
+                        Globals.slotCarText.SetPosition(250, 440);
+                        Globals.slotCarText.Render();
+
                     }
                 }
                 else if (Credits)
                 {
-                    Draw.Rectangle(CreditsButton_Image.Left - 1350, 32, 1248, 1016, Color.Green);
+                    //Draw.Rectangle(CreditsButton_Image.Left - 1350, 32, 1248, 1016, Color.Green);
+                    credits_Background_Image.SetPosition(CreditsButton_Image.Left - 1350, 32);
+                    credits_Background_Image.Render();
                     CreditsButton_Image.Render();
 
                     if (CreditsButton_Image.Left >= 1496)
                     {
                         cursor_Image.Render();
                         backArrow_Image.Render();
+
+                        Globals.slotCarText.FontSize = 100;
+                        Globals.slotCarText.Color = Color.Black;
+
+                        Globals.slotCarText.String = "Credits";
+                        Globals.slotCarText.SetPosition(500, 100);
+                        Globals.slotCarText.Render();
+
+                        //here is the actual credits
+                        Globals.slotCarText.FontSize = 50;
+                        Globals.slotCarText.Color = Color.White;
+                        Globals.slotCarText.String = "Ben Ayers";
+                        Globals.slotCarText.SetPosition(350, 300);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.String = "Nick Garcia";
+                        Globals.slotCarText.SetPosition(350, 375);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.String = "Corey Herington";
+                        Globals.slotCarText.SetPosition(350, 450);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.String = "Nick Hryshko";
+                        Globals.slotCarText.SetPosition(350, 525);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.String = "Richard Lizana";
+                        Globals.slotCarText.SetPosition(350, 600);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.String = "Conner McClaine";
+                        Globals.slotCarText.SetPosition(350, 675);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.String = "Brett Vanderzanden";
+                        Globals.slotCarText.SetPosition(350, 750);
+                        Globals.slotCarText.Render();
+
                     }
                 }
             }
