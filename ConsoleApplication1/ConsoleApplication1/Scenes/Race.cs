@@ -62,21 +62,23 @@ namespace ConsoleApplication1.Scenes
                 Slot_Car adam = new AIDriver(this, 1);
                 HUD hud1 = new HUD(adam, this);
                 theCars.Add(adam);
+                Add(adam);
                 Add(hud1);
                 Slot_Car steve = new AIDriver(this, 2);
                 theCars.Add(steve);
+                Add(steve);
                 HUD hud2 = new HUD(steve, this);
                 Add(hud2);
                 Slot_Car tom = new AIDriver(this, 3);
                 HUD hud3 = new HUD(tom, this);
                 theCars.Add(tom);
+                Add(tom);
                 Add(hud3);
             }
             else
             {
                 Slot_Car steve = new AIDriver(this, 2);
                 theCars.Add(steve);
-                Add(steve);
                 Add(steve);
                 HUD hud2 = new HUD(steve, this);
                 Add(hud2);
