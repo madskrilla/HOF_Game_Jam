@@ -19,7 +19,7 @@ namespace ConsoleApplication1.Items
 
 
         public OilSlick(Slot_Car _owner, Race race)
-            : base(_owner, race)
+            : base( race)
         {
             owner = _owner;
             theRace = race;

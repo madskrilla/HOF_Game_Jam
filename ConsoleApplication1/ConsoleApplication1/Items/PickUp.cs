@@ -19,7 +19,7 @@ namespace ConsoleApplication1.Items
         public ItemType itemType;
         
         
-        public PickUp(Slot_Car _owner, Race race) : base()
+        public PickUp( Race race) : base()
         {
             theRace = race;
             itemImage = new Image("Assets/Images/pickup.png");
@@ -70,7 +70,7 @@ namespace ConsoleApplication1.Items
                     p = new Bomb(owner, theRace);
                     break;
                 default:
-                    p = new PickUp(owner, theRace);
+                    p = new PickUp( theRace);
                     break;
             }
             itemCollider.Collidable = false;

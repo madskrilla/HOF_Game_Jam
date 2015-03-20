@@ -14,7 +14,7 @@ namespace ConsoleApplication1.Items
     {
 
         public Bomb(Slot_Car _owner, Race race)
-            : base(_owner, race)
+            : base( race)
         {
             owner = _owner;
             theRace = race;

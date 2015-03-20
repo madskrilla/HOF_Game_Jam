@@ -29,7 +29,7 @@ namespace ConsoleApplication1.Items
         private bool active = false;
 
         public Missle(Slot_Car _owner, Race race)
-            : base(_owner, race)
+            : base( race)
         {
             owner = _owner;
             theRace = race;
