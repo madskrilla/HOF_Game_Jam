@@ -24,6 +24,7 @@ namespace ConsoleApplication1.Scenes
         public int play_numPlayers, play_numRounds, play_currentTack_select, carSelct_player1, carSelect_player2, carSelect_Counter, play_trackInputCounter;
         public Image play_Background_Image, play_PlayButton, play_numPlayers_Button, play_numRounds_Button, play_carSelection_Button, play_trackSelection_Button, carCursor_Image_P1, carCursor_Image_P2, player1CarSelection, player2CarSelection;
         public Image car1_Image, car2_Image, car3_Image, car4_Image, car5_Image, car6_Image, car7_Image;
+        public Image track1_Image, track2_Image, track3_Image;
         public bool PlayTab_Close, playTab_NumPlayers_bool, playTab_NumRounds_bool, playTab_CarSelect_bool, playTab_TrackSelect_bool, SwitchScenes;
 
         //options menu variables
@@ -78,6 +79,11 @@ namespace ConsoleApplication1.Scenes
             car6_Image = new Image("Assets/Images/Car6_Yellow.png");
             car7_Image = new Image("Assets/Images/Car7_Gray.png");
 
+            //track images
+       //     track1_Image = new Image();
+       //     track2_Image = new Image();
+       //     track3_Image = new Image();
+
             //cursor images
             cursor_Image = new Image("Assets/Images/Menu_Cursor.png");
             carCursor_Image_P1 = new Image("Assets/Images/CarSelect_P1.png");
@@ -121,6 +127,11 @@ namespace ConsoleApplication1.Scenes
             car7_Image.SetPosition(1025, 700);
             carCursor_Image_P1.SetPosition(390, 675);
             carCursor_Image_P2.SetPosition(390, 675);
+
+            //track image 
+       //     track1_Image.SetPosition(350, 625);
+       //     track2_Image.SetPosition(625, 625);
+       //     track3_Image.SetPosition(900, 625);
 
             //other images 
             FullSail_Image.SetPosition(736, 288);
@@ -740,6 +751,10 @@ namespace ConsoleApplication1.Scenes
                             Draw.Rectangle(625, 625, 200, 200, Color.White, Color.Black, 5);
                             Draw.Rectangle(900, 625, 200, 200, Color.White, Color.Black, 5);
 
+                      //      track1_Image.Render();
+                      //      track2_Image.Render();
+                      //      track3_Image.Render();
+
                             Globals.slotCarText.FontSize = 20;
                             Globals.slotCarText.Color = Color.Grey;
                             Globals.slotCarText.String = "Backspace to go back";
@@ -761,60 +776,60 @@ namespace ConsoleApplication1.Scenes
                         //options_VolumeButton.Render();
 
                         //controls section
-                        Globals.slotCarText.FontSize = 75;
+                        Globals.slotCarText.FontSize = 100;
                         Globals.slotCarText.Color = Color.White;
 
                         Globals.slotCarText.String = "Controls";
-                        Globals.slotCarText.SetPosition(500, 100);
+                        Globals.slotCarText.SetPosition(400, 100);
                         Globals.slotCarText.Render();
 
                         Globals.slotCarText.Color = Color.Green;
-                        Globals.slotCarText.FontSize = 30;
+                        Globals.slotCarText.FontSize = 50;
                         Globals.slotCarText.String = "Keyboard";
-                        Globals.slotCarText.SetPosition(200, 220);
+                        Globals.slotCarText.SetPosition(200, 250);
                         Globals.slotCarText.Render();
 
                         Globals.slotCarText.Color = Color.White;
-                        Globals.slotCarText.FontSize = 20;
+                        Globals.slotCarText.FontSize = 30;
                         Globals.slotCarText.String = "Accelerate               Space Bar";
-                        Globals.slotCarText.SetPosition(250, 260);
-                        Globals.slotCarText.Render();
-
-                        Globals.slotCarText.String = "Swap Left Lane       Left Arrow";
-                        Globals.slotCarText.SetPosition(250, 290);
-                        Globals.slotCarText.Render();
-
-                        Globals.slotCarText.String = "Swap Right Lane      Right Arrow";
                         Globals.slotCarText.SetPosition(250, 320);
                         Globals.slotCarText.Render();
 
+                        Globals.slotCarText.String = "Swap Left Lane       Left Arrow";
+                        Globals.slotCarText.SetPosition(250, 370);
+                        Globals.slotCarText.Render();
+
+                        Globals.slotCarText.String = "Swap Right Lane      Right Arrow";
+                        Globals.slotCarText.SetPosition(250, 420);
+                        Globals.slotCarText.Render();
+
                         Globals.slotCarText.String = "Use Item                       Left Control";
-                        Globals.slotCarText.SetPosition(250, 350);
+                        Globals.slotCarText.SetPosition(250, 470);
                         Globals.slotCarText.Render();
 
 
                         Globals.slotCarText.Color = Color.Green;
-                        Globals.slotCarText.FontSize = 30;
+                        Globals.slotCarText.FontSize = 50;
                         Globals.slotCarText.String = "Controller";
-                        Globals.slotCarText.SetPosition(200, 420);
+                        Globals.slotCarText.SetPosition(200, 540);
                         Globals.slotCarText.Render();
 
                         Globals.slotCarText.Color = Color.White;
-                        Globals.slotCarText.FontSize = 20;
+                        Globals.slotCarText.FontSize = 30;
                         Globals.slotCarText.String = "Accelerate               Space Bar";
-                        Globals.slotCarText.SetPosition(250, 450);
+                        Globals.slotCarText.SetPosition(250, 610);
                         Globals.slotCarText.Render();
 
                         Globals.slotCarText.String = "Swap Left Lane       Left Arrow";
-                        Globals.slotCarText.SetPosition(250, 480);
+                        Globals.slotCarText.SetPosition(250, 660);
                         Globals.slotCarText.Render();
 
                         Globals.slotCarText.String = "Swap Right Lane      Right Arrow";
-                        Globals.slotCarText.SetPosition(250, 510);
+                        Globals.slotCarText.SetPosition(250, 710);
                         Globals.slotCarText.Render();
 
                         Globals.slotCarText.String = "Use Item                       Left Control";
-                        Globals.slotCarText.SetPosition(250, 540);
+                        Globals.slotCarText.SetPosition(250, 760);
                         Globals.slotCarText.Render();
 
                         //volume section
