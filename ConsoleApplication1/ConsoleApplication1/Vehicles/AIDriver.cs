@@ -19,7 +19,6 @@ namespace ConsoleApplication1
             carImage.CenterOrigin();
 
             driverType = DriverType.AI;
-            attacking = true;
             acceleration = 0;
         }
 
@@ -27,6 +26,10 @@ namespace ConsoleApplication1
         {
             if (theRace.currentState == RaceState.RaceBegin)
                 return;
+            else
+            {
+                acceleration += 0.1f;
+            }
             base.Update();
             if (!spinning)
             {

@@ -60,6 +60,7 @@ namespace ConsoleApplication1.Vehicles
             SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             carCollider.CenterOrigin();
             carCollider.Entity = this;
+            playerNum = Lane + 1;
         }
         public override void Update()
         {
@@ -67,10 +68,12 @@ namespace ConsoleApplication1.Vehicles
             if (!spinning)
                 Steer();
             if (theRace.currentState == RaceState.RaceBegin)
-                return;
+            {
 
-
-            var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
+            }
+            else
+            {
+                var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
             if (collider != null)
             {
                 //if (collider.Tags[0] == (int)ColliderType.PickUp)
@@ -95,6 +98,7 @@ namespace ConsoleApplication1.Vehicles
             }
             if (spinning)
                 SpinOut();
+            }
             X += velocity.X;
             Y += velocity.Y;
             base.Update();
@@ -123,6 +127,7 @@ namespace ConsoleApplication1.Vehicles
                         {
                             finished = true;
                             theRace.carsFin++;
+                            theRace.finishOrder.Add(playerNum);
                         }
                     }
                 }
@@ -163,7 +168,7 @@ namespace ConsoleApplication1.Vehicles
                 spinTicks = 90;
                 return;
             }
-
+            acceleration = 0;
             velocity.X = 0;
             velocity.Y = 0;
 

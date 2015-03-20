@@ -58,7 +58,7 @@ namespace ConsoleApplication1
         public override void Render()
         {
             base.Render();
-         //   Globals.slotCarText.Render();
+         
         }
 
         public void getInput()
@@ -101,7 +101,10 @@ namespace ConsoleApplication1
         {
             shakeTime--;
             if (shakeTime <= 0)
+            {
+                theRace.CameraX = 0;
                 return;
+            } 
             if (shakeTime % 2 == 0)
                 theRace.CameraX += 2;
             else

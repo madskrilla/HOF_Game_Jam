@@ -13,6 +13,7 @@ namespace ConsoleApplication1.Extra
     {
       public Text Player = new Text("", "Assets/RACER___.TTF");
       public Text Lap = new Text("", "Assets/RACER___.TTF");
+      public Text Item = new Text("", "Assets/RACER___.TTF");
       Scene theScene = new Scene();
       public Slot_Car owner;
       public int player;
@@ -25,6 +26,7 @@ namespace ConsoleApplication1.Extra
           Lap.String = "Lap: " + owner.completeLaps.ToString();
           player = owner.Lane + 1;
           Player.String = "player " + player.ToString();
+          Item.String = "Current Pickup: ";
           theScene = _scene;
           Player.FontSize = 50;
           Lap.FontSize = 50;
@@ -33,6 +35,7 @@ namespace ConsoleApplication1.Extra
         {
             base.Update();
             Lap.String = "Lap: " + owner.completeLaps.ToString();
+           
         }
         public override void Render()
         {
@@ -50,12 +53,12 @@ namespace ConsoleApplication1.Extra
                     break;
                 case 3:
                     xPos = 0;
-                    yPos = theScene.Height - 100;
+                    yPos = theScene.Height - 150;
                     Player.Color = Color.Yellow;
                     break;
                 case 4:
                     xPos = theScene.Width - Player.Width;
-                    yPos = theScene.Height - 100;
+                    yPos = theScene.Height - 150;
                     Player.Color = Color.Red;
                     break;
                 default:
@@ -63,6 +66,11 @@ namespace ConsoleApplication1.Extra
             }
             Player.Render(xPos, yPos);
             Lap.Render(xPos, yPos + 50);
+            Item.Render(xPos, yPos + 100);
+            if (owner.currentPickup != null)
+            {
+                owner.currentPickup.itemImage.Render(xPos + Item.Width, yPos + 100);
+            }
         }
     }
 }

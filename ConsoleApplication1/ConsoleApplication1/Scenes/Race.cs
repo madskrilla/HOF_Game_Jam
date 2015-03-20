@@ -23,7 +23,12 @@ namespace ConsoleApplication1.Scenes
         public RaceState currentState;
         public int countDown = 3;
         public int carsFin = 0;
-        public Race(int _laps)
+        public List<int> finishOrder = new List<int>();
+        public Text first = new Text("", "Assets/RACER___.TTF");
+        public Text second = new Text("", "Assets/RACER___.TTF");
+        public Text third = new Text("", "Assets/RACER___.TTF");
+        public Text fourth = new Text("", "Assets/RACER___.TTF");
+        public Race(int _laps, int numPlayers)
             : base()
         {
 
@@ -33,29 +38,55 @@ namespace ConsoleApplication1.Scenes
             {
                 Add(theTrack.thePieces[i]);
             }
-            Slot_Car player = new Player(this, 0, Globals.PlayerOne);
-            HUD hud = new HUD(player, this);
-            theCars.Add(player);
-
-            Slot_Car player2 = new Player(this, 3, Globals.PlayerTwo);
-            HUD hud3 = new HUD(player2, this);
-            theCars.Add(player2);
-
-            Slot_Car adam = new AIDriver(this, 1);
-            HUD hud1 = new HUD(adam, this);
-            theCars.Add(adam);
-
-            Slot_Car steve = new AIDriver(this, 2);
-            theCars.Add(steve);
-            HUD hud2 = new HUD(steve, this);
-
-            Add(hud);
-            Add(hud1);
-            Add(hud2);
-            Add(player);
-            Add(player2);
-            Add(adam);
-            Add(steve);
+            for (int play = 0; play < numPlayers; play++)
+            {
+                if (play == 0)
+                {
+                    Slot_Car player = new Player(this, 0, Globals.PlayerOne);
+                    HUD hud = new HUD(player, this);
+                    theCars.Add(player);
+                    Add(player);
+                    Add(hud);
+                }
+                else
+                {
+                    Slot_Car player2 = new Player(this, 1, Globals.PlayerTwo);
+                    HUD hud1 = new HUD(player2, this);
+                    theCars.Add(player2);
+                    Add(player2);
+                    Add(hud1);
+                }
+            }
+            if (numPlayers == 1)
+            {
+                Slot_Car adam = new AIDriver(this, 1);
+                HUD hud1 = new HUD(adam, this);
+                theCars.Add(adam);
+                Add(hud1);
+                Slot_Car steve = new AIDriver(this, 2);
+                theCars.Add(steve);
+                HUD hud2 = new HUD(steve, this);
+                Add(hud2);
+                Slot_Car tom = new AIDriver(this, 3);
+                HUD hud3 = new HUD(tom, this);
+                theCars.Add(tom);
+                Add(hud3);
+            }
+            else
+            {
+                Slot_Car steve = new AIDriver(this, 2);
+                theCars.Add(steve);
+                Add(steve);
+                Add(steve);
+                HUD hud2 = new HUD(steve, this);
+                Add(hud2);
+                Slot_Car tom = new AIDriver(this, 3);
+                HUD hud3 = new HUD(tom, this);
+                theCars.Add(tom);
+                Add(tom);
+                Add(hud3);
+            }
+            
             currNode = theTrack.thePieces[currPiece].theLanes[0].theNodes[currNodeIndex];
             currentState = RaceState.RaceBegin;
             countText.FontSize = 75;
@@ -95,7 +126,25 @@ namespace ConsoleApplication1.Scenes
                     countDown--;
             }
             if (carsFin == theCars.Count)
+            {
                 currentState = RaceState.RaceEnd;
+                first.String = "1. Player " + finishOrder[0];
+                first.FontSize = 50;
+                first.Color = Color.Green;
+                second.String = "2. Player " + finishOrder[1];
+                second.FontSize = 50;
+                second.Color = Color.Yellow;
+                third.String = "3. Player " + finishOrder[2];
+                third.FontSize = 50;
+                third.Color = Color.Red;
+                fourth.String = "Press Enter To Return to the Main Menu!";
+            }
+            if (currentState == RaceState.RaceEnd && Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed)
+            {
+                Game.RemoveScene();
+                Game.AddScene(new Menu());
+                
+            }
             base.Update();
         }
         public override void Render()
@@ -133,7 +182,13 @@ namespace ConsoleApplication1.Scenes
             {
                 countText.Render(HalfWidth - countText.Width/2, HalfHeight);
             }
-
+            else if (currentState == RaceState.RaceEnd)
+            {
+                first.Render(HalfWidth - first.Width, HalfHeight - first.Height);
+                second.Render(HalfWidth - first.Width, HalfHeight - first.Height + 50);
+                third.Render(HalfWidth - first.Width, HalfHeight - first.Height + 100);
+                fourth.Render(HalfWidth - first.Width, HalfHeight + 150);
+            }
             base.Render();
         }
     }
