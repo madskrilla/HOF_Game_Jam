@@ -24,6 +24,9 @@ namespace ConsoleApplication1.Scenes
         public Image play_Background_Image, credits_Background_Image, options_Background_Image;
         public Image car1_Image, car2_Image, car3_Image, car4_Image, car5_Image, car6_Image, car7_Image;
 
+        
+        
+
         public Menu()
             : base()
         {
@@ -103,12 +106,23 @@ namespace ConsoleApplication1.Scenes
             CreditsTab_Close = false;
             Exit = false;
             SwitchScenes = false;
+
+            Globals.digestiveIntro.Play();
+            Globals.songStartTime = DateTime.Now.Ticks;
+            
             volumeChange = false;
         }
 
         public override void Update()
         {
             base.Update();
+
+            if (!Globals.loopPlaying
+                && DateTime.Now.Ticks - Globals.songStartTime >= (204160000))
+            {
+                Globals.digestiveLoop.Play();
+                Globals.loopPlaying = true;
+            }
 
             #region Main Menu Tab
 

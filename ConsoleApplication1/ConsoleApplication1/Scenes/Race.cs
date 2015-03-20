@@ -97,6 +97,12 @@ namespace ConsoleApplication1.Scenes
         }
         public override void Update()
         {
+            if (!Globals.loopPlaying
+                && DateTime.Now.Ticks - Globals.songStartTime >= (204160000))
+            {
+                Globals.digestiveLoop.Play();
+                Globals.loopPlaying = true;
+            }
             if (countDown < 0)
             {
                 currentState = RaceState.Racing;

@@ -115,5 +115,7 @@ namespace ConsoleApplication1
             else
                 theRace.CameraX -= 2;
         }
+
+        
     }
 }
