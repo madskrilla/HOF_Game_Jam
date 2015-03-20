@@ -7,7 +7,7 @@ using Otter;
 using ConsoleApplication1.Vehicles;
 using ConsoleApplication1.Track_Elements;
 using ConsoleApplication1.Scenes;
-
+using ConsoleApplication1.Particles;
 namespace ConsoleApplication1.Items
 {
 
@@ -44,10 +44,16 @@ namespace ConsoleApplication1.Items
             this.itemImage.Visible = false;
             owner.theRace.Add(this);
             active = false;
-
+            LoadEmitters("Assets/Images/Puff2.png", race);
 
         }
-
+        public void LoadEmitters(string ImagePath, Scene theScene)
+        {
+            SmokeEffect = new Emitter(this, theScene);
+            Vector2 s = new Vector2(5, 5);
+            Color c = new Color(1.0f, 0, 0, 1.0f);
+            SmokeEffect.LoadEmitter(s, c, ImagePath, 65, 10, 1, 1);
+        }
 
         private void Steer()
         {
@@ -103,6 +109,8 @@ namespace ConsoleApplication1.Items
             if (active)
             {
                 Steer();
+
+                SmokeEffect.Update();
 
                 X += velocity.X;
                 Y += velocity.Y;

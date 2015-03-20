@@ -45,7 +45,7 @@ namespace ConsoleApplication1.Particles
 
         
     }
-    class Emitter : Entity
+    class Emitter
     {
         public ParticleFlyweight flyweight;
 
@@ -70,16 +70,23 @@ namespace ConsoleApplication1.Particles
 
         public List<Particle> particleList = new List<Particle>();
 
-        public Image particleImage;
-
         Entity entity;
-
-        public Emitter(Entity Object)
+        Scene theScene;
+        public Emitter(Entity Object, Scene _theScene)
         {
             flyweight = new ParticleFlyweight();
             if (Object != null)
             {
                 entity = Object;
+            }
+            theScene = _theScene;
+        }
+        public void RemoveParticlesFromScene()
+        {
+            for (int index = 0; index < particleList.Count; index++)
+            {
+                particleList[index].RemoveGraphics();
+                particleList[index].RemoveSelf();
             }
         }
 
@@ -114,7 +121,9 @@ namespace ConsoleApplication1.Particles
             
             InitParticle(ref p);
 
-            //particleCount++;
+            particleCount++;
+            
+                
             return true;
         }
         public void InitParticle(ref Particle p)
@@ -177,9 +186,8 @@ namespace ConsoleApplication1.Particles
                 if (newP != null)
                 {
                     particleList.Add(newP);
-                    this.Scene.Add(newP);
-                    //newP.particleImg = new Image(flyweight.imagePath);
-                    newP.particleImg = Image.CreateRectangle((int)flyweight.size.X, (int)flyweight.size.Y, flyweight.start_Color);
+                    theScene.Add(newP);
+                    newP.particleImg = new Image(flyweight.imagePath);
                     newP.particleImg.CenterOrigin();
                     AddParticle(iter);
                 }
@@ -247,9 +255,9 @@ namespace ConsoleApplication1.Particles
                 --particleIndex;
             }
         }
-        public override void Update()
+        public void Update()
         {
-            base.Update();
+            
             angle += EmitterRotationSpeed;
 
             Particle p;
@@ -264,7 +272,6 @@ namespace ConsoleApplication1.Particles
                     while (!IsFull() && emitCounter > rate)
                     {
                         AddParticle(particleIndex);
-                        particleCount++;
                         emitCounter -= rate;
                     }
                 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Otter;
 using ConsoleApplication1.Vehicles;
 using ConsoleApplication1.Scenes;
+using ConsoleApplication1.Particles;
 
 namespace ConsoleApplication1.Items
 {
@@ -18,7 +19,7 @@ namespace ConsoleApplication1.Items
         public Race theRace;
         public ItemType itemType;
         public bool active = false;
-        
+        public Emitter SmokeEffect;
         
         public PickUp( Race race) : base()
         {
@@ -61,6 +62,7 @@ namespace ConsoleApplication1.Items
             {
                 case 0:
                     p = new Rocket(owner, theRace);
+                    
                     break;
                 case 1:
                     p = new Missle(owner, theRace);

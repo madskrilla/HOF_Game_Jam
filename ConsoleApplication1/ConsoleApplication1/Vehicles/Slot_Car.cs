@@ -131,15 +131,23 @@ namespace ConsoleApplication1.Vehicles
                 }
                 if (itemGet != null)
                 {
+                    if (currentPickup != null)
+                    {
+                        if (currentPickup.SmokeEffect != null)
+                        {
+                            currentPickup.SmokeEffect.RemoveParticlesFromScene();
+                        }
+                        currentPickup.RemoveSelf();
+                        currentPickup = null;
+                    }
                     PickUp item = (PickUp)itemGet.Entity;
                     currentPickup = item.GenerateRandom(this);
-
                     hasItem = true;
                 }
                 if (itemHit != null)
                 {
                     PickUp item = (PickUp)itemHit.Entity;
-                    if (item != currentPickup)
+                    if (item.owner != this)
                     {
                         if (item.itemType == ItemType.Bomb)
                         {
@@ -155,9 +163,14 @@ namespace ConsoleApplication1.Vehicles
                             //Add Pop up
                             spinning = true;
                             popDuration = 30;
+                            item.SmokeEffect.RemoveParticlesFromScene();
                             item.RemoveSelf();
+                            if (currentPickup.SmokeEffect != null)
+                            {
+                                 currentPickup.SmokeEffect.RemoveParticlesFromScene();
+                                
+                            }
                             currentPickup = null;
-
 
                         }
                         else if (item.itemType == ItemType.Missle)
@@ -165,8 +178,12 @@ namespace ConsoleApplication1.Vehicles
                             //Add Pop up
                             spinning = true;
                             popDuration = 30;
-
+                            item.SmokeEffect.RemoveParticlesFromScene();
                             item.RemoveSelf();
+                            if (currentPickup.SmokeEffect != null)
+                            {
+                                currentPickup.SmokeEffect.RemoveParticlesFromScene();
+                            }
                             currentPickup = null;
 
                         }

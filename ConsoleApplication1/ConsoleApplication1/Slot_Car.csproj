@@ -163,6 +163,9 @@
     <Content Include="Assets\Images\PlayButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\Puff2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\rocket.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

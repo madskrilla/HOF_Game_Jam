@@ -32,7 +32,6 @@ namespace ConsoleApplication1.Scenes
         public Race(int _laps, int numPlayers)
             : base()
         {
-        
             theTrack = new Track(this,1);
             theTrack.BuildTrack();
             for (int i = 0; i < theTrack.thePieces.Count(); i++)

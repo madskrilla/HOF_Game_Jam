@@ -67,13 +67,13 @@ namespace ConsoleApplication1.Extra
             Player.Render(xPos, yPos);
             Lap.Render(xPos, yPos + 50);
             Item.Render(xPos, yPos + 100);
-            if (owner.currentPickup != null && owner.currentPickup.active == false)
-            {
-                if (player == 1)
-                {
-                    owner.currentPickup.itemImage.Render(xPos + Item.Width, yPos + 100);
-                }
-            }
+           //if (owner.currentPickup != null && owner.currentPickup.active == false)
+           //{
+           //    if (player == 1)
+           //    {
+           //        owner.currentPickup.itemImage.Render(xPos + Item.Width, yPos + 100);
+           //    }
+           //}
         }
     }
 }
