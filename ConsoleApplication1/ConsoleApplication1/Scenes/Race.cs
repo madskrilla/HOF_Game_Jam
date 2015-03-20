@@ -204,10 +204,10 @@ namespace ConsoleApplication1.Scenes
                 {
                     if (theCars[player].finished)
                     {
-                        Globals.slotCarText.String = "Player " + theCars[player].playerNum.ToString() + "has finished!.";
+                        Globals.slotCarText.String = "Player " + theCars[player].playerNum.ToString() + " has finished!.";
                         Globals.slotCarText.FontSize = 50;
                         Globals.slotCarText.Color = theCars[player].playerCol;
-                        Globals.slotCarText.Render((HalfWidth - Globals.slotCarText.Width) - 100, HalfHeight +  - Globals.slotCarText.Height + (50 * player) - 100);
+                        Globals.slotCarText.Render((HalfWidth - Globals.slotCarText.Width) - 150, HalfHeight +  - Globals.slotCarText.Height + (50 * player) - 100);
                     }
                 }
             }
