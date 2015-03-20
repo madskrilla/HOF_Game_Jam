@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Otter;
 using ConsoleApplication1.Track_Elements;
+using ConsoleApplication1.Items;
 
 namespace ConsoleApplication1.Track_Elements
 {
@@ -193,6 +194,13 @@ namespace ConsoleApplication1.Track_Elements
                                 newNode.localSpace.X = _parent.X + (Globals.TileSize / 3) * _lane;
                                 newNode.localSpace.Y = _parent.Y + Globals.TileSize - ((Globals.TileSize / 5) * node);
                                 theNodes.Add(newNode);
+                                if (node == 2)
+                                {
+                                    PickUp pickUp = new PickUp(_parent.theTrack.theRace);
+                                    pickUp.X = newNode.localSpace.X;
+                                    pickUp.Y = newNode.localSpace.Y;
+
+                                }
                             }
                             break;
                         case Direction.Down:
@@ -202,6 +210,13 @@ namespace ConsoleApplication1.Track_Elements
                                 newNode.localSpace.X = _parent.X + Globals.TileSize - ((Globals.TileSize / 3) * _lane);
                                 newNode.localSpace.Y = _parent.Y + (Globals.TileSize / 5) * node;
                                 theNodes.Add(newNode);
+                                if (node == 2)
+                                {
+                                    PickUp pickUp = new PickUp(_parent.theTrack.theRace);
+                                    pickUp.X = newNode.localSpace.X;
+                                    pickUp.Y = newNode.localSpace.Y;
+
+                                }
                             }
                             break;
                         case Direction.Left:
@@ -211,6 +226,13 @@ namespace ConsoleApplication1.Track_Elements
                                 newNode.localSpace.X = _parent.X + Globals.TileSize - ((Globals.TileSize / 5) * node);
                                 newNode.localSpace.Y = _parent.Y + Globals.TileSize - ((Globals.TileSize / 3) * _lane);
                                 theNodes.Add(newNode);
+                                if (node == 2)
+                                {
+                                    PickUp pickUp = new PickUp(_parent.theTrack.theRace);
+                                    pickUp.X = newNode.localSpace.X;
+                                    pickUp.Y = newNode.localSpace.Y;
+
+                                }
                             }
                             break;
                         case Direction.Right:
@@ -220,6 +242,13 @@ namespace ConsoleApplication1.Track_Elements
                                 newNode.localSpace.X = _parent.X + ((Globals.TileSize / 5) * node);
                                 newNode.localSpace.Y = _parent.Y + ((Globals.TileSize / 3) * _lane);
                                 theNodes.Add(newNode);
+                                if (node == 2)
+                                {
+                                    PickUp pickUp = new PickUp(_parent.theTrack.theRace);
+                                    pickUp.X = newNode.localSpace.X;
+                                    pickUp.Y = newNode.localSpace.Y;
+
+                                }
                             }
                             break;
                     }
@@ -234,6 +263,13 @@ namespace ConsoleApplication1.Track_Elements
                                 newNode.localSpace.X = _parent.X + (Globals.TileSize / 5) * _lane;
                                 newNode.localSpace.Y = _parent.Y + Globals.TileSize - ((Globals.TileSize / 5) * node);
                                 theNodes.Add(newNode);
+                                if (node == 2)
+                                {
+                                    PickUp pickUp = new PickUp(_parent.theTrack.theRace);
+                                    pickUp.X = newNode.localSpace.X;
+                                    pickUp.Y = newNode.localSpace.Y;
+
+                                }
                             }
                             break;
                         case Direction.Down:
@@ -243,6 +279,13 @@ namespace ConsoleApplication1.Track_Elements
                                 newNode.localSpace.X = _parent.X + Globals.TileSize - ((Globals.TileSize / 5) * _lane);
                                 newNode.localSpace.Y = _parent.Y + (Globals.TileSize / 5) * node;
                                 theNodes.Add(newNode);
+                                if (node == 2)
+                                {
+                                    PickUp pickUp = new PickUp(_parent.theTrack.theRace);
+                                    pickUp.X = newNode.localSpace.X;
+                                    pickUp.Y = newNode.localSpace.Y;
+
+                                }
                             }
                             break;
                         case Direction.Left:
@@ -252,6 +295,13 @@ namespace ConsoleApplication1.Track_Elements
                                 newNode.localSpace.X = _parent.X + Globals.TileSize - ((Globals.TileSize / 5) * node);
                                 newNode.localSpace.Y = _parent.Y + Globals.TileSize - ((Globals.TileSize / 5) * _lane);
                                 theNodes.Add(newNode);
+                                if (node == 2)
+                                {
+                                    PickUp pickUp = new PickUp(_parent.theTrack.theRace);
+                                    pickUp.X = newNode.localSpace.X;
+                                    pickUp.Y = newNode.localSpace.Y;
+
+                                }
                             }
                             break;
                         case Direction.Right:
@@ -261,6 +311,13 @@ namespace ConsoleApplication1.Track_Elements
                                 newNode.localSpace.X = _parent.X + ((Globals.TileSize / 5) * node);
                                 newNode.localSpace.Y = _parent.Y + ((Globals.TileSize / 5) * _lane);
                                 theNodes.Add(newNode);
+                                if (node == 2)
+                                {
+                                    PickUp pickUp = new PickUp(_parent.theTrack.theRace);
+                                    pickUp.X = newNode.localSpace.X;
+                                    pickUp.Y = newNode.localSpace.Y;
+
+                                }
                             }
                             break;
                     }
@@ -554,7 +611,7 @@ namespace ConsoleApplication1.Track_Elements
                                 {
                                     Node newNode = new Node();
                                     newNode.localSpace.X = _parent.X + Globals.TileSize * 2 + (float)Math.Cos((double)(Math.PI + ((Math.PI / 2) / 20) * node)) * (Globals.TileSize + (Globals.TileSize / 5) * _lane);
-                                    newNode.localSpace.Y = _parent.Y + (float)Math.Sin((double)(Math.PI + ((Math.PI / 2) / 20) * node)) * (Globals.TileSize + (Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(Math.PI + ((Math.PI / 2) / 20) * node)) * (Globals.TileSize + (Globals.TileSize / 5) * _lane);
                                     theNodes.Add(newNode);
                                 }
                             }

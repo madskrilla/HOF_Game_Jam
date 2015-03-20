@@ -21,19 +21,29 @@ namespace ConsoleApplication1.Items
         public Vector2 right = new Vector2(1, 0);
         public Vector2 up = new Vector2(0, -1);
         public Vector2 velocity;
-        public float maxSpeed = 10;
+        public float maxSpeed = 13;
         public int nodeIndex = 0;
         public int nextNode = 1;
         public int pieceIndex = 0;
         public int currLane;
+       
 
         public Missle(Slot_Car _owner, Race race)
-            : base(_owner, race)
+            : base( race)
         {
             owner = _owner;
             theRace = race;
+            itemImage = new Image("Assets/Images/missle.png");
+            SetGraphic(itemImage);
+            itemImage.CenterOrigin();
+            itemType = ItemType.Missle;
+
+            itemCollider = new BoxCollider(itemImage.Width, itemImage.Height, (int)ColliderType.PickUpUse);
+            SetCollider(itemCollider);
             this.itemCollider.Collidable = false;
             this.itemImage.Visible = false;
+            owner.theRace.Add(this);
+            active = false;
 
 
         }
@@ -90,22 +100,33 @@ namespace ConsoleApplication1.Items
 
         public override void Update()
         {
-            Steer();
+            if (active)
+            {
+                Steer();
 
-            X += velocity.X;
-            Y += velocity.Y;
-            base.Update();
+                X += velocity.X;
+                Y += velocity.Y;
+                base.Update();
+            }
 
         }
 
         public override void Execute()
         {
+            active = true;
             this.itemCollider.Collidable = true;
             this.itemImage.Visible = true;
             currLane = owner.Lane;
             velocity = owner.velocity;
             velocity.Normalize();
             velocity *= maxSpeed;
+            itemImage.Angle = owner.carImage.Angle;
+            nextNode = owner.nextNode;
+            nodeIndex = owner.nodeIndex;
+            pieceIndex = owner.pieceIndex;
+            X = owner.X;
+            Y = owner.Y;
+            targetNode = theRace.theTrack.thePieces[pieceIndex].theLanes[currLane].theNodes[nodeIndex];
             
         }
 
