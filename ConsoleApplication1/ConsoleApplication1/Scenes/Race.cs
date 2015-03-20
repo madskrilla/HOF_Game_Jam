@@ -28,11 +28,11 @@ namespace ConsoleApplication1.Scenes
         public Text second = new Text("", "Assets/RACER___.TTF");
         public Text third = new Text("", "Assets/RACER___.TTF");
         public Text fourth = new Text("", "Assets/RACER___.TTF");
-        public Race(int _laps, int numPlayers, Image player1Car, Image player2Car)
+        public Race(int _laps, int numPlayers, Image player1Car, Image player2Car, int track_selection )
             : base()
         {
 
-            theTrack = new Track(this,2);
+            theTrack = new Track(this,track_selection);
             theTrack.BuildTrack();
             for (int i = 0; i < theTrack.thePieces.Count(); i++)
             {

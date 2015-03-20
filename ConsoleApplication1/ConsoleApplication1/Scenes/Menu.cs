@@ -21,7 +21,7 @@ namespace ConsoleApplication1.Scenes
         public bool Play, Options, Credits, Exit;
 
         //play menu variables
-        public int play_numPlayers, play_numRounds, play_currentTack_select, carSelct_player1, carSelect_player2, carSelect_Counter;
+        public int play_numPlayers, play_numRounds, play_currentTack_select, carSelct_player1, carSelect_player2, carSelect_Counter, play_trackInputCounter;
         public Image play_Background_Image, play_PlayButton, play_numPlayers_Button, play_numRounds_Button, play_carSelection_Button, play_trackSelection_Button, carCursor_Image_P1, carCursor_Image_P2, player1CarSelection, player2CarSelection;
         public Image car1_Image, car2_Image, car3_Image, car4_Image, car5_Image, car6_Image, car7_Image;
         public bool PlayTab_Close, playTab_NumPlayers_bool, playTab_NumRounds_bool, playTab_CarSelect_bool, playTab_TrackSelect_bool, SwitchScenes;
@@ -52,6 +52,7 @@ namespace ConsoleApplication1.Scenes
             carSelct_player1 = 0;
             carSelect_player2 = 1;
             carSelect_Counter = 0;
+            play_trackInputCounter = 0;
 
             #region Image Loading
 
@@ -301,8 +302,6 @@ namespace ConsoleApplication1.Scenes
                         if (play_numPlayers < 1)
                             play_numPlayers = 2;
                     }
-                    //else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
-                    //playTab_NumPlayers_bool = false;
                 }
                 if (playTab_NumRounds_bool)
                 {
@@ -319,8 +318,6 @@ namespace ConsoleApplication1.Scenes
                         if (play_numRounds < 1)
                             play_numRounds = 30;
                     }
-                    //else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
-                    //playTab_NumRounds_bool = false;
                 }
                 if (playTab_CarSelect_bool)
                 {
@@ -467,6 +464,8 @@ namespace ConsoleApplication1.Scenes
                 }
                 if (playTab_TrackSelect_bool)
                 {
+                    play_trackInputCounter++;
+
                     //input for selecting a track
                     if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)
                     {
@@ -480,11 +479,10 @@ namespace ConsoleApplication1.Scenes
                         if (play_currentTack_select < (int)TrackSelection.track1_select)
                             play_currentTack_select = (int)TrackSelection.track3_select;
                     }
-                    else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed)
+                    else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && play_trackInputCounter > 10)
                     {
-                        //set the track to be the one played
-
-
+                        playTab_TrackSelect_bool = false;
+                        play_trackInputCounter = 0;
                     }
                     else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
                         playTab_TrackSelect_bool = false;
@@ -530,7 +528,7 @@ namespace ConsoleApplication1.Scenes
                         //switch scenes
                         Game.RemoveScene();
                         //Game.AddScene(new Race(10));
-                        Game.AddScene(new Race(play_numRounds, play_numPlayers, player1CarSelection, player2CarSelection));
+                        Game.AddScene(new Race(play_numRounds, play_numPlayers, player1CarSelection, player2CarSelection, play_currentTack_select));
                     }
                 }
             }
