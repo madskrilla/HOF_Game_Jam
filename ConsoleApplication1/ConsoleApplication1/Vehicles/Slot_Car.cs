@@ -76,11 +76,11 @@ namespace ConsoleApplication1.Vehicles
             box.Rotate(carImage.Angle, X, Y);
             carCollider = new PolygonCollider(box, ColliderType.Slot_Car);
             carCollider.SetOrigin(X, Y);
-            SetCollider(carCollider);
 
             // SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             carCollider.CenterOrigin();
-            carCollider.Entity = this;
+            SetCollider(carCollider);
+            //carCollider.Entity = this;
             switch (playerNum)
             {
                 case 1:
@@ -111,13 +111,10 @@ namespace ConsoleApplication1.Vehicles
             if (!spinning)
                 Steer();
             if (theRace.currentState == RaceState.RaceBegin)
+                return;
+
+            if (invulnTimer > 0)
             {
-
-            }
-
-            if (invulnTimer == 0)
-            {
-
 
                 var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
                 var itemHit = carCollider.Collide(X, Y, ColliderType.PickUpUse);
@@ -145,8 +142,13 @@ namespace ConsoleApplication1.Vehicles
                     }
                     if (itemGet != null)
                     {
+                        if (currentPickup.Scene != null)
+                        {
+                            currentPickup.RemoveSelf();
+                        }
                         PickUp item = (PickUp)itemGet.Entity;
                         currentPickup = item.GenerateRandom(this);
+                        
 
                         hasItem = true;
                     }
@@ -198,7 +200,14 @@ namespace ConsoleApplication1.Vehicles
                     }
                 }
                 else
+                {
                     invulnTimer--;
+                    if (invulnTimer < 0)
+                    {
+                        invulnTimer = 0;
+                    }
+
+                }
 
                 if (slowTimer > 0)
                 {
@@ -209,6 +218,7 @@ namespace ConsoleApplication1.Vehicles
                         maxSpeed = 10;
                     }
                 }
+            }
                 if (spinning)
                     SpinOut();
 
@@ -216,7 +226,6 @@ namespace ConsoleApplication1.Vehicles
                 Y += velocity.Y;
                 PlayAudio();
                 base.Update();
-            }
         }
 
         public void Steer()
