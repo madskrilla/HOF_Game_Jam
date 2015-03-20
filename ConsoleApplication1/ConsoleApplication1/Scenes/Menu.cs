@@ -58,7 +58,7 @@ namespace ConsoleApplication1.Scenes
             //button images
             backArrow_Image = new Image("Assets/Images/BackArrow.png");
             PlayButton_Image = new Image("Assets/Images/Menu_Play.png");
-            OptionsButton_Image = new Image("Assets/Images/Menu_Options.png");
+            OptionsButton_Image = new Image("Assets/Images/Menu_Controls.png");//("Assets/Images/Menu_Options.png");
             CreditsButton_Image = new Image("Assets/Images/Menu_Credits.png");
             ExitButton_Image = new Image("Assets/Images/Menu_Exit.png");
             options_VolumeButton = new Image("Assets/Images/VolumeButton.png");
@@ -171,7 +171,7 @@ namespace ConsoleApplication1.Scenes
                 else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)MenuButtons.MB_Options)
                 {
                     Options = true;
-                    currentSelection = (int)TabedMenuButtons.options_Volume;
+                    currentSelection = (int)TabedMenuButtons.options_Back;
                 }
                 else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)MenuButtons.MB_Play)
                 {
@@ -543,54 +543,54 @@ namespace ConsoleApplication1.Scenes
             if (Options && OptionsButton_Image.Left >= 1496)
             {
                 //input check for option tab cursor
-                if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed)//move up
-                {
-                    currentSelection--;
-                    if (currentSelection < (int)TabedMenuButtons.options_Back)
-                        currentSelection = (int)TabedMenuButtons.options_Volume;
-                }
-                else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed)//move down
-                {
-                    currentSelection++;
-                    if (currentSelection > (int)TabedMenuButtons.options_Volume)
-                        currentSelection = (int)TabedMenuButtons.options_Back;
-                }
+                //if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed)//move up
+                //{
+                //    currentSelection--;
+                //    if (currentSelection < (int)TabedMenuButtons.options_Back)
+                //        currentSelection = (int)TabedMenuButtons.options_Volume;
+                //}
+                //else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed)//move down
+                //{
+                //    currentSelection++;
+                //    if (currentSelection > (int)TabedMenuButtons.options_Volume)
+                //        currentSelection = (int)TabedMenuButtons.options_Back;
+                //}
 
                 if ((Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.options_Back) || Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
                     OptionsTab_Close = true;
 
-                if (currentSelection == (int)TabedMenuButtons.options_Volume)
-                    volumeChange = true;
-                if (currentSelection == (int)TabedMenuButtons.options_Back)
-                    volumeChange = false;
+                //if (currentSelection == (int)TabedMenuButtons.options_Volume)
+                 //   volumeChange = true;
+                //if (currentSelection == (int)TabedMenuButtons.options_Back)
+                  //  volumeChange = false;
 
-                if (currentSelection == (int)TabedMenuButtons.options_Volume)
-                    cursor_Image.SetPosition(458, 708);
-                else if (currentSelection == (int)TabedMenuButtons.options_Back)
+                //if (currentSelection == (int)TabedMenuButtons.options_Volume)
+                 //   cursor_Image.SetPosition(458, 708);
+                if (currentSelection == (int)TabedMenuButtons.options_Back)
                     cursor_Image.SetPosition(458, 875);
 
-                if (volumeChange)
-                {
-                    //input check for volume
-                    if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)//increase volume
-                    {
-                        volumeRectLength += 40;
-                        if (volumeRectLength > 400)
-                            volumeRectLength = 400;
-                    }
-                    else if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)//decrease volume
-                    {
-                        volumeRectLength -= 40;
-                        if (volumeRectLength < 0)
-                            volumeRectLength = 0;
-                    }
-                    else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
-                    {
-                        volumeChange = false;
-                        //make it save the volume
-
-                    }
-                }
+                //if (volumeChange)
+                //{
+                //    //input check for volume
+                //    if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)//increase volume
+                //    {
+                //        volumeRectLength += 40;
+                //        if (volumeRectLength > 400)
+                //            volumeRectLength = 400;
+                //    }
+                //    else if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)//decrease volume
+                //    {
+                //        volumeRectLength -= 40;
+                //        if (volumeRectLength < 0)
+                //            volumeRectLength = 0;
+                //    }
+                //    else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
+                //    {
+                //        volumeChange = false;
+                //        //make it save the volume
+                //
+                //    }
+                //}
 
                 if (OptionsTab_Close && OptionsButton_Image.Left < 1920)
                     OptionsButton_Image.SetPosition(OptionsButton_Image.Left + 25f, OptionsButton_Image.Y);
@@ -599,7 +599,7 @@ namespace ConsoleApplication1.Scenes
                 {
                     Options = false;
                     OptionsTab_Close = false;
-                    volumeChange = false;
+                    //volumeChange = false;
                     currentSelection = (int)MenuButtons.MB_Options;
                 }
             }
@@ -717,7 +717,8 @@ namespace ConsoleApplication1.Scenes
                             car6_Image.Render();
                             car7_Image.Render();
 
-                            carCursor_Image_P2.Render();
+                            if (play_numPlayers == 2)
+                                carCursor_Image_P2.Render();                               
                             carCursor_Image_P1.Render();
 
                             Globals.slotCarText.FontSize = 20;
@@ -759,7 +760,7 @@ namespace ConsoleApplication1.Scenes
                     {
                         cursor_Image.Render();
                         backArrow_Image.Render();
-                        options_VolumeButton.Render();
+                        //options_VolumeButton.Render();
 
                         //controls section
                         Globals.slotCarText.FontSize = 75;
@@ -819,7 +820,7 @@ namespace ConsoleApplication1.Scenes
                         Globals.slotCarText.Render();
 
                         //volume section
-                        Draw.Rectangle(600, 700, volumeRectLength, 100, Color.Magenta, Color.Black, 5);
+                        //Draw.Rectangle(600, 700, volumeRectLength, 100, Color.Magenta, Color.Black, 5);
 
                         Globals.slotCarText.FontSize = 30;
                         Globals.slotCarText.String = "Backspace to go back";
