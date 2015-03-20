@@ -17,6 +17,7 @@ namespace ConsoleApplication1.Items
         public Slot_Car owner;
         public Race theRace;
         public ItemType itemType;
+        public bool active = false;
         
         
         public PickUp( Race race) : base()
@@ -54,7 +55,7 @@ namespace ConsoleApplication1.Items
         {
             PickUp p;
             Random rnd = new Random();
-            int pickupType = rnd.Next(0, 4);
+            int pickupType = rnd.Next(0, 5);
             switch (pickupType)
             {
                 case 0:
@@ -69,6 +70,9 @@ namespace ConsoleApplication1.Items
                 case 3:
                     p = new Bomb(owner, theRace);
                     break;
+                case 4:
+                    p = new SpeedBoost(owner, theRace);
+                    break;
                 default:
                     p = new PickUp( theRace);
                     break;
@@ -77,8 +81,6 @@ namespace ConsoleApplication1.Items
             itemImage.Visible = false;
             respawnTimer = 5;
             return p;
-
- 
         }
 
         public override void Update()
@@ -88,10 +90,11 @@ namespace ConsoleApplication1.Items
                 frame++;
                 if (frame % 60 == 0)
                     respawnTimer--;
-                if (respawnTimer == 0)
+                if (respawnTimer <= 0)
                 {
                     itemCollider.Collidable = true;
                     itemImage.Visible = true;
+                    respawnTimer = 0;
                 }
             }
           

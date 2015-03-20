@@ -15,7 +15,18 @@ namespace ConsoleApplication1.Vehicles
         public DriverType driverType;
         public Race theRace;
         public Image carImage = Image.CreateRectangle(30, 50, Color.Cyan);
-        public BoxCollider carCollider = new BoxCollider(50, 30, (int)ColliderType.Slot_Car);
+        public PolygonCollider carCollider;
+        public float audioVolume;
+        public Sound carRev = new Sound("Audio/EngineRev.wav", true);
+        public bool revPlaying = false;
+        public Sound carIdle = new Sound("Audio/EngineIdle.wav", true);
+        public bool idlePlaying = false;
+        public List<Sound> tireScreech = new List<Sound>();
+        public bool tireScreechPlaying = false;
+        public Sound jumpLanes = new Sound("Audio/jumpLanes.wav");
+        public Sound bombExplode = new Sound("Audio/bombExplode.wav");
+        public Sound rocketBoom = new Sound("Audio/rocketBoom.wav");
+        public Sound itemPickup = new Sound("Audio/itemPickup.wav");
         public Vector2 velocity;
         public Vector2 SteerVec;
         public Vector2 position;
@@ -27,7 +38,7 @@ namespace ConsoleApplication1.Vehicles
         public int nextNode = 1;
         public int pieceIndex = 0;
         public int maxSpeed = 10;
-        public PickUp currentPickup;
+        public PickUp currentPickup = null;
         public int nodesPassed = 0;
         public bool spinning = false;
         public bool attacking = false;
@@ -42,6 +53,9 @@ namespace ConsoleApplication1.Vehicles
 
         public int popTimer = 0;
         public int popDuration = 30;
+        public int invulnTimer = 0;
+        public int slowTimer = 0;
+        public bool hasItem = false;
 
         public Slot_Car(Race _race, int _ln)
             : base()
@@ -53,15 +67,24 @@ namespace ConsoleApplication1.Vehicles
             SteerVec = new Vector2();
             velocity = new Vector2();
             position = new Vector2();
+            playerNum = _ln + 1;
 
             targetNode = theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes[nodeIndex];
             X = targetNode.localSpace.X;
             Y = targetNode.localSpace.Y;
-           
             SetHitbox(50, 30, (int)ColliderType.Slot_Car);
+            // Polygon box = new Polygon(new float[] { X, Y, X, Y + 50, X + 30, Y + 50, X + 30, Y});
+            Polygon box = new Polygon(new float[] { 0, 0, 0, 50, 30, 50, 30, 0 });
+
+            box.Scale(carImage.ScaleX, carImage.ScaleY, X, Y);
+            box.Rotate(carImage.Angle, X, Y);
+            carCollider = new PolygonCollider(box, ColliderType.Slot_Car);
+            carCollider.SetOrigin(X, Y);
+            SetCollider(carCollider);
+
+            // SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             carCollider.CenterOrigin();
             carCollider.Entity = this;
-            playerNum = Lane + 1;
             switch (playerNum)
             {
                 case 1:
@@ -79,48 +102,123 @@ namespace ConsoleApplication1.Vehicles
                 default:
                     break;
             }
+            tireScreech.Add(new Sound("Audio/SpinOut1.wav"));
+            tireScreech.Add(new Sound("Audio/SpinOut2.wav"));
+            tireScreech.Add(new Sound("Audio/SpinOut3.wav"));
+
+            audioVolume = 1.0f;
         }
         public override void Update()
         {
+            if (theRace.currentState == RaceState.RaceBegin)
+            {
+                return;
+            }
+
             PopUp();
             if (!spinning)
                 Steer();
-            if (theRace.currentState == RaceState.RaceBegin)
-            {
 
-            }
-            else
+            if (invulnTimer == 0)
             {
                 var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
-            if (collider != null)
-            {
-                //if (collider.Tags[0] == (int)ColliderType.PickUp)
-                //{
-                //    PickUp item = (PickUp)collider.Entity;
-                //    item.Collidable = false;
-                //    item.itemImage.Visible = false;
-                //    spinning = true;
-                //}
+                var itemHit = carCollider.Collide(X, Y, ColliderType.PickUpUse);
+                var itemGet = carCollider.Collide(X, Y, ColliderType.PickUpBase);
 
-                Slot_Car otherCah = (Slot_Car)collider.Entity;
-                if (otherCah.attacking && otherCah.Lane == Lane)
+                if (collider != null)
                 {
-                    spinning = true;
+                    Slot_Car otherCah = (Slot_Car)collider.Entity;
+
+                    if (otherCah.attacking && otherCah.Lane == Lane && otherCah.invulnTimer == 0)
+                    {
+                        spinning = true;
+                        if (!tireScreechPlaying)
+                        {
+                            tireScreech[Rand.Int(2)].Play();
+                            tireScreechPlaying = true;
+                        }
+                        else if (!otherCah.attacking && otherCah.invulnTimer == 0)
+                        {
+                            velocity.X = velocity.X * 0.5f;
+                            velocity.Y = velocity.Y * 0.5f;
+                        }
+                    }
                 }
-                else if (!otherCah.attacking)
+                if (itemGet != null)
                 {
-                    velocity.X = velocity.X * 0.5f;
-                    velocity.Y = velocity.Y * 0.5f;
+                    PickUp item = (PickUp)itemGet.Entity;
+                    currentPickup = item.GenerateRandom(this);
+                    hasItem = true;
+                    itemPickup.Play();
                 }
+                if (itemHit != null)
+                {
+                    PickUp item = (PickUp)itemHit.Entity;
+                    if (item != currentPickup)
+                    {
+                        if (item.itemType == ItemType.Bomb)
+                        {
+                            //Add Pop up
+                            spinning = true;
+                            popDuration = 30;
+                            item.RemoveSelf();
+                            currentPickup = null;
+                            bombExplode.Play();
+                        }
+                        else if (item.itemType == ItemType.Rocket)
+                        {
+                            //Add Pop up
+                            spinning = true;
+                            popDuration = 30;
+                            item.RemoveSelf();
+                            currentPickup = null;
+                            rocketBoom.Play();
+                        }
+                        else if (item.itemType == ItemType.Missle)
+                        {
+                            //Add Pop up
+                            spinning = true;
+                            popDuration = 30;
+
+                            item.RemoveSelf();
+                            currentPickup = null;
+                            rocketBoom.Play();
+                        }
+                        else if (item.itemType == ItemType.OilSlick)
+                        {
+                            maxSpeed = 5;
+                            item.RemoveSelf();
+                            currentPickup = null;
+                        }
+                        invulnTimer = 120;
+                    }
+                }
+            }
+                else
+                    invulnTimer--;
+
+                if (slowTimer > 0)
+                {
+                    slowTimer--;
+                    if (slowTimer <= 0)
+                    {
+                        slowTimer = 0;
+                        maxSpeed = 10;
+                    }
+                }
+
+                if (spinning)
+                    SpinOut();
+
+                X += velocity.X;
+                Y += velocity.Y;
+                PlayAudio();
+                base.Update();
 
             }
-            if (spinning)
-                SpinOut();
-            }
-            X += velocity.X;
-            Y += velocity.Y;
-            base.Update();
-         }
+        
+
+
         public void Steer()
         {
             SteerVec = targetNode.localSpace;
@@ -169,7 +267,7 @@ namespace ConsoleApplication1.Vehicles
             if (dpR < 0)
             {
                 carImage.Angle = (float)Math.Acos(Vector2.Dot(up, toTarget)) * (180 / 3.14f);
-               
+
             }
             else
             {
@@ -184,6 +282,7 @@ namespace ConsoleApplication1.Vehicles
             {
                 spinning = false;
                 spinTicks = 90;
+                tireScreechPlaying = false;
                 return;
             }
             acceleration = 0;
@@ -205,6 +304,33 @@ namespace ConsoleApplication1.Vehicles
                 popTimer--;
             }
             else this.carImage.Scale = 1;
+        }
+
+        public void PlayAudio()
+        {
+            carRev.Volume = audioVolume;
+            carIdle.Volume = audioVolume;
+            if (acceleration > 0.2)
+            {
+                carIdle.Stop();
+                idlePlaying = false;
+                if (!revPlaying)
+                {
+                    carRev.Play();
+                    revPlaying = true;
+                }
+                carRev.Pitch = Util.Scale(acceleration, 0.0f, 10.0f, 0.2f, 1.0f);
+            }
+            else
+            {
+                carRev.Stop();
+                revPlaying = false;
+                if (!idlePlaying)
+                {
+                    carIdle.Play();
+                    idlePlaying = true;
+                }
+            }
         }
     }
 }

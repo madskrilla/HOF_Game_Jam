@@ -63,8 +63,8 @@ namespace ConsoleApplication1
 
         public void getInput()
         {
-            
-            if(player.Controller.Button(Controls.Accelerate).Down && !spinning)
+
+            if (player.Controller.Button(Controls.Accelerate).Down)
             {
                 acceleration += 0.1f;
                 if (acceleration > maxSpeed) acceleration = maxSpeed;
@@ -76,13 +76,14 @@ namespace ConsoleApplication1
                 if (acceleration < 0) acceleration = 0;
             }
 
-            if (player.Controller.Button(Controls.SwapLaneRight).Pressed && popTimer <= 0 && acceleration >= maxSpeed/2)
+            if (player.Controller.Button(Controls.SwapLaneRight).Pressed && popTimer <= 0 && acceleration >= maxSpeed / 2)
             {
                 if (Lane < 3)
                 {
                     popTimer = popDuration;
                     Lane++;
                     nodeIndex++;
+                    jumpLanes.Play();
                 }
             }
 
@@ -93,7 +94,13 @@ namespace ConsoleApplication1
                     popTimer = popDuration;
                     Lane--;
                     nodeIndex++;
+                    jumpLanes.Play();
                 }
+            }
+            if (player.Controller.Button(Controls.UseItem).Pressed && hasItem == true)
+            {
+                currentPickup.Execute();
+                hasItem = false;
             }
         }
 
@@ -110,5 +117,7 @@ namespace ConsoleApplication1
             else
                 theRace.CameraX -= 2;
         }
+
+        
     }
 }

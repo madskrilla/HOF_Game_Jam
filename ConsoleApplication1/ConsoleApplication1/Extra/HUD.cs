@@ -17,8 +17,8 @@ namespace ConsoleApplication1.Extra
       Scene theScene = new Scene();
       public Slot_Car owner;
       public int player;
-      public int xPos;
-      public int yPos;
+      public float xPos;
+      public float yPos;
 
         public HUD(Slot_Car _owner, Scene _scene) : base()
       {
@@ -67,9 +67,12 @@ namespace ConsoleApplication1.Extra
             Player.Render(xPos, yPos);
             Lap.Render(xPos, yPos + 50);
             Item.Render(xPos, yPos + 100);
-            if (owner.currentPickup != null)
+            if (owner.currentPickup != null && owner.currentPickup.active == false)
             {
-                owner.currentPickup.itemImage.Render(xPos + Item.Width, yPos + 100);
+                if (player == 1)
+                {
+                    owner.currentPickup.itemImage.Render(xPos + Item.Width, yPos + 100);
+                }
             }
         }
     }

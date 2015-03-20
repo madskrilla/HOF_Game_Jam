@@ -18,7 +18,7 @@ namespace ConsoleApplication1.Items
        
         public Vector2 velocity;
         public int speed = 15;
-       
+        public Sound rocketFire = new Sound("Audio/rocketFire.wav");
 
         public Rocket(Slot_Car _owner, Race race) : base( race)
         {
@@ -33,10 +33,12 @@ namespace ConsoleApplication1.Items
             this.itemImage.Visible = false;
             itemType = ItemType.Rocket;
             owner.theRace.Add(this);
+            active = false;
         }
 
         public override void Execute()
         {
+            active = true;
             itemCollider.Collidable = true;
             itemImage.Visible = true;
             velocity = owner.velocity;
@@ -45,12 +47,18 @@ namespace ConsoleApplication1.Items
             itemImage.Angle = owner.carImage.Angle;
             X = owner.X;
             Y = owner.Y;
+            rocketFire.Play();
         }
 
         public override void Update()
         {
             X += velocity.X;
-            Y += velocity.Y; 
+            Y += velocity.Y;
+            if ((X < 0 || X > 1920) || (Y < 0 || Y > 1080))
+            {
+                owner.currentPickup = null;
+                RemoveSelf();
+            }
         }
     
 

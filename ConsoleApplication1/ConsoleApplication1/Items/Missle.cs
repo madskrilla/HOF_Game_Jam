@@ -26,7 +26,8 @@ namespace ConsoleApplication1.Items
         public int nextNode = 1;
         public int pieceIndex = 0;
         public int currLane;
-        private bool active = false;
+        public Sound rocketFire = new Sound("Audio/rocketFire.wav");
+       
 
         public Missle(Slot_Car _owner, Race race)
             : base( race)
@@ -37,17 +38,13 @@ namespace ConsoleApplication1.Items
             SetGraphic(itemImage);
             itemImage.CenterOrigin();
             itemType = ItemType.Missle;
-
             itemCollider = new BoxCollider(itemImage.Width, itemImage.Height, (int)ColliderType.PickUpUse);
             SetCollider(itemCollider);
             this.itemCollider.Collidable = false;
             this.itemImage.Visible = false;
             owner.theRace.Add(this);
             active = false;
-
-
         }
-
 
         private void Steer()
         {
@@ -127,7 +124,7 @@ namespace ConsoleApplication1.Items
             X = owner.X;
             Y = owner.Y;
             targetNode = theRace.theTrack.thePieces[pieceIndex].theLanes[currLane].theNodes[nodeIndex];
-            
+            rocketFire.Play();
         }
 
     }

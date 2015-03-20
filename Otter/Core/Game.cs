@@ -206,6 +206,11 @@ namespace Otter {
         public Button QuitButton = new Button();
 
         /// <summary>
+        /// Button that pauses the game when pressed.
+        /// </summary>
+        public Button PauseButton = new Button();
+
+        /// <summary>
         /// Button that will save the game's surface out to a timestamp named .png file after the next render.
         /// </summary>
         public Button ScreenshotButton = new Button();
@@ -507,7 +512,8 @@ namespace Otter {
             ConfigData.ExportMode = DataSaver.DataExportMode.Config;
             GameFolder = "ottergame";
 
-            QuitButton.AddKey(Key.Escape);
+            QuitButton.AddKey(Key.Delete);
+            PauseButton.AddKey(Key.Escape);
 
             cameraZoom = 1;
             cameraAngle = 0;
@@ -994,6 +1000,17 @@ namespace Otter {
                                 if (Keyboard.IsKeyPressed((Keyboard.Key)Key.F4)) {
                                     Close();
                                 }
+                            }
+                        }
+
+                        // temp pause input
+                        if (HasFocus)
+                        {
+                            PauseButton.UpdateFirst();
+
+                            if (PauseButton.Pressed)
+                            {
+                                PauseToggle();
                             }
                         }
 

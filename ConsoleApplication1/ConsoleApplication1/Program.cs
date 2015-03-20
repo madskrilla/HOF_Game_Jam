@@ -15,7 +15,8 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             Game game = new Game("Slotcar Game", 1920, 1080, 60, false);
-            game.Color = new Color(0x5e5b5b);
+            game.MouseVisible = true;
+            game.Color = new Color(0x018801);
             Globals.PlayerOne = game.AddSession("P1");
             Globals.PlayerTwo = game.AddSession("P2");
 
@@ -54,6 +55,8 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.Button(Controls.Enter).AddKey(Key.Return);
             Globals.PlayerOne.Controller.Button(Controls.Back).AddKey(Key.Back);
 
+            Globals.digestiveIntro.Volume = Globals.musicVolume;
+            Globals.digestiveLoop.Volume = Globals.musicVolume;
             Globals.PlayerOne.Controller.Button(Controls.Accelerate).AddAxisButton(AxisButton.ZMinus,0);
             Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).AddAxisButton(AxisButton.XMinus,0);
             Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).AddAxisButton(AxisButton.XPlus,0);

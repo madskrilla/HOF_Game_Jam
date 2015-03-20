@@ -13,6 +13,7 @@ namespace ConsoleApplication1.Items
     class Bomb : PickUp
     {
 
+
         public Bomb(Slot_Car _owner, Race race)
             : base( race)
         {
@@ -23,13 +24,14 @@ namespace ConsoleApplication1.Items
             SetGraphic(itemImage);
             itemCollider = new BoxCollider(itemImage.Width, itemImage.Height, (int)ColliderType.PickUpUse);
             SetCollider(itemCollider);
-
+            active = false;
             this.itemCollider.Collidable = false;
             this.itemImage.Visible = false;
         }
 
         public override void Execute()
         {
+            active = true;
             X = owner.X;
             Y = owner.Y;
             this.itemCollider.Collidable = true;
