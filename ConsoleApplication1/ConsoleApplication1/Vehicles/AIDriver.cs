@@ -14,6 +14,7 @@ namespace ConsoleApplication1
         const int laneSwapChance = 1;
         public AIDriver(Race _race, int _ln) : base(_race, _ln)
         {
+            audioVolume = 0.2f;
             carImage = new Image("Assets/Images/Car7_Gray.png");
             SetGraphic(carImage);
             carImage.CenterOrigin();
@@ -50,7 +51,8 @@ namespace ConsoleApplication1
                     {
                         popTimer = popDuration;
                         Lane++;
-                        nodeIndex++; 
+                        nodeIndex++;
+                        jumpLanes.Play();
                     }
                 }
                 else
@@ -60,6 +62,7 @@ namespace ConsoleApplication1
                         popTimer = popDuration;
                         Lane--;
                         nodeIndex++;
+                        jumpLanes.Play();
                     }
                 }
             }

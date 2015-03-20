@@ -29,10 +29,13 @@ namespace ConsoleApplication1.Scenes
         public Text second = new Text("", "Assets/RACER___.TTF");
         public Text third = new Text("", "Assets/RACER___.TTF");
         public Text fourth = new Text("", "Assets/RACER___.TTF");
-        public Race(int _laps, int numPlayers)
+        public Sound raceStart = new Sound("Audio/startRace.wav");
+
+        public Race(int _laps, int numPlayers, int _track)
             : base()
         {
-            theTrack = new Track(this,1);
+            Game.Instance.Color = new Color(0x018801);
+            theTrack = new Track(this, _track);
             theTrack.BuildTrack();
             for (int i = 0; i < theTrack.thePieces.Count(); i++)
             {
@@ -93,10 +96,17 @@ namespace ConsoleApplication1.Scenes
             currentState = RaceState.RaceBegin;
             countText.FontSize = 75;
             totalLaps = _laps;
+            raceStart.Play();
 
         }
         public override void Update()
         {
+            if (!Globals.loopPlaying
+                && DateTime.Now.Ticks - Globals.songStartTime >= (204160000))
+            {
+                Globals.digestiveLoop.Play();
+                Globals.loopPlaying = true;
+            }
             if (countDown < 0)
             {
                 currentState = RaceState.Racing;
@@ -143,6 +153,11 @@ namespace ConsoleApplication1.Scenes
             }
             if (currentState == RaceState.RaceEnd && Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed)
             {
+                for (int i = 0; i < theCars.Count(); i++)
+                {
+                    theCars[i].carRev.Stop();
+                    theCars[i].carIdle.Stop();
+                }
                 Game.RemoveScene();
                 Game.AddScene(new Menu());
                 
