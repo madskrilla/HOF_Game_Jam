@@ -13,9 +13,9 @@ namespace ConsoleApplication1
     {
         Session player;
         public int shakeTime = 0;
-        public Player(Race _race, int _ln, Session _player) : base(_race, _ln)
+        public Player(Race _race, int _ln, Session _player, Image _car) : base(_race, _ln)
         {
-            carImage = new Image("Assets/Images/Car5_Black.png");
+            carImage = _car;
             SetGraphic(carImage);
             carImage.CenterOrigin();
             currentSpeed = 0;
@@ -33,7 +33,7 @@ namespace ConsoleApplication1
                 return;
             else if (theRace.currentState == RaceState.RaceEnd || finished)
             {
-                acceleration += 5;
+                acceleration = 5;
             }
             else
             {
@@ -99,7 +99,8 @@ namespace ConsoleApplication1
             }
             if (player.Controller.Button(Controls.UseItem).Pressed && hasItem == true)
             {
-                currentPickup.Execute();
+                if (currentPickup != null)
+                    currentPickup.Execute();
                 hasItem = false;
             }
         }
