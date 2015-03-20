@@ -15,7 +15,7 @@ namespace ConsoleApplication1.Vehicles
         public DriverType driverType;
         public Race theRace;
         public Image carImage = Image.CreateRectangle(30, 50, Color.Cyan);
-        public BoxCollider carCollider = new BoxCollider(50, 30, (int)ColliderType.Slot_Car);
+        public PolygonCollider carCollider;
         public Vector2 velocity;
         public Vector2 SteerVec;
         public Vector2 position;
@@ -41,6 +41,9 @@ namespace ConsoleApplication1.Vehicles
 
         public int popTimer = 0;
         public int popDuration = 30;
+        public int invulnTimer = 0;
+        public int slowTimer = 0;
+        public bool hasItem = false;
 
         public Slot_Car(Race _race, int _ln)
             : base()
@@ -53,14 +56,22 @@ namespace ConsoleApplication1.Vehicles
             velocity = new Vector2();
             position = new Vector2();
 
+
             targetNode = theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes[nodeIndex];
             X = targetNode.localSpace.X;
             Y = targetNode.localSpace.Y;
-           
-            SetHitbox(50, 30, (int)ColliderType.Slot_Car);
+            // Polygon box = new Polygon(new float[] { X, Y, X, Y + 50, X + 30, Y + 50, X + 30, Y});
+            Polygon box = new Polygon(new float[] { 0, 0, 0, 50, 30, 50, 30, 0 });
+
+            box.Scale(carImage.ScaleX, carImage.ScaleY, X, Y);
+            box.Rotate(carImage.Angle, X, Y);
+            carCollider = new PolygonCollider(box, ColliderType.Slot_Car);
+            carCollider.SetOrigin(X, Y);
+            SetCollider(carCollider);
+
+            // SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             carCollider.CenterOrigin();
             carCollider.Entity = this;
-            playerNum = Lane + 1;
         }
         public override void Update()
         {
@@ -71,38 +82,100 @@ namespace ConsoleApplication1.Vehicles
             {
 
             }
-            else
+           
+            if (invulnTimer == 0)
             {
+                
+
                 var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
-            if (collider != null)
+                var itemHit = carCollider.Collide(X, Y, ColliderType.PickUpUse);
+                var itemGet = carCollider.Collide(X, Y, ColliderType.PickUpBase);
+
+                if (collider != null)
+                {
+
+                    Slot_Car otherCah = (Slot_Car)collider.Entity;
+      
+                    if (otherCah.attacking && otherCah.Lane == Lane && otherCah.invulnTimer == 0)
+                    {
+                        spinning = true;
+                    }
+                    else if (!otherCah.attacking && otherCah.invulnTimer == 0)
+                    {
+                        velocity.X = velocity.X * 0.5f;
+                        velocity.Y = velocity.Y * 0.5f;
+                    }
+
+                }
+                if (itemGet != null)
+                {
+                    PickUp item = (PickUp)itemGet.Entity;
+                    currentPickup = item.GenerateRandom(this);
+
+                    hasItem = true;
+                }
+                if (itemHit != null)
+                {
+                    PickUp item = (PickUp)itemHit.Entity;
+                    if (item != currentPickup)
+                    {
+                        if (item.itemType == ItemType.Bomb)
+                        {
+                            //Add Pop up
+                            spinning = true;
+                            popDuration = 30;
+                            item.RemoveSelf();
+
+                        }
+                        else if (item.itemType == ItemType.Rocket)
+                        {
+                            //Add Pop up
+                            spinning = true;
+                            popDuration = 30;
+                            item.RemoveSelf();
+
+
+                        }
+                        else if (item.itemType == ItemType.Missle)
+                        {
+                            //Add Pop up
+                            spinning = true;
+                            popDuration = 30;
+
+                            item.RemoveSelf();
+
+                        }
+                        else if (item.itemType == ItemType.OilSlick)
+                        {
+
+
+                            maxSpeed = 5;
+                            item.RemoveSelf();
+                        }
+                        invulnTimer += 120;
+                    }
+                } 
+            }
+            else
+                invulnTimer--;
+
+            if (slowTimer > 0)
             {
-                //if (collider.Tags[0] == (int)ColliderType.PickUp)
-                //{
-                //    PickUp item = (PickUp)collider.Entity;
-                //    item.Collidable = false;
-                //    item.itemImage.Visible = false;
-                //    spinning = true;
-                //}
-
-                Slot_Car otherCah = (Slot_Car)collider.Entity;
-                if (otherCah.attacking && otherCah.Lane == Lane)
+                slowTimer--;
+                if (slowTimer <= 0)
                 {
-                    spinning = true;
+                    slowTimer = 0;
+                    maxSpeed = 10;
                 }
-                else if (!otherCah.attacking)
-                {
-                    velocity.X = velocity.X * 0.5f;
-                    velocity.Y = velocity.Y * 0.5f;
-                }
-
             }
             if (spinning)
                 SpinOut();
-            }
+            
             X += velocity.X;
             Y += velocity.Y;
             base.Update();
          }
+
         public void Steer()
         {
             SteerVec = targetNode.localSpace;
