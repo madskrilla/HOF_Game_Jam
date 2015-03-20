@@ -132,13 +132,13 @@ namespace ConsoleApplication1.Scenes
                 currentState = RaceState.RaceEnd;
                 first.String = "1. Player " + finishOrder[0];
                 first.FontSize = 50;
-                first.Color = Color.Green;
+                first.Color = theCars[finishOrder[0]-1].playerCol;
                 second.String = "2. Player " + finishOrder[1];
                 second.FontSize = 50;
-                second.Color = Color.Yellow;
+                second.Color = theCars[finishOrder[1]-1].playerCol;
                 third.String = "3. Player " + finishOrder[2];
                 third.FontSize = 50;
-                third.Color = Color.Red;
+                third.Color = theCars[finishOrder[2]-1].playerCol;
                 fourth.String = "Press Enter To Return to the Main Menu!";
             }
             if (currentState == RaceState.RaceEnd && Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed)
@@ -183,6 +183,19 @@ namespace ConsoleApplication1.Scenes
             if (currentState == RaceState.RaceBegin)
             {
                 countText.Render(HalfWidth - countText.Width/2, HalfHeight);
+            }
+            else if (currentState == RaceState.Racing)
+            {
+                for (int player = 0; player < 4; player++)
+                {
+                    if (theCars[player].finished)
+                    {
+                        Globals.slotCarText.String = "Player " + theCars[player].playerNum.ToString() + "has finished!.";
+                        Globals.slotCarText.FontSize = 50;
+                        Globals.slotCarText.Color = theCars[player].playerCol;
+                        Globals.slotCarText.Render((HalfWidth - Globals.slotCarText.Width) - 100, HalfHeight +  - Globals.slotCarText.Height + (50 * player) - 100);
+                    }
+                }
             }
             else if (currentState == RaceState.RaceEnd)
             {

@@ -38,6 +38,7 @@ namespace ConsoleApplication1.Vehicles
         public int completeLaps = 0;
         public bool finished = false;
         public int playerNum;
+        public Color playerCol;
 
         public int popTimer = 0;
         public int popDuration = 30;
@@ -60,6 +61,7 @@ namespace ConsoleApplication1.Vehicles
             targetNode = theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes[nodeIndex];
             X = targetNode.localSpace.X;
             Y = targetNode.localSpace.Y;
+            SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             // Polygon box = new Polygon(new float[] { X, Y, X, Y + 50, X + 30, Y + 50, X + 30, Y});
             Polygon box = new Polygon(new float[] { 0, 0, 0, 50, 30, 50, 30, 0 });
 
@@ -72,6 +74,23 @@ namespace ConsoleApplication1.Vehicles
             // SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             carCollider.CenterOrigin();
             carCollider.Entity = this;
+            switch (playerNum)
+            {
+                case 1:
+                    playerCol = Color.Green;
+                    break;
+                case 2:
+                    playerCol = Color.Blue;
+                    break;
+                case 3:
+                    playerCol = Color.Yellow;
+                    break;
+                case 4:
+                    playerCol = Color.Red;
+                    break;
+                default:
+                    break;
+            }
         }
         public override void Update()
         {
