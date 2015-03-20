@@ -150,6 +150,7 @@ namespace ConsoleApplication1.Vehicles
                     currentPickup = item.GenerateRandom(this);
                     hasItem = true;
                     itemPickup.Play();
+                    item.RemoveSelf();
                 }
                 if (itemHit != null)
                 {
