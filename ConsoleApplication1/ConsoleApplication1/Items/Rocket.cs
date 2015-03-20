@@ -20,7 +20,7 @@ namespace ConsoleApplication1.Items
         public int speed = 15;
        
 
-        public Rocket(Slot_Car _owner, Race race) : base(_owner, race)
+        public Rocket(Slot_Car _owner, Race race) : base( race)
         {
             owner = _owner;
             theRace = race;

@@ -300,6 +300,19 @@ namespace ConsoleApplication1.Track_Elements
                         Lane lane1 = new Lane(this, type, startDir, 2);
                         theLanes.Add(lane0);
                         theLanes.Add(lane1);
+                        if (startDir == Direction.Left
+                            || startDir == Direction.Right)
+                        {
+                            clippingRegion.X = Globals.TileSize * 2;
+                            clippingRegion.Y = Globals.TileSize * 0;
+                        }
+                        else
+                        {
+                            clippingRegion.X = Globals.TileSize * 3;
+                            clippingRegion.Y = Globals.TileSize * 0;
+                        }
+                        clippingRegion.Width = Globals.TileSize;
+                        clippingRegion.Height = Globals.TileSize;
                         break;
                     }
                 case TrackType.itemSpawn4:
@@ -312,6 +325,20 @@ namespace ConsoleApplication1.Track_Elements
                         theLanes.Add(lane1);
                         theLanes.Add(lane2);
                         theLanes.Add(lane3);
+                        if (startDir == Direction.Left
+                           || startDir == Direction.Right)
+                        {
+                            clippingRegion.X = Globals.TileSize * 1;
+                            clippingRegion.Y = Globals.TileSize * 0;
+                        }
+                        else
+                        {
+                            clippingRegion.X = Globals.TileSize * 0;
+                            clippingRegion.Y = Globals.TileSize * 0;
+                        }
+                        clippingRegion.Width = Globals.TileSize;
+                        clippingRegion.Height = Globals.TileSize;
+                       
                         break;
                     }
             }
