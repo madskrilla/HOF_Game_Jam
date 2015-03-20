@@ -28,6 +28,8 @@ namespace ConsoleApplication1.Scenes
         public Text second = new Text("", "Assets/RACER___.TTF");
         public Text third = new Text("", "Assets/RACER___.TTF");
         public Text fourth = new Text("", "Assets/RACER___.TTF");
+        public Sound raceStart = new Sound("Audio/startRace.wav");
+
         public Race(int _laps, int numPlayers, int _track)
             : base()
         {
@@ -93,6 +95,7 @@ namespace ConsoleApplication1.Scenes
             currentState = RaceState.RaceBegin;
             countText.FontSize = 75;
             totalLaps = _laps;
+            raceStart.Play();
 
         }
         public override void Update()
