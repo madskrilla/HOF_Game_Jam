@@ -19,7 +19,6 @@ namespace ConsoleApplication1
             carImage.CenterOrigin();
 
             driverType = DriverType.AI;
-            attacking = true;
             acceleration = 0;
         }
 
