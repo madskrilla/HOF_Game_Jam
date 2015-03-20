@@ -17,24 +17,34 @@ namespace ConsoleApplication1.Items
     {
        
         public Vector2 velocity;
-        public int speed = 10;
+        public int speed = 15;
        
 
-        public Rocket(Slot_Car _owner, Race race) : base(_owner, race)
+        public Rocket(Slot_Car _owner, Race race) : base( race)
         {
             owner = _owner;
             theRace = race;
+            itemImage = new Image("Assets/Images/rocket.png");
+            SetGraphic(itemImage);
+            itemImage.CenterOrigin();
+            itemCollider = new BoxCollider(itemImage.Width, itemImage.Height, (int)ColliderType.PickUpUse);
+            SetCollider(itemCollider);
             this.itemCollider.Collidable = false;
             this.itemImage.Visible = false;
+            itemType = ItemType.Rocket;
+            owner.theRace.Add(this);
         }
 
         public override void Execute()
         {
-            this.itemCollider.Collidable = true;
-            this.itemImage.Visible = true;
+            itemCollider.Collidable = true;
+            itemImage.Visible = true;
             velocity = owner.velocity;
             velocity.Normalize();
             velocity *= speed;
+            itemImage.Angle = owner.carImage.Angle;
+            X = owner.X;
+            Y = owner.Y;
         }
 
         public override void Update()

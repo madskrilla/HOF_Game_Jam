@@ -395,9 +395,8 @@ namespace ConsoleApplication1.Scenes
 
                         //switch scenes
                         Game.RemoveScene();
-                        Game.AddScene(new Race(play_numRounds));
-                        //make num of players, car selction and track selction pass over to the race seen
-
+                        //Game.AddScene(new Race(10));
+                        Game.AddScene(new Race(3, play_numPlayers));
                     }
                 }
             }

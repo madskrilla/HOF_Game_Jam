@@ -58,13 +58,13 @@ namespace ConsoleApplication1
         public override void Render()
         {
             base.Render();
-         //   Globals.slotCarText.Render();
+         
         }
 
         public void getInput()
         {
             
-            if(player.Controller.Button(Controls.Accelerate).Down)
+            if(player.Controller.Button(Controls.Accelerate).Down && !spinning)
             {
                 acceleration += 0.1f;
                 if (acceleration > maxSpeed) acceleration = maxSpeed;
@@ -101,7 +101,10 @@ namespace ConsoleApplication1
         {
             shakeTime--;
             if (shakeTime <= 0)
+            {
+                theRace.CameraX = 0;
                 return;
+            } 
             if (shakeTime % 2 == 0)
                 theRace.CameraX += 2;
             else

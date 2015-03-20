@@ -5,14 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Otter;
 using ConsoleApplication1.Track_Elements;
+using ConsoleApplication1.Scenes;
 
 namespace ConsoleApplication1.Track_Elements
 {
     class Track : Entity
     {
         public List<Track_Piece> thePieces = new List<Track_Piece>();
-        public Track(int _track) : base()
+        public Race theRace;
+        public Track(Race _race, int _track) : base()
         {
+            theRace = _race;
             if (_track == 0)
             {
                 thePieces.Add(new Track_Piece(this, TrackType.startingLine4, Direction.Left, Direction.Left, 4, 3));
@@ -60,7 +63,7 @@ namespace ConsoleApplication1.Track_Elements
                 thePieces.Add(new Track_Piece(this, TrackType.startingLine4, Direction.Left, Direction.Left, 4, 5));
                 thePieces.Add(new Track_Piece(this, TrackType.straight4, Direction.Left, Direction.Left, 3, 5));
                 thePieces.Add(new Track_Piece(this, TrackType.straight4, Direction.Left, Direction.Left, 2, 5));
-                thePieces.Add(new Track_Piece(this, TrackType.straight4, Direction.Left, Direction.Left, 1, 5));
+                thePieces.Add(new Track_Piece(this, TrackType.itemSpawn4, Direction.Left, Direction.Left, 1, 5));
                 thePieces.Add(new Track_Piece(this, TrackType.sharpTurn4, Direction.Left, Direction.Right, 0, 5));
                 thePieces.Add(new Track_Piece(this, TrackType.straight4, Direction.Up, Direction.Up, 0, 4));
                 thePieces.Add(new Track_Piece(this, TrackType.straight4, Direction.Up, Direction.Up, 0, 3));
