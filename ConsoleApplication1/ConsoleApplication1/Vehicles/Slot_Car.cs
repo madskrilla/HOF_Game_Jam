@@ -15,6 +15,13 @@ namespace ConsoleApplication1.Vehicles
         public DriverType driverType;
         public Race theRace;
         public Image carImage = Image.CreateRectangle(30, 50, Color.Cyan);
+        public float audioVolume;
+        public Sound carRev = new Sound("Audio/EngineRev.wav");
+        public bool revPlaying = false;
+        public Sound carIdle = new Sound("Audio/EngineIdle.wav");
+        public bool idlePlaying = false;
+        public List<Sound> tireScreech = new List<Sound>();
+        public bool tireScreechPlaying = false;
         public BoxCollider carCollider = new BoxCollider(50, 30, (int)ColliderType.Slot_Car);
         public Vector2 velocity;
         public Vector2 SteerVec;
@@ -61,6 +68,12 @@ namespace ConsoleApplication1.Vehicles
             SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             carCollider.CenterOrigin();
             carCollider.Entity = this;
+
+            tireScreech.Add(new Sound("Audio/SpinOut1.wav"));
+            tireScreech.Add(new Sound("Audio/SpinOut2.wav"));
+            tireScreech.Add(new Sound("Audio/SpinOut3.wav"));
+
+            audioVolume = 1.0f;
         }
         public override void Update()
         {
@@ -86,6 +99,11 @@ namespace ConsoleApplication1.Vehicles
                 if (otherCah.attacking && otherCah.Lane == Lane)
                 {
                     spinning = true;
+                    if (!tireScreechPlaying)
+                    {
+                        tireScreech[Rand.Int(2)].Play();
+                        tireScreechPlaying = true;
+                    }
                 }
                 else if (!otherCah.attacking)
                 {
@@ -98,6 +116,7 @@ namespace ConsoleApplication1.Vehicles
                 SpinOut();
             X += velocity.X;
             Y += velocity.Y;
+            PlayAudio();
             base.Update();
          }
         public void Steer()
@@ -162,6 +181,7 @@ namespace ConsoleApplication1.Vehicles
             {
                 spinning = false;
                 spinTicks = 90;
+                tireScreechPlaying = false;
                 return;
             }
 
@@ -183,6 +203,33 @@ namespace ConsoleApplication1.Vehicles
                 popTimer--;
             }
             else this.carImage.Scale = 1;
+        }
+
+        public void PlayAudio()
+        {
+            carRev.Volume = audioVolume;
+            carIdle.Volume = audioVolume;
+            if (acceleration > 0.2)
+            {
+                carIdle.Stop();
+                idlePlaying = false;
+                if (!revPlaying)
+                {
+                    carRev.Play();
+                    revPlaying = true;
+                }
+                carRev.Pitch = Util.Scale(acceleration, 0.0f, 10.0f, 0.2f, 1.0f);
+            }
+            else
+            {
+                carRev.Stop();
+                revPlaying = false;
+                if (!idlePlaying)
+                {
+                    carIdle.Play();
+                    idlePlaying = true;
+                }
+            }
         }
     }
 }

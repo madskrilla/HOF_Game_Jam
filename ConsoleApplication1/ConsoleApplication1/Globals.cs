@@ -15,6 +15,11 @@ namespace ConsoleApplication1
         public static int TileSize = 150;
         public static Random numberGenerator = new Random(DateTime.Now.Millisecond);
         public static Text slotCarText = new Text("", "Assets/RACER___.TTF");
+        public static Music digestiveIntro = new Music("Audio/DigestiveBiscuitIntro.wav", false);
+        public static Music digestiveLoop = new Music("Audio/DigestiveBiscuitLoop.wav");
+        public static long songStartTime;
+        public static bool loopPlaying = false;
+        public static float musicVolume = 0.3f;
     }
 
     public enum DriverType

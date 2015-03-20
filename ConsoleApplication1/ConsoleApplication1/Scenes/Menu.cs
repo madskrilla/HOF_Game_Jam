@@ -20,6 +20,9 @@ namespace ConsoleApplication1.Scenes
         public Image play_PlayButton;
         public Image play_Background_Image, credits_Background_Image, options_Background_Image;
 
+        
+        
+
         public Menu()
             : base()
         {
@@ -62,11 +65,22 @@ namespace ConsoleApplication1.Scenes
             CreditsTab_Close = false;
             Exit = false;
             SwitchScenes = false;
+
+            Globals.digestiveIntro.Play();
+            Globals.songStartTime = DateTime.Now.Ticks;
+            
         }
 
         public override void Update()
         {
             base.Update();
+
+            if (!Globals.loopPlaying
+                && DateTime.Now.Ticks - Globals.songStartTime >= (204160000))
+            {
+                Globals.digestiveLoop.Play();
+                Globals.loopPlaying = true;
+            }
 
             #region Main Menu Tab
 

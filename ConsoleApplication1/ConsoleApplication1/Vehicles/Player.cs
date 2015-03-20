@@ -63,7 +63,6 @@ namespace ConsoleApplication1
 
         public void getInput()
         {
-            
             if(player.Controller.Button(Controls.Accelerate).Down)
             {
                 acceleration += 0.1f;
@@ -107,5 +106,7 @@ namespace ConsoleApplication1
             else
                 theRace.CameraX -= 2;
         }
+
+        
     }
 }

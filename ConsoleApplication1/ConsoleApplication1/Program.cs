@@ -38,8 +38,12 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.Button(Controls.Escape).AddKey(Key.Escape);
             Globals.PlayerOne.Controller.Button(Controls.Enter).AddKey(Key.Return);
 
-            game.FirstScene = new Race(3);
-           //game.FirstScene = new Menu();
+            Globals.digestiveIntro.Volume = Globals.musicVolume;
+            Globals.digestiveLoop.Volume = Globals.musicVolume;
+
+
+            //game.FirstScene = new Race(3);
+           game.FirstScene = new Menu();
 
             game.Start();
         }
