@@ -14,9 +14,9 @@ namespace ConsoleApplication1
         
         Session player;
         public int shakeTime = 0;
-        public Player(Race _race, int _ln, Session _player) : base(_race, _ln)
+        public Player(Race _race, int _ln, Session _player, Image _car) : base(_race, _ln)
         {
-            carImage = new Image("Assets/Images/Car5_Black.png");
+            carImage = _car;
             SetGraphic(carImage);
             carImage.CenterOrigin();
             currentSpeed = 0;

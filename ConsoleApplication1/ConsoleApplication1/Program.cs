@@ -14,7 +14,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            Game game = new Game("Slotcar Game", 1920, 1080, 60, false);
+            Game game = new Game("Hot Slots", 1920, 1080, 60, true);
             game.MouseVisible = true;
             game.Color = new Color(0x018801);
             Globals.PlayerOne = game.AddSession("P1");
@@ -63,7 +63,7 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.Button(Controls.UseItem).AddJoyButton(ControllerXbox360.JoyButtonX,0);
             Globals.PlayerOne.Controller.Button(Controls.KeyUP).AddAxisButton(AxisButton.YMinus,0);
             Globals.PlayerOne.Controller.Button(Controls.KeyDown).AddAxisButton(AxisButton.YPlus,0);
-            Globals.PlayerOne.Controller.Button(Controls.Escape).AddJoyButton(ControllerXbox360.JoyButtonB, 0);
+            Globals.PlayerOne.Controller.Button(Controls.Back).AddJoyButton(ControllerXbox360.JoyButtonB, 0);
             Globals.PlayerOne.Controller.Button(Controls.Pause).AddJoyButton(ControllerXbox360.JoyButtonStart, 0);
             Globals.PlayerOne.Controller.Button(Controls.Enter).AddJoyButton(ControllerXbox360.JoyButtonA,0);
 

@@ -16,6 +16,7 @@ namespace ConsoleApplication1.Extra
         public Text Item = new Text("", "Assets/RACER___.TTF");
         Scene theScene = new Scene();
         public Slot_Car owner;
+        public Image image;
         public int player;
         public float xPos;
         public float yPos;
@@ -72,7 +73,11 @@ namespace ConsoleApplication1.Extra
             {
                 if (player == 1)
                 {
-                    owner.currentPickup.itemImage.Render((xPos + Item.Width + 10), (yPos + 120));
+                    image = new Image(owner.currentPickup.itemImage.Texture);
+
+                    image.Angle = 0;
+
+                    image.Render((xPos + Item.Width + 10), (yPos + 110));
                 }
             }
         }
