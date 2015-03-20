@@ -16,14 +16,25 @@ namespace ConsoleApplication1.Items
         public int frame;
         public Slot_Car owner;
         public Race theRace;
+        public ItemType itemType;
         
         
         public PickUp(Slot_Car _owner, Race race) : base()
         {
-            owner = _owner;
             theRace = race;
+            itemImage = new Image("Assets/Images/pickup.png");
+            itemCollider = new BoxCollider(itemImage.Width, itemImage.Height, (int)ColliderType.PickUpBase);
+            SetGraphic(itemImage);
+            SetCollider(itemCollider);
+            itemCollider.Collidable = true;
+            itemImage.Visible = true;
+            itemImage.CenterOrigin();
+
             respawnTimer = 0;
             frame = 0;
+            Layer = -5;
+
+            theRace.Add(this);
         }
 
         public PickUp()
@@ -44,7 +55,7 @@ namespace ConsoleApplication1.Items
             PickUp p;
             Random rnd = new Random();
             int pickupType = rnd.Next(0, 4);
-            switch(pickupType)
+            switch (pickupType)
             {
                 case 0:
                     p = new Rocket(owner, theRace);
@@ -66,7 +77,6 @@ namespace ConsoleApplication1.Items
             itemImage.Visible = false;
             respawnTimer = 5;
             return p;
-
 
  
         }

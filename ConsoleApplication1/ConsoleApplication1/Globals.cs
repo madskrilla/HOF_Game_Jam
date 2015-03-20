@@ -67,18 +67,22 @@ namespace ConsoleApplication1
         Right
     }
 
-    public enum AIState
-    {
-        Aggressive,
-        Relaxed,
-        Balanced
-    }
 
     public enum ColliderType
     {
         Slot_Car,
-        PickUp
+        PickUpBase,
+        PickUpUse
+
     }
 
+    public enum ItemType
+    {
+        Rocket,
+        Missle,
+        OilSlick,
+        Bomb,
+        SpeedBoost
+    }
     
 }
