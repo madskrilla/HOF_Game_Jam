@@ -14,7 +14,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            Game game = new Game("Slotcar Game", 1500, 900, 60, false);
+            Game game = new Game("Slotcar Game", 1920, 1080, 60, false);
 
             Globals.PlayerOne = game.AddSession("P1");
 
@@ -27,6 +27,7 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.AddButton(Controls.KeyDown);
             Globals.PlayerOne.Controller.AddButton(Controls.Escape);
             Globals.PlayerOne.Controller.AddButton(Controls.Enter);
+            Globals.PlayerOne.Controller.AddButton(Controls.Back);
 
             Globals.PlayerOne.Controller.Button(Controls.Accelerate).AddKey(Key.Space);
             Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).AddKey(Key.Left);
@@ -34,9 +35,10 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.Button(Controls.UseItem).AddKey(Key.LControl);
             Globals.PlayerOne.Controller.Button(Controls.KeyUP).AddKey(Key.Up);
             Globals.PlayerOne.Controller.Button(Controls.KeyDown).AddKey(Key.Down);
-
             Globals.PlayerOne.Controller.Button(Controls.Escape).AddKey(Key.Escape);
             Globals.PlayerOne.Controller.Button(Controls.Enter).AddKey(Key.Return);
+            Globals.PlayerOne.Controller.Button(Controls.Back).AddKey(Key.Back);
+
 
             game.FirstScene = new Menu();
 

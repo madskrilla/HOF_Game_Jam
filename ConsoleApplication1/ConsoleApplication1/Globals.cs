@@ -32,7 +32,8 @@ namespace ConsoleApplication1
         KeyUP,
         KeyDown,
         Escape,
-        Enter
+        Enter,
+        Back
     }
 
     public enum RaceState
