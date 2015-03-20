@@ -624,7 +624,7 @@ namespace ConsoleApplication1.Scenes
                     play_Background_Image.Render();
                     PlayButton_Image.Render();
 
-                    if (PlayButton_Image.Left >= 1496 && !PlayTab_Close)
+                    if (PlayButton_Image.Left >= 1496 && !PlayTab_Close && !SwitchScenes)
                     {
                         cursor_Image.Render();
                         backArrow_Image.Render();
