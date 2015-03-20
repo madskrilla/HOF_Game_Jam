@@ -277,11 +277,11 @@ namespace ConsoleApplication1.Track_Elements
                         case Direction.Up:
                             if (_endDir == Direction.Left)
                             {
-                                for (int node = 0; node < 10; node++)
+                                for (int node = 0; node < 6; node++)
                                 {
                                     Node newNode = new Node();
-                                    newNode.localSpace.X = _parent.X + (float)Math.Cos((double)(0 + ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * _lane);
-                                    newNode.localSpace.Y = _parent.Y + Globals.TileSize - (float)Math.Sin((double)(0 + ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.X = _parent.X + (float)Math.Cos((double)(0 + ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.Y = _parent.Y + Globals.TileSize - (float)Math.Sin((double)(0 + ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * _lane);
                                     theNodes.Add(newNode);
                                 }
                             }
@@ -296,11 +296,11 @@ namespace ConsoleApplication1.Track_Elements
                                     realLane = 2;
                                 else
                                     realLane = 1;
-                                for (int node = 0; node < 10; node++)
+                                for (int node = 0; node < 6; node++)
                                 {
                                     Node newNode = new Node();
-                                    newNode.localSpace.X = _parent.X + Globals.TileSize + (float)Math.Cos((double)(Math.PI - ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * realLane);
-                                    newNode.localSpace.Y = _parent.Y + Globals.TileSize - (float)Math.Sin((double)(Math.PI - ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * realLane);
+                                    newNode.localSpace.X = _parent.X + Globals.TileSize + (float)Math.Cos((double)(Math.PI - ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * realLane);
+                                    newNode.localSpace.Y = _parent.Y + Globals.TileSize - (float)Math.Sin((double)(Math.PI - ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * realLane);
                                     theNodes.Add(newNode);
                                 }
                             }
@@ -311,8 +311,8 @@ namespace ConsoleApplication1.Track_Elements
                                 for (int node = 0; node < 10; node++)
                                 {
                                     Node newNode = new Node();
-                                    newNode.localSpace.X = _parent.X + Globals.TileSize + (float)Math.Cos((double)(Math.PI + ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * _lane);
-                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(Math.PI + ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.X = _parent.X + Globals.TileSize + (float)Math.Cos((double)(Math.PI + ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(Math.PI + ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * _lane);
                                     theNodes.Add(newNode);
                                 }
                             }
@@ -327,11 +327,11 @@ namespace ConsoleApplication1.Track_Elements
                                     realLane = 2;
                                 else
                                     realLane = 1;
-                                for (int node = 0; node < 10; node++)
+                                for (int node = 0; node < 6; node++)
                                 {
                                     Node newNode = new Node();
-                                    newNode.localSpace.X = _parent.X + (float)Math.Cos((double)(Math.PI * 2 - ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * realLane);
-                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(Math.PI * 2 - ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * realLane);
+                                    newNode.localSpace.X = _parent.X + (float)Math.Cos((double)(Math.PI * 2 - ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * realLane);
+                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(Math.PI * 2 - ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * realLane);
                                     theNodes.Add(newNode);
                                 }
                             }
@@ -339,11 +339,11 @@ namespace ConsoleApplication1.Track_Elements
                         case Direction.Left:
                             if (_endDir == Direction.Left)
                             {
-                                for (int node = 0; node < 10; node++)
+                                for (int node = 0; node < 6; node++)
                                 {
                                     Node newNode = new Node();
-                                    newNode.localSpace.X = _parent.X + Globals.TileSize + (float)Math.Cos((double)(Math.PI / 2 + ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * _lane);
-                                    newNode.localSpace.Y = _parent.Y + Globals.TileSize - (float)Math.Sin((double)(Math.PI / 2 + ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.X = _parent.X + Globals.TileSize + (float)Math.Cos((double)(Math.PI / 2 + ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.Y = _parent.Y + Globals.TileSize - (float)Math.Sin((double)(Math.PI / 2 + ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * _lane);
                                     theNodes.Add(newNode);
                                 }
                             }
@@ -358,11 +358,11 @@ namespace ConsoleApplication1.Track_Elements
                                     realLane = 2;
                                 else
                                     realLane = 1;
-                                for (int node = 0; node < 10; node++)
+                                for (int node = 0; node < 6; node++)
                                 {
                                     Node newNode = new Node();
-                                    newNode.localSpace.X = _parent.X + Globals.TileSize + (float)Math.Cos((double)(3 * Math.PI / 2 - ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * realLane);
-                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(3 * Math.PI / 2 - ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5 * realLane));
+                                    newNode.localSpace.X = _parent.X + Globals.TileSize + (float)Math.Cos((double)(3 * Math.PI / 2 - ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * realLane);
+                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(3 * Math.PI / 2 - ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5 * realLane));
                                     theNodes.Add(newNode);
                                 }
                             }
@@ -370,11 +370,11 @@ namespace ConsoleApplication1.Track_Elements
                         case Direction.Right:
                             if (_endDir == Direction.Left)
                             {
-                                for (int node = 0; node < 10; node++)
+                                for (int node = 0; node < 6; node++)
                                 {
                                     Node newNode = new Node();
-                                    newNode.localSpace.X = _parent.X + (float)Math.Cos((double)(3 * Math.PI / 2 + ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * _lane);
-                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(3 * Math.PI / 2 + ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.X = _parent.X + (float)Math.Cos((double)(3 * Math.PI / 2 + ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(3 * Math.PI / 2 + ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * _lane);
                                     theNodes.Add(newNode);
                                 }
                             }
@@ -389,11 +389,11 @@ namespace ConsoleApplication1.Track_Elements
                                     realLane = 2;
                                 else
                                     realLane = 1;
-                                for (int node = 0; node < 10; node++)
+                                for (int node = 0; node < 6; node++)
                                 {
                                     Node newNode = new Node();
-                                    newNode.localSpace.X = _parent.X + (float)Math.Cos((double)(Math.PI / 2 - ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * realLane);
-                                    newNode.localSpace.Y = _parent.Y + Globals.TileSize - (float)Math.Sin((double)(Math.PI / 2 - ((Math.PI / 2) / 10) * node)) * ((Globals.TileSize / 5) * realLane);
+                                    newNode.localSpace.X = _parent.X + (float)Math.Cos((double)(Math.PI / 2 - ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * realLane);
+                                    newNode.localSpace.Y = _parent.Y + Globals.TileSize - (float)Math.Sin((double)(Math.PI / 2 - ((Math.PI / 2) / 6) * node)) * ((Globals.TileSize / 5) * realLane);
                                     theNodes.Add(newNode);
                                 }
                             }
@@ -554,7 +554,7 @@ namespace ConsoleApplication1.Track_Elements
                                 {
                                     Node newNode = new Node();
                                     newNode.localSpace.X = _parent.X + Globals.TileSize * 2 + (float)Math.Cos((double)(Math.PI + ((Math.PI / 2) / 20) * node)) * (Globals.TileSize + (Globals.TileSize / 5) * _lane);
-                                    newNode.localSpace.Y = _parent.Y + (float)Math.Sin((double)(Math.PI + ((Math.PI / 2) / 20) * node)) * (Globals.TileSize + (Globals.TileSize / 5) * _lane);
+                                    newNode.localSpace.Y = _parent.Y - (float)Math.Sin((double)(Math.PI + ((Math.PI / 2) / 20) * node)) * (Globals.TileSize + (Globals.TileSize / 5) * _lane);
                                     theNodes.Add(newNode);
                                 }
                             }
