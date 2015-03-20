@@ -38,6 +38,7 @@ namespace ConsoleApplication1.Vehicles
         public int completeLaps = 0;
         public bool finished = false;
         public int playerNum;
+        public Color playerCol;
 
         public int popTimer = 0;
         public int popDuration = 30;
@@ -61,6 +62,23 @@ namespace ConsoleApplication1.Vehicles
             carCollider.CenterOrigin();
             carCollider.Entity = this;
             playerNum = Lane + 1;
+            switch (playerNum)
+            {
+                case 1:
+                    playerCol = Color.Green;
+                    break;
+                case 2:
+                    playerCol = Color.Blue;
+                    break;
+                case 3:
+                    playerCol = Color.Yellow;
+                    break;
+                case 4:
+                    playerCol = Color.Red;
+                    break;
+                default:
+                    break;
+            }
         }
         public override void Update()
         {
