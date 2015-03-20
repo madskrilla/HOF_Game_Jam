@@ -14,7 +14,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            Game game = new Game("Hot Slots", 1920, 1080, 60, false);
+            Game game = new Game("Hot Slots 2002", 1920, 1080, 60, true);
             game.MouseVisible = true;
             game.Color = new Color(0x018801);
             Globals.PlayerOne = game.AddSession("P1");

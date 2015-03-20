@@ -890,19 +890,19 @@ namespace ConsoleApplication1.Scenes
 
                         Globals.slotCarText.Color = Color.White;
                         Globals.slotCarText.FontSize = 30;
-                        Globals.slotCarText.String = "Accelerate               Space Bar";
+                        Globals.slotCarText.String = "Accelerate               Right Trigger";
                         Globals.slotCarText.SetPosition(250, 610);
                         Globals.slotCarText.Render();
 
-                        Globals.slotCarText.String = "Swap Left Lane       Left Arrow";
+                        Globals.slotCarText.String = "Swap Left Lane       Left Analog Stick";
                         Globals.slotCarText.SetPosition(250, 660);
                         Globals.slotCarText.Render();
 
-                        Globals.slotCarText.String = "Swap Right Lane      Right Arrow";
+                        Globals.slotCarText.String = "Swap Right Lane      Left Analog Stick";
                         Globals.slotCarText.SetPosition(250, 710);
                         Globals.slotCarText.Render();
 
-                        Globals.slotCarText.String = "Use Item                       Left Control";
+                        Globals.slotCarText.String = "Use Item                       X";
                         Globals.slotCarText.SetPosition(250, 760);
                         Globals.slotCarText.Render();
 
