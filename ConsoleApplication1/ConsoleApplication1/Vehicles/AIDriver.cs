@@ -29,7 +29,7 @@ namespace ConsoleApplication1
                 return;
             else
             {
-                acceleration += 0.1f;
+                                acceleration += 0.1f;
             }
             base.Update();
             if (!spinning)
