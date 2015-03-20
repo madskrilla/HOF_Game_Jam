@@ -34,7 +34,7 @@ namespace ConsoleApplication1.Scenes
         public Race(int _laps, int numPlayers, Image player1Car, Image player2Car, int track_selection )
             : base()
         {
-
+            Game.Instance.Color = new Color(0x018801);
             theTrack = new Track(this,track_selection);
             theTrack.BuildTrack();
             for (int i = 0; i < theTrack.thePieces.Count(); i++)

@@ -21,29 +21,29 @@ namespace ConsoleApplication1.Scenes
         public Image PlayButton_Image, OptionsButton_Image, CreditsButton_Image, ExitButton_Image;
         bool Play, PlayTab_Close, playTab_NumPlayers_bool, playTab_NumRounds_bool, playTab_CarSelect_bool, playTab_TrackSelect_bool, Options, OptionsTab_Close, volumeChange, Credits, CreditsTab_Close, Exit, SwitchScenes;
         //main menu variables
-        public Image MainMenuBg_Image, FullSail_Image, PlayButton_Image, OptionsButton_Image, CreditsButton_Image, ExitButton_Image;
+        //public Image MainMenuBg_Image, FullSail_Image, PlayButton_Image, OptionsButton_Image, CreditsButton_Image, ExitButton_Image;
         //public bool Play, Options, Credits, Exit;
 
         //play menu variables
-        public int play_numPlayers, play_numRounds, play_currentTack_select, carSelct_player1, carSelect_player2, carSelect_Counter, play_trackInputCounter;
-        public Image play_Background_Image, play_PlayButton, play_numPlayers_Button, play_numRounds_Button, play_carSelection_Button, play_trackSelection_Button, carCursor_Image_P1, carCursor_Image_P2, player1CarSelection, player2CarSelection;
+        public int /*play_numPlayers, play_numRounds, play_currentTack_select,*/ carSelct_player1, carSelect_player2, carSelect_Counter, play_trackInputCounter;
+        public Image play_Background_Image, play_PlayButton, play_numPlayers_Button, play_numRounds_Button, play_carSelection_Button, play_trackSelection_Button, /*carCursor_Image_P1, carCursor_Image_P2,*/ player1CarSelection, player2CarSelection;
         public Image car1_Image, car2_Image, car3_Image, car4_Image, car5_Image, car6_Image, car7_Image;
         public Image track0Preview, track1Preview, track2Preview;
         //public Image track1_Image, track2_Image, track3_Image;
-        public bool PlayTab_Close, playTab_NumPlayers_bool, playTab_NumRounds_bool, playTab_CarSelect_bool, playTab_TrackSelect_bool, SwitchScenes;
+        //public bool PlayTab_Close, playTab_NumPlayers_bool, playTab_NumRounds_bool, playTab_CarSelect_bool, playTab_TrackSelect_bool, SwitchScenes;
 
         //options menu variables
-        public int volumeRectLength;
+        //public int volumeRectLength;
         public Image options_Background_Image, options_VolumeButton;
-        public bool OptionsTab_Close, volumeChange;
+        //public bool OptionsTab_Close, volumeChange;
 
         //credits menu variables
         public Image credits_Background_Image;
-        public bool CreditsTab_Close;
+        //public bool CreditsTab_Close;
 
         //shared/other variables
-        public int currentSelection;
-        public Image cursor_Image, backArrow_Image;
+        //public int currentSelection;
+        //public Image cursor_Image, backArrow_Image;
 
         #endregion
 
@@ -117,9 +117,9 @@ namespace ConsoleApplication1.Scenes
             #region Image Initial Position
 
             //button images 
-            //track0Preview = new Image("Assets/Images/track0Preview.png");
-            //track1Preview = new Image("Assets/Images/track1Preview.png");
-            //track2Preview = new Image("Assets/Images/track2Preview.png");
+            track0Preview = new Image("Assets/Images/track0Preview.png");
+            track1Preview = new Image("Assets/Images/track1Preview.png");
+            track2Preview = new Image("Assets/Images/track2Preview.png");
 
             backArrow_Image.SetPosition(192, 834);
             PlayButton_Image.SetPosition(160f, 128f);
@@ -145,9 +145,9 @@ namespace ConsoleApplication1.Scenes
             carCursor_Image_P2.SetPosition(390, 675);
 
             //track image 
-       //     track1_Image.SetPosition(350, 625);
-       //     track2_Image.SetPosition(625, 625);
-       //     track3_Image.SetPosition(900, 625);
+            track0Preview.SetPosition(350, 625);
+            track1Preview.SetPosition(625, 625);
+            track2Preview.SetPosition(900, 625);
 
             //other images 
             FullSail_Image.SetPosition(736, 288);
@@ -605,7 +605,7 @@ namespace ConsoleApplication1.Scenes
                         //switch scenes
                         Game.RemoveScene();
                         //Game.AddScene(new Race(10));
-                        Game.AddScene(new Race(play_numRounds, play_numPlayers, player1CarSelection, player2CarSelection, play_currentTack_select));
+                        Game.AddScene(new Race(play_numRounds, play_numPlayers, player1CarSelection, player2CarSelection, play_currentTrack_select));
                     }
                 }
             }
@@ -818,13 +818,13 @@ namespace ConsoleApplication1.Scenes
                             else if (play_currentTrack_select == (int)TrackSelection.track3_select)
                                 Draw.Rectangle(880, 605, 240, 240, Color.Gold);
 
-                            Draw.Rectangle(350, 625, 200, 200, Color.White, Color.Black, 5);
-                            Draw.Rectangle(625, 625, 200, 200, Color.White, Color.Black, 5);
-                            Draw.Rectangle(900, 625, 200, 200, Color.White, Color.Black, 5);
+                           // Draw.Rectangle(350, 625, 200, 200, Color.White, Color.Black, 5);
+                           // Draw.Rectangle(625, 625, 200, 200, Color.White, Color.Black, 5);
+                           // Draw.Rectangle(900, 625, 200, 200, Color.White, Color.Black, 5);
 
-                      //      track1_Image.Render();
-                      //      track2_Image.Render();
-                      //      track3_Image.Render();
+                            track0Preview.Render();
+                            track1Preview.Render();
+                            track2Preview.Render();
 
                             Globals.slotCarText.FontSize = 20;
                             Globals.slotCarText.Color = Color.Grey;
