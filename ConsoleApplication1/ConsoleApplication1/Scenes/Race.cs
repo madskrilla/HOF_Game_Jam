@@ -28,7 +28,7 @@ namespace ConsoleApplication1.Scenes
         public Text second = new Text("", "Assets/RACER___.TTF");
         public Text third = new Text("", "Assets/RACER___.TTF");
         public Text fourth = new Text("", "Assets/RACER___.TTF");
-        public Race(int _laps)
+        public Race(int _laps, int numPlayers)
             : base()
         {
 
@@ -38,29 +38,55 @@ namespace ConsoleApplication1.Scenes
             {
                 Add(theTrack.thePieces[i]);
             }
-            Slot_Car player = new Player(this, 0, Globals.PlayerOne);
-            HUD hud = new HUD(player, this);
-            theCars.Add(player);
-
-            Slot_Car player2 = new Player(this, 3, Globals.PlayerTwo);
-            HUD hud3 = new HUD(player2, this);
-            theCars.Add(player2);
-
-            Slot_Car adam = new AIDriver(this, 1);
-            HUD hud1 = new HUD(adam, this);
-            theCars.Add(adam);
-
-            Slot_Car steve = new AIDriver(this, 2);
-            theCars.Add(steve);
-            HUD hud2 = new HUD(steve, this);
-
-            Add(hud);
-            Add(hud1);
-            Add(hud2);
-            Add(player);
-            Add(player2);
-            Add(adam);
-            Add(steve);
+            for (int play = 0; play < numPlayers; play++)
+            {
+                if (play == 0)
+                {
+                    Slot_Car player = new Player(this, 0, Globals.PlayerOne);
+                    HUD hud = new HUD(player, this);
+                    theCars.Add(player);
+                    Add(player);
+                    Add(hud);
+                }
+                else
+                {
+                    Slot_Car player2 = new Player(this, 1, Globals.PlayerTwo);
+                    HUD hud1 = new HUD(player2, this);
+                    theCars.Add(player2);
+                    Add(player2);
+                    Add(hud1);
+                }
+            }
+            if (numPlayers == 1)
+            {
+                Slot_Car adam = new AIDriver(this, 1);
+                HUD hud1 = new HUD(adam, this);
+                theCars.Add(adam);
+                Add(hud1);
+                Slot_Car steve = new AIDriver(this, 2);
+                theCars.Add(steve);
+                HUD hud2 = new HUD(steve, this);
+                Add(hud2);
+                Slot_Car tom = new AIDriver(this, 3);
+                HUD hud3 = new HUD(tom, this);
+                theCars.Add(tom);
+                Add(hud3);
+            }
+            else
+            {
+                Slot_Car steve = new AIDriver(this, 2);
+                theCars.Add(steve);
+                Add(steve);
+                Add(steve);
+                HUD hud2 = new HUD(steve, this);
+                Add(hud2);
+                Slot_Car tom = new AIDriver(this, 3);
+                HUD hud3 = new HUD(tom, this);
+                theCars.Add(tom);
+                Add(tom);
+                Add(hud3);
+            }
+            
             currNode = theTrack.thePieces[currPiece].theLanes[0].theNodes[currNodeIndex];
             currentState = RaceState.RaceBegin;
             countText.FontSize = 75;

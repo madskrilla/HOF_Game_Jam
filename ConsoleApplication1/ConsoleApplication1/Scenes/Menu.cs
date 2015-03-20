@@ -261,7 +261,7 @@ namespace ConsoleApplication1.Scenes
 
                         //switch scenes
                         Game.RemoveScene();
-                        Game.AddScene(new Race(3));
+                        Game.AddScene(new Race(3, play_numPlayers));
                     }
                 }
             }
