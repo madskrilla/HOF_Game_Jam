@@ -25,7 +25,6 @@ namespace ConsoleApplication1.Scenes
         public int countDown = 3;
         public int carsFin = 0;
 
-		Emitter testEmitter = new Emitter();
         public Race(int _laps)
             : base()
         {
@@ -39,6 +38,7 @@ namespace ConsoleApplication1.Scenes
             Slot_Car player = new Player(this, 0, Globals.PlayerOne);
             HUD hud = new HUD(player, this);
             theCars.Add(player);
+
             Slot_Car adam = new AIDriver(this, 1);
             HUD hud1 = new HUD(adam, this);
             theCars.Add(adam);
@@ -56,9 +56,6 @@ namespace ConsoleApplication1.Scenes
             countText.FontSize = 75;
             totalLaps = _laps;
 
-
-            Add(testEmitter);
-            testEmitter.Load(testEmitter.totalParticles);
         }
         public override void Update()
         {

@@ -7,6 +7,7 @@ using Otter;
 using ConsoleApplication1.Scenes;
 using ConsoleApplication1.Track_Elements;
 using ConsoleApplication1.Items;
+using ConsoleApplication1.Particles;
 
 namespace ConsoleApplication1.Vehicles
 {
@@ -42,6 +43,7 @@ namespace ConsoleApplication1.Vehicles
         public int popTimer = 0;
         public int popDuration = 30;
 
+
         public Slot_Car(Race _race, int _ln)
             : base()
         {
@@ -61,7 +63,9 @@ namespace ConsoleApplication1.Vehicles
             SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             carCollider.CenterOrigin();
             carCollider.Entity = this;
+            
         }
+       
         public override void Update()
         {
             PopUp();

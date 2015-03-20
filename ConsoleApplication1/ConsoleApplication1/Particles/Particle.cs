@@ -36,6 +36,6 @@ namespace ConsoleApplication1.Particles
 
         public double mod;
 
-        public bool alive;
+        public Image particleImg;
     }
 }

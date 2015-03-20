@@ -11,6 +11,7 @@ namespace ConsoleApplication1
 {
     class Player : Slot_Car
     {
+        
         Session player;
         public int shakeTime = 0;
         public Player(Race _race, int _ln, Session _player) : base(_race, _ln)
