@@ -52,6 +52,8 @@ namespace ConsoleApplication1.Scenes
         public Sound menuBack = new Sound("Audio/menuBack.wav");
         public Sound menuMove = new Sound("Audio/menuMove.wav");
 
+        public Image titleBar = new Image("Assets/Images/2002version.png");
+
         public Menu()
             : base()
         {
@@ -741,7 +743,8 @@ namespace ConsoleApplication1.Scenes
             {
                 if (!Options && !Play && !Credits)
                 {
-                    Draw.Rectangle(800, 64, 928, 192, Color.Blue);
+                    titleBar.Render(800, 64);
+                    //Draw.Rectangle(800, 64, 928, 192, Color.Blue);
                     FullSail_Image.Render();
 
                     cursor_Image.Render();
@@ -952,7 +955,7 @@ namespace ConsoleApplication1.Scenes
                         Globals.slotCarText.SetPosition(350, 600);
                         Globals.slotCarText.Render();
 
-                        Globals.slotCarText.String = "Conner McClaine";
+                        Globals.slotCarText.String = "Conner MClaine";
                         Globals.slotCarText.SetPosition(350, 675);
                         Globals.slotCarText.Render();
 

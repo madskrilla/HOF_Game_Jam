@@ -77,6 +77,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Assets\Images\2002version.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\BackArrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
