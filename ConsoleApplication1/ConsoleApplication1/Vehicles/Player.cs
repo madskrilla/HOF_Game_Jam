@@ -83,6 +83,7 @@ namespace ConsoleApplication1
                     popTimer = popDuration;
                     Lane++;
                     nodeIndex++;
+                    jumpLanes.Play();
                 }
             }
 
@@ -93,6 +94,7 @@ namespace ConsoleApplication1
                     popTimer = popDuration;
                     Lane--;
                     nodeIndex++;
+                    jumpLanes.Play();
                 }
             }
             if (player.Controller.Button(Controls.UseItem).Pressed && hasItem == true)

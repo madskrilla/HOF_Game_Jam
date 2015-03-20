@@ -14,7 +14,7 @@ namespace ConsoleApplication1.Scenes
         public enum CarSelection { car1_select, car2_select, car3_select, car4_select, car5_select, car6_select, car7_select }
         public enum TrackSelection { track1_select = 0, track2_select = 1, track3_select = 2 }
 
-        public int currentSelection, cursorX_offset, cursorY_offset, volumeRectLength, play_numPlayers, play_numRounds, play_currentCar_select, play_currentTack_select;
+        public int currentSelection, cursorX_offset, cursorY_offset, volumeRectLength, play_numPlayers, play_numRounds, play_currentCar_select, play_currentTrack_select;
         public Image cursor_Image, backArrow_Image, MainMenuBg_Image, FullSail_Image, carCursor_Image_P1, carCursor_Image_P2;
         public Image PlayButton_Image, OptionsButton_Image, CreditsButton_Image, ExitButton_Image;
         bool Play, PlayTab_Close, playTab_NumPlayers_bool, playTab_NumRounds_bool, playTab_CarSelect_bool, playTab_TrackSelect_bool, Options, OptionsTab_Close, volumeChange, Credits, CreditsTab_Close, Exit, SwitchScenes;
@@ -23,6 +23,7 @@ namespace ConsoleApplication1.Scenes
         public Image play_PlayButton, play_numPlayers_Button, play_numRounds_Button, play_carSelection_Button, play_trackSelection_Button;
         public Image play_Background_Image, credits_Background_Image, options_Background_Image;
         public Image car1_Image, car2_Image, car3_Image, car4_Image, car5_Image, car6_Image, car7_Image;
+        public Image track0Preview, track1Preview, track2Preview;
 
         
         
@@ -37,7 +38,7 @@ namespace ConsoleApplication1.Scenes
             play_numPlayers = 1;
             play_numRounds = 10;
             play_currentCar_select = 0;
-            play_currentTack_select = 0;
+            play_currentTrack_select = 0;
 
             cursor_Image = new Image("Assets/Images/Menu_Cursor.png");
             backArrow_Image = new Image("Assets/Images/BackArrow.png");
@@ -68,6 +69,10 @@ namespace ConsoleApplication1.Scenes
             play_Background_Image = new Image("Assets/Images/BlueFlag.png");
             options_Background_Image = new Image("Assets/Images/GrayFlag.png");
             credits_Background_Image = new Image("Assets/Images/GreenFlag.png");
+
+            //track0Preview = new Image("Assets/Images/track0Preview.png");
+            //track1Preview = new Image("Assets/Images/track1Preview.png");
+            //track2Preview = new Image("Assets/Images/track2Preview.png");
 
             backArrow_Image.SetPosition(192, 834);
             PlayButton_Image.SetPosition(160f, 128f);
@@ -107,8 +112,11 @@ namespace ConsoleApplication1.Scenes
             Exit = false;
             SwitchScenes = false;
 
-            Globals.digestiveIntro.Play();
-            Globals.songStartTime = DateTime.Now.Ticks;
+            if (!Globals.loopPlaying)
+            {
+                Globals.digestiveIntro.Play();
+                Globals.songStartTime = DateTime.Now.Ticks;
+            }
             
             volumeChange = false;
         }
@@ -352,19 +360,19 @@ namespace ConsoleApplication1.Scenes
                     //input for selecting a track
                     if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)
                     {
-                        play_currentTack_select++;
-                        if (play_currentTack_select > (int)TrackSelection.track3_select)
-                            play_currentTack_select = (int)TrackSelection.track1_select;
+                        play_currentTrack_select++;
+                        if (play_currentTrack_select > (int)TrackSelection.track3_select)
+                            play_currentTrack_select = (int)TrackSelection.track1_select;
                     }
                     else if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)
                     {
-                        play_currentTack_select--;
-                        if (play_currentTack_select < (int)TrackSelection.track1_select)
-                            play_currentTack_select = (int)TrackSelection.track3_select;
+                        play_currentTrack_select--;
+                        if (play_currentTrack_select < (int)TrackSelection.track1_select)
+                            play_currentTrack_select = (int)TrackSelection.track3_select;
                     }
                     else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed)
                     {
-                        //set the track to be the one played
+                        //playTab_TrackSelect_bool = false;
                     }
                     else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
                         playTab_TrackSelect_bool = false;
@@ -410,7 +418,7 @@ namespace ConsoleApplication1.Scenes
                         //switch scenes
                         Game.RemoveScene();
                         //Game.AddScene(new Race(10));
-                        Game.AddScene(new Race(3, play_numPlayers));
+                        Game.AddScene(new Race(3, play_numPlayers, play_currentTrack_select));
                     }
                 }
             }
@@ -612,11 +620,11 @@ namespace ConsoleApplication1.Scenes
                         //track selection
                         if (playTab_TrackSelect_bool)
                         {
-                            if (play_currentTack_select == (int)TrackSelection.track1_select)
+                            if (play_currentTrack_select == (int)TrackSelection.track1_select)
                                 Draw.Rectangle(325, 600, 250, 250, Color.Gold);
-                            else if (play_currentTack_select == (int)TrackSelection.track2_select)
+                            else if (play_currentTrack_select == (int)TrackSelection.track2_select)
                                 Draw.Rectangle(600, 600, 250, 250, Color.Gold);
-                            else if (play_currentTack_select == (int)TrackSelection.track3_select)
+                            else if (play_currentTrack_select == (int)TrackSelection.track3_select)
                                 Draw.Rectangle(875, 600, 250, 250, Color.Gold);
 
                             Draw.Rectangle(350, 625, 200, 200, Color.White, Color.Black, 5);

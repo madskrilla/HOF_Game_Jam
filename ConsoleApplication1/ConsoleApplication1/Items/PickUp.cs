@@ -30,7 +30,6 @@ namespace ConsoleApplication1.Items
             itemCollider.Collidable = true;
             itemImage.Visible = true;
             itemImage.CenterOrigin();
-         
 
             respawnTimer = 0;
             frame = 0;
@@ -82,8 +81,6 @@ namespace ConsoleApplication1.Items
             itemImage.Visible = false;
             respawnTimer = 5;
             return p;
-
- 
         }
 
         public override void Update()
@@ -93,10 +90,11 @@ namespace ConsoleApplication1.Items
                 frame++;
                 if (frame % 60 == 0)
                     respawnTimer--;
-                if (respawnTimer == 0)
+                if (respawnTimer <= 0)
                 {
                     itemCollider.Collidable = true;
                     itemImage.Visible = true;
+                    respawnTimer = 0;
                 }
             }
           

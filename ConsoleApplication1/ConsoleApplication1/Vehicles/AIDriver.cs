@@ -51,7 +51,8 @@ namespace ConsoleApplication1
                     {
                         popTimer = popDuration;
                         Lane++;
-                        nodeIndex++; 
+                        nodeIndex++;
+                        jumpLanes.Play();
                     }
                 }
                 else
@@ -61,6 +62,7 @@ namespace ConsoleApplication1
                         popTimer = popDuration;
                         Lane--;
                         nodeIndex++;
+                        jumpLanes.Play();
                     }
                 }
             }
