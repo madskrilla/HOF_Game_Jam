@@ -19,8 +19,8 @@ namespace ConsoleApplication1
             Globals.PlayerOne = game.AddSession("P1");
             Globals.PlayerTwo = game.AddSession("P2");
 
-            Globals.PlayerOne.Controller = new ControllerXbox360(0);
-            Globals.PlayerTwo.Controller = new ControllerXbox360(1);
+            Globals.PlayerOne.Controller = new ControllerXbox360();
+            Globals.PlayerTwo.Controller = new ControllerXbox360();
 
             Globals.PlayerOne.Controller.AddButton(Controls.Accelerate);
             Globals.PlayerOne.Controller.AddButton(Controls.SwapLaneLeft);
@@ -52,7 +52,7 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.Button(Controls.Escape).AddKey(Key.Escape);
             Globals.PlayerOne.Controller.Button(Controls.Pause).AddKey(Key.Escape);
             Globals.PlayerOne.Controller.Button(Controls.Enter).AddKey(Key.Return);
-
+            
             Globals.PlayerOne.Controller.Button(Controls.Accelerate).AddAxisButton(AxisButton.ZMinus,0);
             Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).AddAxisButton(AxisButton.XMinus,0);
             Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).AddAxisButton(AxisButton.XPlus,0);
