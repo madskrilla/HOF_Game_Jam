@@ -114,10 +114,10 @@ namespace ConsoleApplication1.Vehicles
             {
 
             }
-           
+
             if (invulnTimer == 0)
             {
-                
+
 
                 var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
                 var itemHit = carCollider.Collide(X, Y, ColliderType.PickUpUse);
@@ -127,96 +127,97 @@ namespace ConsoleApplication1.Vehicles
                 {
 
                     Slot_Car otherCah = (Slot_Car)collider.Entity;
-      
+
                     if (otherCah.attacking && otherCah.Lane == Lane && otherCah.invulnTimer == 0)
                     {
                         spinning = true;
-                    if (!tireScreechPlaying)
-                    {
-                        tireScreech[Rand.Int(2)].Play();
-                        tireScreechPlaying = true;
-                    }
-                    else if (!otherCah.attacking && otherCah.invulnTimer == 0)
-                    {
-                        velocity.X = velocity.X * 0.5f;
-                        velocity.Y = velocity.Y * 0.5f;
-                    }
+                        if (!tireScreechPlaying)
+                        {
+                            tireScreech[Rand.Int(2)].Play();
+                            tireScreechPlaying = true;
+                        }
+                        else if (!otherCah.attacking && otherCah.invulnTimer == 0)
+                        {
+                            velocity.X = velocity.X * 0.5f;
+                            velocity.Y = velocity.Y * 0.5f;
+                        }
 
+                    }
+                    if (itemGet != null)
+                    {
+                        PickUp item = (PickUp)itemGet.Entity;
+                        currentPickup = item.GenerateRandom(this);
+
+                        hasItem = true;
+                    }
+                    if (itemHit != null)
+                    {
+                        PickUp item = (PickUp)itemHit.Entity;
+                        if (item != currentPickup)
+                        {
+                            if (item.itemType == ItemType.Bomb)
+                            {
+                                //Add Pop up
+                                spinning = true;
+                                popDuration = 30;
+                                item.RemoveSelf();
+                                currentPickup = null;
+
+                            }
+                            else if (item.itemType == ItemType.Rocket)
+                            {
+                                //Add Pop up
+                                spinning = true;
+                                popDuration = 30;
+                                item.RemoveSelf();
+                                currentPickup = null;
+
+
+                            }
+                            else if (item.itemType == ItemType.Missle)
+                            {
+                                //Add Pop up
+                                spinning = true;
+                                popDuration = 30;
+
+                                item.RemoveSelf();
+                                currentPickup = null;
+
+                            }
+                            else if (item.itemType == ItemType.OilSlick)
+                            {
+
+
+                                maxSpeed = 5;
+                                item.RemoveSelf();
+                                currentPickup = null;
+
+                            }
+                            invulnTimer += 120;
+                        }
+                    }
                 }
-                if (itemGet != null)
-                {
-                    PickUp item = (PickUp)itemGet.Entity;
-                    currentPickup = item.GenerateRandom(this);
+                else
+                    invulnTimer--;
 
-                    hasItem = true;
-                }
-                if (itemHit != null)
+                if (slowTimer > 0)
                 {
-                    PickUp item = (PickUp)itemHit.Entity;
-                    if (item != currentPickup)
+                    slowTimer--;
+                    if (slowTimer <= 0)
                     {
-                        if (item.itemType == ItemType.Bomb)
-                        {
-                            //Add Pop up
-                            spinning = true;
-                            popDuration = 30;
-                            item.RemoveSelf();
-                            currentPickup = null;
-
-                        }
-                        else if (item.itemType == ItemType.Rocket)
-                        {
-                            //Add Pop up
-                            spinning = true;
-                            popDuration = 30;
-                            item.RemoveSelf();
-                            currentPickup = null;
-
-
-                        }
-                        else if (item.itemType == ItemType.Missle)
-                        {
-                            //Add Pop up
-                            spinning = true;
-                            popDuration = 30;
-
-                            item.RemoveSelf();
-                            currentPickup = null;
-
-                        }
-                        else if (item.itemType == ItemType.OilSlick)
-                        {
-
-
-                            maxSpeed = 5;
-                            item.RemoveSelf();
-                            currentPickup = null;
-
-                        }
-                        invulnTimer += 120;
+                        slowTimer = 0;
+                        maxSpeed = 10;
                     }
-                } 
+                }
+                if (spinning)
+                    SpinOut();
+
+                X += velocity.X;
+                Y += velocity.Y;
+                PlayAudio();
+                base.Update();
             }
-            else
-                invulnTimer--;
-
-            if (slowTimer > 0)
-            {
-                slowTimer--;
-                if (slowTimer <= 0)
-                {
-                    slowTimer = 0;
-                    maxSpeed = 10;
-                }
-            }
-            if (spinning)
-                SpinOut();
-            
-            X += velocity.X;
-            Y += velocity.Y;
-            PlayAudio();
-            base.Update();
-         }
+        }
 
         public void Steer()
         {
