@@ -11,10 +11,9 @@ namespace ConsoleApplication1.Scenes
     {
         public enum MenuButtons { MB_Play = 0, MB_Options = 1, MB_Credits = 2, MB_Exit = 3 }
         public enum TabedMenuButtons { play_NumPlayers = 0, play_NumRounds, play_carSelect, play_trackSelect, play_Back, play_Play, options_Back, options_Volume, credits_Back }
-        public enum CarSelection { car1_select, car2_select, car3_select, car4_select, car5_select, car6_select, car7_select }
         public enum TrackSelection { track1_select = 0, track2_select = 1, track3_select = 2 }
 
-        public int currentSelection, cursorX_offset, cursorY_offset, volumeRectLength, play_numPlayers, play_numRounds, play_currentCar_select, play_currentTack_select;
+        public int currentSelection, cursorX_offset, cursorY_offset, volumeRectLength, play_numPlayers, play_numRounds, play_currentTack_select;
         public Image cursor_Image, backArrow_Image, MainMenuBg_Image, FullSail_Image, carCursor_Image_P1, carCursor_Image_P2;
         public Image PlayButton_Image, OptionsButton_Image, CreditsButton_Image, ExitButton_Image;
         bool Play, PlayTab_Close, playTab_NumPlayers_bool, playTab_NumRounds_bool, playTab_CarSelect_bool, playTab_TrackSelect_bool, Options, OptionsTab_Close, volumeChange, Credits, CreditsTab_Close, Exit, SwitchScenes;
@@ -23,6 +22,9 @@ namespace ConsoleApplication1.Scenes
         public Image play_PlayButton, play_numPlayers_Button, play_numRounds_Button, play_carSelection_Button, play_trackSelection_Button;
         public Image play_Background_Image, credits_Background_Image, options_Background_Image;
         public Image car1_Image, car2_Image, car3_Image, car4_Image, car5_Image, car6_Image, car7_Image;
+        public Image player1CarSelection, player2CarSelection;
+
+        public int carSelct_player1, carSelect_player2, carSelect_Counter;
 
         public Menu()
             : base()
@@ -33,8 +35,10 @@ namespace ConsoleApplication1.Scenes
             volumeRectLength = 400;
             play_numPlayers = 1;
             play_numRounds = 10;
-            play_currentCar_select = 0;
             play_currentTack_select = 0;
+            carSelct_player1 = 0;
+            carSelect_player2 = 1;
+            carSelect_Counter = 0;
 
             cursor_Image = new Image("Assets/Images/Menu_Cursor.png");
             backArrow_Image = new Image("Assets/Images/BackArrow.png");
@@ -54,6 +58,9 @@ namespace ConsoleApplication1.Scenes
             car5_Image = new Image("Assets/Images/Car5_Black.png");
             car6_Image = new Image("Assets/Images/Car6_Yellow.png");
             car7_Image = new Image("Assets/Images/Car7_Gray.png");
+
+            player1CarSelection = new Image("Assets/Images/Car1_Orange.png");
+            player2CarSelection = new Image("Assets/Images/Car2_Blue.png");
 
             options_VolumeButton = new Image("Assets/Images/VolumeButton.png");
             play_PlayButton = new Image("Assets/Images/PlayButton.png");
@@ -193,13 +200,13 @@ namespace ConsoleApplication1.Scenes
                 if (!playTab_NumPlayers_bool && !playTab_NumRounds_bool && !playTab_CarSelect_bool && !playTab_TrackSelect_bool)
                 {
                     //input check 
-                    if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed || Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)
+                    if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed || Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)
                     {
                         currentSelection--;
                         if (currentSelection < (int)TabedMenuButtons.play_NumPlayers)
                             currentSelection = (int)TabedMenuButtons.play_Play;
                     }
-                    else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed || Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)
+                    else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed || Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)
                     {
                         currentSelection++;
                         if (currentSelection > (int)TabedMenuButtons.play_Play)
@@ -257,80 +264,145 @@ namespace ConsoleApplication1.Scenes
                 }
                 if (playTab_CarSelect_bool)
                 {
-                    //input for selecting a car. player 1
-                    if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)
-                    {
-                        carCursor_Image_P1.SetPosition(carCursor_Image_P1.Left + 100, 675);
-                        if (carCursor_Image_P1.Left > 990)
-                            carCursor_Image_P1.SetPosition(390, 675);
-                    }
-                    else if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)
-                    {
-                        carCursor_Image_P1.SetPosition(carCursor_Image_P1.Left - 100, 675);
-                        if (carCursor_Image_P1.Left < 390)
-                            carCursor_Image_P1.SetPosition(990, 675);
-                    }
-                    else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed)//player 1
-                    {
-                        //select current car for player 1
-                    }
-                    else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
-                        playTab_CarSelect_bool = false;
+                    carSelect_Counter++;
 
-                    //player 1 car selection
-                    if (carCursor_Image_P1.X == 425)
-                        play_currentCar_select = (int)CarSelection.car1_select;
-                    else if (carCursor_Image_P1.X == 525)
-                        play_currentCar_select = (int)CarSelection.car2_select;
-                    else if (carCursor_Image_P1.X == 625)
-                        play_currentCar_select = (int)CarSelection.car3_select;
-                    else if (carCursor_Image_P1.X == 725)
-                        play_currentCar_select = (int)CarSelection.car4_select;
-                    else if (carCursor_Image_P1.X == 825)
-                        play_currentCar_select = (int)CarSelection.car5_select;
-                    else if (carCursor_Image_P1.X == 925)
-                        play_currentCar_select = (int)CarSelection.car6_select;
-                    else if (carCursor_Image_P1.X == 1025)
-                        play_currentCar_select = (int)CarSelection.car7_select;
-
-
-                    //player 2
-                    /*
-                    if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)
+                    if (play_numPlayers == 1)
                     {
-                        carCursor_Image.SetPosition(carCursor_Image.Left + 100, 675);
-                        if (carCursor_Image.Left > 990)
-                            carCursor_Image.SetPosition(390, 675);
-                    }
-                    else if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)
-                    {
-                        carCursor_Image.SetPosition(carCursor_Image.Left - 100, 675);
-                        if (carCursor_Image.Left < 390)
-                            carCursor_Image.SetPosition(990, 675);
-                    }
-                    else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed)
-                    {
+                        //input for selecting a car. player 1
+                        if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)
+                        {
+                            carSelct_player1++;
+                            if (carSelct_player1 > 6)
+                                carSelct_player1 = 0;
 
-                    }
-                    else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
-                        playTab_CarSelect_bool = false;
-                    */
+                            carCursor_Image_P1.SetPosition(carCursor_Image_P1.Left + 100, 675);
+                            if (carCursor_Image_P1.Left > 990)
+                                carCursor_Image_P1.SetPosition(390, 675);
+                        }
+                        else if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)
+                        {
+                            carSelct_player1--;
+                            if (carSelct_player1 < 0)
+                                carSelct_player1 = 6;
 
-                    //player 2 car selection
-                    if (carCursor_Image_P1.X == 425)
-                        play_currentCar_select = (int)CarSelection.car1_select;
-                    else if (carCursor_Image_P1.X == 525)
-                        play_currentCar_select = (int)CarSelection.car2_select;
-                    else if (carCursor_Image_P1.X == 625)
-                        play_currentCar_select = (int)CarSelection.car3_select;
-                    else if (carCursor_Image_P1.X == 725)
-                        play_currentCar_select = (int)CarSelection.car4_select;
-                    else if (carCursor_Image_P1.X == 825)
-                        play_currentCar_select = (int)CarSelection.car5_select;
-                    else if (carCursor_Image_P1.X == 925)
-                        play_currentCar_select = (int)CarSelection.car6_select;
-                    else if (carCursor_Image_P1.X == 1025)
-                        play_currentCar_select = (int)CarSelection.car7_select;
+                            carCursor_Image_P1.SetPosition(carCursor_Image_P1.Left - 100, 675);
+                            if (carCursor_Image_P1.Left < 390)
+                                carCursor_Image_P1.SetPosition(990, 675);
+                        }
+                        else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && carSelect_Counter > 10)//player 1
+                        {
+                            //select current car for player 1
+                            if (carSelct_player1 == 0)
+                                player1CarSelection = new Image("Assets/Images/Car1_Orange.png");
+                            else if (carSelct_player1 == 1)
+                                player1CarSelection = new Image("Assets/Images/Car2_Blue.png");
+                            else if (carSelct_player1 == 2)
+                                player1CarSelection = new Image("Assets/Images/Car3_Red.png");
+                            else if (carSelct_player1 == 3)
+                                player1CarSelection = new Image("Assets/Images/Car4_Green.png");
+                            else if (carSelct_player1 == 4)
+                                player1CarSelection = new Image("Assets/Images/Car5_Black.png");
+                            else if (carSelct_player1 == 5)
+                                player1CarSelection = new Image("Assets/Images/Car6_Yellow.png");
+                            else if (carSelct_player1 == 6)
+                                player1CarSelection = new Image("Assets/Images/Car7_Gray.png");
+
+                            playTab_CarSelect_bool = false;
+                            carSelect_Counter = 0;
+                        }
+                        else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
+                            playTab_CarSelect_bool = false;
+                    }
+                    else if (play_numPlayers == 2)
+                    {
+                        //input for selecting a car. player 1
+                        if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)
+                        {
+                            carSelct_player1++;
+                            if (carSelct_player1 > 6)
+                                carSelct_player1 = 0;
+
+                            carCursor_Image_P1.SetPosition(carCursor_Image_P1.Left + 100, 675);
+                            if (carCursor_Image_P1.Left > 990)
+                                carCursor_Image_P1.SetPosition(390, 675);
+                        }
+                        else if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)
+                        {
+                            carSelct_player1--;
+                            if (carSelct_player1 < 0)
+                                carSelct_player1 = 6;
+
+                            carCursor_Image_P1.SetPosition(carCursor_Image_P1.Left - 100, 675);
+                            if (carCursor_Image_P1.Left < 390)
+                                carCursor_Image_P1.SetPosition(990, 675);
+                        }
+                        else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && carSelect_Counter > 10)//player 1
+                        {
+                            //select current car for player 1
+                            if (carSelct_player1 == 0)
+                                player1CarSelection = new Image("Assets/Images/Car1_Orange.png");
+                            else if (carSelct_player1 == 1)
+                                player1CarSelection = new Image("Assets/Images/Car2_Blue.png");
+                            else if (carSelct_player1 == 2)
+                                player1CarSelection = new Image("Assets/Images/Car3_Red.png");
+                            else if (carSelct_player1 == 3)
+                                player1CarSelection = new Image("Assets/Images/Car4_Green.png");
+                            else if (carSelct_player1 == 4)
+                                player1CarSelection = new Image("Assets/Images/Car5_Black.png");
+                            else if (carSelct_player1 == 5)
+                                player1CarSelection = new Image("Assets/Images/Car6_Yellow.png");
+                            else if (carSelct_player1 == 6)
+                                player1CarSelection = new Image("Assets/Images/Car7_Gray.png");
+
+                            playTab_CarSelect_bool = false;
+                            carSelect_Counter = 0;
+                        }
+                        else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
+                            playTab_CarSelect_bool = false;
+
+
+                        //input for selecting a car. player 2
+                        if (Globals.PlayerTwo.Controller.Button(Controls.SwapLaneRight).Pressed)
+                        {
+                            carSelect_player2++;
+                            if (carSelect_player2 > 6)
+                                carSelect_player2 = 0;
+
+                            carCursor_Image_P2.SetPosition(carCursor_Image_P2.Left + 100, 675);
+                            if (carCursor_Image_P2.Left > 990)
+                                carCursor_Image_P2.SetPosition(390, 675);
+                        }
+                        else if (Globals.PlayerTwo.Controller.Button(Controls.SwapLaneLeft).Pressed)
+                        {
+                            carSelect_player2--;
+                            if (carSelect_player2 < 0)
+                                carSelect_player2 = 6;
+
+                            carCursor_Image_P2.SetPosition(carCursor_Image_P2.Left - 100, 675);
+                            if (carCursor_Image_P2.Left < 390)
+                                carCursor_Image_P2.SetPosition(990, 675);
+                        }
+                        else if (Globals.PlayerTwo.Controller.Button(Controls.Enter).Pressed && carSelect_Counter > 10)
+                        {
+                            //select current car for player 2
+                            if (carSelect_player2 == 0)
+                                player2CarSelection = new Image("Assets/Images/Car1_Orange.png");
+                            else if (carSelect_player2 == 1)
+                                player2CarSelection = new Image("Assets/Images/Car2_Blue.png");
+                            else if (carSelect_player2 == 2)
+                                player2CarSelection = new Image("Assets/Images/Car3_Red.png");
+                            else if (carSelect_player2 == 3)
+                                player2CarSelection = new Image("Assets/Images/Car4_Green.png");
+                            else if (carSelect_player2 == 4)
+                                player2CarSelection = new Image("Assets/Images/Car5_Black.png");
+                            else if (carSelect_player2 == 5)
+                                player2CarSelection = new Image("Assets/Images/Car6_Yellow.png");
+                            else if (carSelect_player2 == 6)
+                                player2CarSelection = new Image("Assets/Images/Car7_Gray.png");
+
+                            carSelect_Counter = 0;
+                        }
+                    }
 
                 }
                 if (playTab_TrackSelect_bool)
@@ -351,6 +423,8 @@ namespace ConsoleApplication1.Scenes
                     else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed)
                     {
                         //set the track to be the one played
+
+
                     }
                     else if (Globals.PlayerOne.Controller.Button(Controls.Back).Pressed)
                         playTab_TrackSelect_bool = false;
@@ -396,7 +470,7 @@ namespace ConsoleApplication1.Scenes
                         //switch scenes
                         Game.RemoveScene();
                         //Game.AddScene(new Race(10));
-                        Game.AddScene(new Race(3, play_numPlayers));
+                        Game.AddScene(new Race(play_numRounds, play_numPlayers, player1CarSelection, player2CarSelection));
                     }
                 }
             }
@@ -591,8 +665,8 @@ namespace ConsoleApplication1.Scenes
                             car6_Image.Render();
                             car7_Image.Render();
 
+                            carCursor_Image_P2.Render();
                             carCursor_Image_P1.Render();
-                            //carCursor_Image_P2.Render();
                         }
 
                         //track selection
@@ -609,7 +683,6 @@ namespace ConsoleApplication1.Scenes
                             Draw.Rectangle(625, 625, 200, 200, Color.White, Color.Black, 5);
                             Draw.Rectangle(900, 625, 200, 200, Color.White, Color.Black, 5);
                         }
-
                     }
                 }
                 else if (Options)

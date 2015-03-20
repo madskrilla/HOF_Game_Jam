@@ -28,7 +28,7 @@ namespace ConsoleApplication1.Scenes
         public Text second = new Text("", "Assets/RACER___.TTF");
         public Text third = new Text("", "Assets/RACER___.TTF");
         public Text fourth = new Text("", "Assets/RACER___.TTF");
-        public Race(int _laps, int numPlayers)
+        public Race(int _laps, int numPlayers, Image player1Car, Image player2Car)
             : base()
         {
 
@@ -42,19 +42,21 @@ namespace ConsoleApplication1.Scenes
             {
                 if (play == 0)
                 {
-                    Slot_Car player = new Player(this, 0, Globals.PlayerOne);
+                    Slot_Car player = new Player(this, 0, Globals.PlayerOne, player1Car);
                     HUD hud = new HUD(player, this);
                     theCars.Add(player);
                     Add(player);
                     Add(hud);
+                    //player.SetGraphic(player1Car);
                 }
                 else
                 {
-                    Slot_Car player2 = new Player(this, 1, Globals.PlayerTwo);
+                    Slot_Car player2 = new Player(this, 1, Globals.PlayerTwo, player2Car);
                     HUD hud1 = new HUD(player2, this);
                     theCars.Add(player2);
                     Add(player2);
                     Add(hud1);
+                    //player2.SetGraphic(player2Car);
                 }
             }
             if (numPlayers == 1)
