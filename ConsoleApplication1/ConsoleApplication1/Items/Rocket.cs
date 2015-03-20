@@ -33,10 +33,12 @@ namespace ConsoleApplication1.Items
             this.itemImage.Visible = false;
             itemType = ItemType.Rocket;
             owner.theRace.Add(this);
+            active = false;
         }
 
         public override void Execute()
         {
+            active = true;
             itemCollider.Collidable = true;
             itemImage.Visible = true;
             velocity = owner.velocity;
@@ -50,7 +52,12 @@ namespace ConsoleApplication1.Items
         public override void Update()
         {
             X += velocity.X;
-            Y += velocity.Y; 
+            Y += velocity.Y;
+            if ((X < 0 || X > 1920) || (Y < 0 || Y > 1080))
+            {
+                owner.currentPickup = null;
+                RemoveSelf();
+            }
         }
     
 

@@ -55,7 +55,7 @@ namespace ConsoleApplication1.Vehicles
             SteerVec = new Vector2();
             velocity = new Vector2();
             position = new Vector2();
-
+            playerNum = _ln + 1;
 
             targetNode = theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes[nodeIndex];
             X = targetNode.localSpace.X;
@@ -125,6 +125,7 @@ namespace ConsoleApplication1.Vehicles
                             spinning = true;
                             popDuration = 30;
                             item.RemoveSelf();
+                            currentPickup = null;
 
                         }
                         else if (item.itemType == ItemType.Rocket)
@@ -133,6 +134,7 @@ namespace ConsoleApplication1.Vehicles
                             spinning = true;
                             popDuration = 30;
                             item.RemoveSelf();
+                            currentPickup = null;
 
 
                         }
@@ -143,6 +145,7 @@ namespace ConsoleApplication1.Vehicles
                             popDuration = 30;
 
                             item.RemoveSelf();
+                            currentPickup = null;
 
                         }
                         else if (item.itemType == ItemType.OilSlick)
@@ -151,6 +154,8 @@ namespace ConsoleApplication1.Vehicles
 
                             maxSpeed = 5;
                             item.RemoveSelf();
+                            currentPickup = null;
+
                         }
                         invulnTimer += 120;
                     }

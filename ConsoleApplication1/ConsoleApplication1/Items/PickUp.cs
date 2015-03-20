@@ -17,6 +17,7 @@ namespace ConsoleApplication1.Items
         public Slot_Car owner;
         public Race theRace;
         public ItemType itemType;
+        public bool active = false;
         
         
         public PickUp( Race race) : base()
@@ -29,6 +30,7 @@ namespace ConsoleApplication1.Items
             itemCollider.Collidable = true;
             itemImage.Visible = true;
             itemImage.CenterOrigin();
+         
 
             respawnTimer = 0;
             frame = 0;
@@ -54,7 +56,7 @@ namespace ConsoleApplication1.Items
         {
             PickUp p;
             Random rnd = new Random();
-            int pickupType = rnd.Next(0, 4);
+            int pickupType = rnd.Next(0, 5);
             switch (pickupType)
             {
                 case 0:
@@ -68,6 +70,9 @@ namespace ConsoleApplication1.Items
                     break;
                 case 3:
                     p = new Bomb(owner, theRace);
+                    break;
+                case 4:
+                    p = new SpeedBoost(owner, theRace);
                     break;
                 default:
                     p = new PickUp( theRace);

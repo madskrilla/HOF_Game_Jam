@@ -46,6 +46,7 @@
     <Compile Include="Items\Missle.cs" />
     <Compile Include="Items\OilSlick.cs" />
     <Compile Include="Items\Rocket.cs" />
+    <Compile Include="Items\SpeedBoost.cs" />
     <Compile Include="Vehicles\AIDriver.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Items\Item_Base.cs" />

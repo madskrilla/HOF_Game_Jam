@@ -32,7 +32,7 @@ namespace ConsoleApplication1.Scenes
             : base()
         {
 
-            theTrack = new Track(this,2);
+            theTrack = new Track(this,1);
             theTrack.BuildTrack();
             for (int i = 0; i < theTrack.thePieces.Count(); i++)
             {

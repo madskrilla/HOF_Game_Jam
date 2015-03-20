@@ -26,7 +26,7 @@ namespace ConsoleApplication1.Items
         public int nextNode = 1;
         public int pieceIndex = 0;
         public int currLane;
-        private bool active = false;
+       
 
         public Missle(Slot_Car _owner, Race race)
             : base( race)

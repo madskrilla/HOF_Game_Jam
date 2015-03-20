@@ -13,7 +13,7 @@ namespace ConsoleApplication1.Items
     {
 
         public int activeTime = 20;
-        public bool active = false;
+       // public bool active = false;
         public int frame = 0;
         public Vector2 spawnOffset;
 
@@ -27,7 +27,7 @@ namespace ConsoleApplication1.Items
             SetGraphic(itemImage);
             itemCollider = new BoxCollider(itemImage.Width - 5, itemImage.Height - 5, (int)ColliderType.PickUpUse);
             SetCollider(itemCollider);
-
+            active = false;
             itemType = ItemType.OilSlick;
 
             this.itemCollider.Collidable = false;
