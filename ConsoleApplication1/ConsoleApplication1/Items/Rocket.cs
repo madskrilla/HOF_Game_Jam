@@ -18,7 +18,7 @@ namespace ConsoleApplication1.Items
        
         public Vector2 velocity;
         public int speed = 15;
-       
+        public Sound rocketFire = new Sound("Audio/rocketFire.wav");
 
         public Rocket(Slot_Car _owner, Race race) : base( race)
         {
@@ -47,6 +47,7 @@ namespace ConsoleApplication1.Items
             itemImage.Angle = owner.carImage.Angle;
             X = owner.X;
             Y = owner.Y;
+            rocketFire.Play();
         }
 
         public override void Update()

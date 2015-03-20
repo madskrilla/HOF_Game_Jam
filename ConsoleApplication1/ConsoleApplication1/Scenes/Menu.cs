@@ -25,12 +25,14 @@ namespace ConsoleApplication1.Scenes
         public Image car1_Image, car2_Image, car3_Image, car4_Image, car5_Image, car6_Image, car7_Image;
         public Image track0Preview, track1Preview, track2Preview;
 
-        
-        
+        public Sound menuEnter = new Sound("Audio/menuEnter.wav");
+        public Sound menuBack = new Sound("Audio/menuBack.wav");
+        public Sound menuMove = new Sound("Audio/menuMove.wav");
 
         public Menu()
             : base()
         {
+            Game.Instance.Color = new Color(0x5e5b5b);
             currentSelection = (int)MenuButtons.MB_Play;
             cursorX_offset = 0;
             cursorY_offset = 0;
@@ -140,31 +142,41 @@ namespace ConsoleApplication1.Scenes
                 if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed)//move up
                 {
                     currentSelection--;
+                    menuMove.Play();
                     if (currentSelection < (int)MenuButtons.MB_Play)
                         currentSelection = (int)MenuButtons.MB_Exit;
                 }
                 else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed)//move down
                 {
                     currentSelection++;
+                    menuMove.Play();
                     if (currentSelection > (int)MenuButtons.MB_Exit)
                         currentSelection = (int)MenuButtons.MB_Play;
                 }
 
                 //enter checks
                 if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)MenuButtons.MB_Exit)
+                {
                     Exit = true;
+                    menuBack.Play();
+                }
                 else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)MenuButtons.MB_Options)
                 {
                     Options = true;
                     currentSelection = (int)TabedMenuButtons.options_Volume;
+                    menuEnter.Play();
                 }
                 else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)MenuButtons.MB_Play)
                 {
                     Play = true;
                     currentSelection = (int)TabedMenuButtons.play_NumPlayers;
+                    menuEnter.Play();
                 }
                 else if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)MenuButtons.MB_Credits)
+                {
                     Credits = true;
+                    menuEnter.Play();
+                }
             }
 
             //move image based on selecting
@@ -218,28 +230,48 @@ namespace ConsoleApplication1.Scenes
                     if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed || Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)
                     {
                         currentSelection--;
+                        menuMove.Play();
                         if (currentSelection < (int)TabedMenuButtons.play_NumPlayers)
                             currentSelection = (int)TabedMenuButtons.play_Play;
                     }
                     else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed || Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)
                     {
                         currentSelection++;
+                        menuMove.Play();
                         if (currentSelection > (int)TabedMenuButtons.play_Play)
                             currentSelection = (int)TabedMenuButtons.play_NumPlayers;
                     }
 
                     if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.play_Back)
+                    {
                         PlayTab_Close = true;
+                        menuBack.Play();
+                    }
                     if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.play_Play)
+                    {
                         SwitchScenes = true;
+                        menuEnter.Play();
+                    }
                     if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.play_NumPlayers)
+                    {
                         playTab_NumPlayers_bool = true;
+
+                    }
                     if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.play_NumRounds)
+                    {
                         playTab_NumRounds_bool = true;
+
+                    }
                     if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.play_carSelect)
+                    {
                         playTab_CarSelect_bool = true;
+
+                    }
                     if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.play_trackSelect)
+                    {
                         playTab_TrackSelect_bool = true;
+
+                    }
                 }
                 if (playTab_NumPlayers_bool)
                 {
@@ -436,21 +468,28 @@ namespace ConsoleApplication1.Scenes
                     if (Globals.PlayerOne.Controller.Button(Controls.KeyUP).Pressed)//move up
                     {
                         currentSelection--;
+                        menuMove.Play();
                         if (currentSelection < (int)TabedMenuButtons.options_Back)
                             currentSelection = (int)TabedMenuButtons.options_Volume;
                     }
                     else if (Globals.PlayerOne.Controller.Button(Controls.KeyDown).Pressed)//move down
                     {
                         currentSelection++;
+                        menuMove.Play();
                         if (currentSelection > (int)TabedMenuButtons.options_Volume)
                             currentSelection = (int)TabedMenuButtons.options_Back;
                     }
                 }
 
                 if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.options_Back)
+                {
                     OptionsTab_Close = true;
+                    menuBack.Play();
+                }
                 if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.options_Volume)
+                {
                     volumeChange = true;
+                }
 
                 if (currentSelection == (int)TabedMenuButtons.options_Volume)
                     cursor_Image.SetPosition(458, 682);
@@ -463,12 +502,14 @@ namespace ConsoleApplication1.Scenes
                     if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneRight).Pressed)//increase volume
                     {
                         volumeRectLength += 40;
+                        menuMove.Play();
                         if (volumeRectLength > 400)
                             volumeRectLength = 400;
                     }
                     else if (Globals.PlayerOne.Controller.Button(Controls.SwapLaneLeft).Pressed)//decrease volume
                     {
                         volumeRectLength -= 40;
+                        menuMove.Play();
                         if (volumeRectLength < 0)
                             volumeRectLength = 0;
                     }
@@ -508,7 +549,10 @@ namespace ConsoleApplication1.Scenes
                 cursor_Image.SetPosition(458, 875);
 
                 if (Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed && currentSelection == (int)TabedMenuButtons.credits_Back)
+                {
                     CreditsTab_Close = true;
+                    menuBack.Play();
+                }
 
                 if (CreditsTab_Close && CreditsButton_Image.Left < 1920)
                 {

@@ -24,6 +24,9 @@ namespace ConsoleApplication1.Vehicles
         public List<Sound> tireScreech = new List<Sound>();
         public bool tireScreechPlaying = false;
         public Sound jumpLanes = new Sound("Audio/jumpLanes.wav");
+        public Sound bombExplode = new Sound("Audio/bombExplode.wav");
+        public Sound rocketBoom = new Sound("Audio/rocketBoom.wav");
+        public Sound itemPickup = new Sound("Audio/itemPickup.wav");
         public Vector2 velocity;
         public Vector2 SteerVec;
         public Vector2 position;
@@ -146,6 +149,7 @@ namespace ConsoleApplication1.Vehicles
                     PickUp item = (PickUp)itemGet.Entity;
                     currentPickup = item.GenerateRandom(this);
                     hasItem = true;
+                    itemPickup.Play();
                 }
                 if (itemHit != null)
                 {
@@ -160,7 +164,7 @@ namespace ConsoleApplication1.Vehicles
                             popDuration = 30;
                             item.RemoveSelf();
                             currentPickup = null;
-
+                            bombExplode.Play();
 
                         }
                         else if (item.itemType == ItemType.Rocket)
@@ -170,6 +174,7 @@ namespace ConsoleApplication1.Vehicles
                             popDuration = 30;
                             item.RemoveSelf();
                             currentPickup = null;
+                            rocketBoom.Play();
                         }
                         else if (item.itemType == ItemType.Missle)
                         {
@@ -179,6 +184,7 @@ namespace ConsoleApplication1.Vehicles
 
                             item.RemoveSelf();
                             currentPickup = null;
+                            rocketBoom.Play();
                         }
                         else if (item.itemType == ItemType.OilSlick)
                         {

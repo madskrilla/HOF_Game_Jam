@@ -15,6 +15,7 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             Game game = new Game("Slotcar Game", 1920, 1080, 60, false);
+            game.MouseVisible = true;
             game.Color = new Color(0x018801);
             Globals.PlayerOne = game.AddSession("P1");
             Globals.PlayerTwo = game.AddSession("P2");
