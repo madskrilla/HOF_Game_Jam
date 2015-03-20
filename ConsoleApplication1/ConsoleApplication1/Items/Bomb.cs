@@ -18,6 +18,12 @@ namespace ConsoleApplication1.Items
         {
             owner = _owner;
             theRace = race;
+            itemType = ItemType.Bomb;
+            itemImage = new Image("Assets/Images/bomb.png");
+            SetGraphic(itemImage);
+            itemCollider = new BoxCollider(itemImage.Width, itemImage.Height, (int)ColliderType.PickUpUse);
+            SetCollider(itemCollider);
+
             this.itemCollider.Collidable = false;
             this.itemImage.Visible = false;
         }

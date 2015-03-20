@@ -56,8 +56,7 @@ namespace ConsoleApplication1.Vehicles
             targetNode = theRace.theTrack.thePieces[pieceIndex].theLanes[Lane].theNodes[nodeIndex];
             X = targetNode.localSpace.X;
             Y = targetNode.localSpace.Y;
-            tags.Add((int)ColliderType.PickUp);
-            tags.Add((int)ColliderType.Slot_Car);
+           
             SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             carCollider.CenterOrigin();
             carCollider.Entity = this;
