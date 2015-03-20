@@ -33,7 +33,7 @@ namespace ConsoleApplication1.Scenes
         public Race(int _laps, int numPlayers, int _track)
             : base()
         {
-
+            Game.Instance.Color = new Color(0x018801);
             theTrack = new Track(this, _track);
             theTrack.BuildTrack();
             for (int i = 0; i < theTrack.thePieces.Count(); i++)

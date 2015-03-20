@@ -32,6 +32,7 @@ namespace ConsoleApplication1.Scenes
         public Menu()
             : base()
         {
+            Game.Instance.Color = new Color(0x5e5b5b);
             currentSelection = (int)MenuButtons.MB_Play;
             cursorX_offset = 0;
             cursorY_offset = 0;
