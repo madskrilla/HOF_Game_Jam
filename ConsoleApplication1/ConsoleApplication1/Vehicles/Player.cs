@@ -33,7 +33,7 @@ namespace ConsoleApplication1
                 return;
             else if (theRace.currentState == RaceState.RaceEnd || finished)
             {
-                acceleration += 5;
+                acceleration = 5;
             }
             else
             {
@@ -99,7 +99,8 @@ namespace ConsoleApplication1
             }
             if (player.Controller.Button(Controls.UseItem).Pressed && hasItem == true)
             {
-                currentPickup.Execute();
+                if (currentPickup != null)
+                    currentPickup.Execute();
                 hasItem = false;
             }
         }

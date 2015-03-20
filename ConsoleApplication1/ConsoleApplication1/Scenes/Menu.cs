@@ -418,7 +418,7 @@ namespace ConsoleApplication1.Scenes
                         //switch scenes
                         Game.RemoveScene();
                         //Game.AddScene(new Race(10));
-                        Game.AddScene(new Race(3, play_numPlayers, play_currentTrack_select));
+                        Game.AddScene(new Race(play_numRounds, play_numPlayers, play_currentTrack_select));
                     }
                 }
             }
