@@ -63,7 +63,7 @@ namespace ConsoleApplication1
             Globals.PlayerOne.Controller.Button(Controls.UseItem).AddJoyButton(ControllerXbox360.JoyButtonX,0);
             Globals.PlayerOne.Controller.Button(Controls.KeyUP).AddAxisButton(AxisButton.YMinus,0);
             Globals.PlayerOne.Controller.Button(Controls.KeyDown).AddAxisButton(AxisButton.YPlus,0);
-            Globals.PlayerOne.Controller.Button(Controls.Escape).AddJoyButton(ControllerXbox360.JoyButtonB, 0);
+            Globals.PlayerOne.Controller.Button(Controls.Back).AddJoyButton(ControllerXbox360.JoyButtonB, 0);
             Globals.PlayerOne.Controller.Button(Controls.Pause).AddJoyButton(ControllerXbox360.JoyButtonStart, 0);
             Globals.PlayerOne.Controller.Button(Controls.Enter).AddJoyButton(ControllerXbox360.JoyButtonA,0);
 

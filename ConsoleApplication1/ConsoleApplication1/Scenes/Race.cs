@@ -30,11 +30,12 @@ namespace ConsoleApplication1.Scenes
         public Text fourth = new Text("", "Assets/RACER___.TTF");
         public Sound raceStart = new Sound("Audio/startRace.wav");
 
-        public Race(int _laps, int numPlayers, int _track)
+        //public Race(int _laps, int numPlayers, int _track)
+        public Race(int _laps, int numPlayers, Image player1Car, Image player2Car, int track_selection )
             : base()
         {
             Game.Instance.Color = new Color(0x018801);
-            theTrack = new Track(this, _track);
+            theTrack = new Track(this,track_selection);
             theTrack.BuildTrack();
             for (int i = 0; i < theTrack.thePieces.Count(); i++)
             {
@@ -44,19 +45,21 @@ namespace ConsoleApplication1.Scenes
             {
                 if (play == 0)
                 {
-                    Slot_Car player = new Player(this, 0, Globals.PlayerOne);
+                    Slot_Car player = new Player(this, 0, Globals.PlayerOne, player1Car);
                     HUD hud = new HUD(player, this);
                     theCars.Add(player);
                     Add(player);
                     Add(hud);
+                    //player.SetGraphic(player1Car);
                 }
                 else
                 {
-                    Slot_Car player2 = new Player(this, 1, Globals.PlayerTwo);
+                    Slot_Car player2 = new Player(this, 1, Globals.PlayerTwo, player2Car);
                     HUD hud1 = new HUD(player2, this);
                     theCars.Add(player2);
                     Add(player2);
                     Add(hud1);
+                    //player2.SetGraphic(player2Car);
                 }
             }
             if (numPlayers == 1)
@@ -204,10 +207,10 @@ namespace ConsoleApplication1.Scenes
                 {
                     if (theCars[player].finished)
                     {
-                        Globals.slotCarText.String = "Player " + theCars[player].playerNum.ToString() + "has finished!.";
+                        Globals.slotCarText.String = "Player " + theCars[player].playerNum.ToString() + " has finished!.";
                         Globals.slotCarText.FontSize = 50;
                         Globals.slotCarText.Color = theCars[player].playerCol;
-                        Globals.slotCarText.Render((HalfWidth - Globals.slotCarText.Width) - 100, HalfHeight +  - Globals.slotCarText.Height + (50 * player) - 100);
+                        Globals.slotCarText.Render((HalfWidth - Globals.slotCarText.Width) - 150, HalfHeight +  - Globals.slotCarText.Height + (50 * player) - 100);
                     }
                 }
             }
