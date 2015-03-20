@@ -17,12 +17,13 @@ namespace ConsoleApplication1.Vehicles
         public Image carImage = Image.CreateRectangle(30, 50, Color.Cyan);
         public PolygonCollider carCollider;
         public float audioVolume;
-        public Sound carRev = new Sound("Audio/EngineRev.wav");
+        public Sound carRev = new Sound("Audio/EngineRev.wav", true);
         public bool revPlaying = false;
-        public Sound carIdle = new Sound("Audio/EngineIdle.wav");
+        public Sound carIdle = new Sound("Audio/EngineIdle.wav", true);
         public bool idlePlaying = false;
         public List<Sound> tireScreech = new List<Sound>();
         public bool tireScreechPlaying = false;
+        public Sound jumpLanes = new Sound("Audio/jumpLanes.wav");
         public Vector2 velocity;
         public Vector2 SteerVec;
         public Vector2 position;
@@ -97,13 +98,12 @@ namespace ConsoleApplication1.Vehicles
                     break;
                 default:
                     break;
-
-                    tireScreech.Add(new Sound("Audio/SpinOut1.wav"));
-                    tireScreech.Add(new Sound("Audio/SpinOut2.wav"));
-                    tireScreech.Add(new Sound("Audio/SpinOut3.wav"));
-
-                    audioVolume = 1.0f;
             }
+            tireScreech.Add(new Sound("Audio/SpinOut1.wav"));
+            tireScreech.Add(new Sound("Audio/SpinOut2.wav"));
+            tireScreech.Add(new Sound("Audio/SpinOut3.wav"));
+
+            audioVolume = 1.0f;
         }
         public override void Update()
         {

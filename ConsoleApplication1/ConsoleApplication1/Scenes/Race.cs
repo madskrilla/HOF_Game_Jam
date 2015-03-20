@@ -28,11 +28,11 @@ namespace ConsoleApplication1.Scenes
         public Text second = new Text("", "Assets/RACER___.TTF");
         public Text third = new Text("", "Assets/RACER___.TTF");
         public Text fourth = new Text("", "Assets/RACER___.TTF");
-        public Race(int _laps, int numPlayers)
+        public Race(int _laps, int numPlayers, int _track)
             : base()
         {
 
-            theTrack = new Track(this,1);
+            theTrack = new Track(this, _track);
             theTrack.BuildTrack();
             for (int i = 0; i < theTrack.thePieces.Count(); i++)
             {
@@ -149,6 +149,11 @@ namespace ConsoleApplication1.Scenes
             }
             if (currentState == RaceState.RaceEnd && Globals.PlayerOne.Controller.Button(Controls.Enter).Pressed)
             {
+                for (int i = 0; i < theCars.Count(); i++)
+                {
+                    theCars[i].carRev.Stop();
+                    theCars[i].carIdle.Stop();
+                }
                 Game.RemoveScene();
                 Game.AddScene(new Menu());
                 
