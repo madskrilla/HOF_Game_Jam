@@ -82,11 +82,11 @@ namespace ConsoleApplication1.Vehicles
             box.Rotate(carImage.Angle, X, Y);
             carCollider = new PolygonCollider(box, ColliderType.Slot_Car);
             carCollider.SetOrigin(X, Y);
-            SetCollider(carCollider);
 
             // SetHitbox(50, 30, (int)ColliderType.Slot_Car);
             carCollider.CenterOrigin();
-            carCollider.Entity = this;
+            SetCollider(carCollider);
+            //carCollider.Entity = this;
             switch (playerNum)
             {
                 case 1:
@@ -121,8 +121,8 @@ namespace ConsoleApplication1.Vehicles
             PopUp();
             if (!spinning)
                 Steer();
-
-            if (invulnTimer == 0)
+           
+            if (invulnTimer <= 0)
             {
                 var collider = carCollider.Collide(X, Y, ColliderType.Slot_Car);
                 var itemHit = carCollider.Collide(X, Y, ColliderType.PickUpUse);
@@ -168,6 +168,7 @@ namespace ConsoleApplication1.Vehicles
                     PickUp item = (PickUp)itemHit.Entity;
                     if (item.owner != this)
                     {
+
                         if (item.itemType == ItemType.Bomb)
                         {
                             //Add Pop up
@@ -176,6 +177,7 @@ namespace ConsoleApplication1.Vehicles
                             item.RemoveSelf();
                             currentPickup = null;
                             bombExplode.Play();
+
                         }
                         else if (item.itemType == ItemType.Rocket)
                         {
@@ -211,34 +213,42 @@ namespace ConsoleApplication1.Vehicles
                             maxSpeed = 5;
                             item.RemoveSelf();
                             currentPickup = null;
+                            slowTimer = 120;
                         }
                         invulnTimer = 120;
                     }
                 }
             }
-                else
-                    invulnTimer--;
-
-                if (slowTimer > 0)
+            else
+            {
+                invulnTimer--;
+                if (invulnTimer < 0)
                 {
-                    slowTimer--;
-                    if (slowTimer <= 0)
-                    {
-                        slowTimer = 0;
-                        maxSpeed = 10;
-                    }
+                    invulnTimer = 0;
                 }
 
-                if (spinning)
-                    SpinOut();
-
-                X += velocity.X;
-                Y += velocity.Y;
-                PlayAudio();
-                base.Update();
-
             }
-        
+
+             if (slowTimer >= 0)
+            {
+                       slowTimer--;
+                if (slowTimer <= 0)
+                {
+                    slowTimer = 0;
+                    maxSpeed = 10;
+                }
+            }
+
+            if (spinning)
+                SpinOut();
+
+            X += velocity.X;
+            Y += velocity.Y;
+            PlayAudio();
+            base.Update();
+
+        }
+
 
 
         public void Steer()
@@ -341,7 +351,7 @@ namespace ConsoleApplication1.Vehicles
                     carRev.Play();
                     revPlaying = true;
                 }
-                carRev.Pitch = Util.Scale(acceleration, 0.0f, 10.0f, 0.2f, 1.0f);
+                                carRev.Pitch = Util.Scale(acceleration, 0.0f, 10.0f, 0.2f, 1.0f);
             }
             else
             {

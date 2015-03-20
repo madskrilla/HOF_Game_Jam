@@ -34,7 +34,7 @@ namespace ConsoleApplication1.Items
 
             respawnTimer = 0;
             frame = 0;
-            Layer = -5;
+            Layer = -1;
 
             theRace.Add(this);
         }
